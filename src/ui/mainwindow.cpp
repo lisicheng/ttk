@@ -1,6 +1,6 @@
 #include "ui/mainwindow.h"
 
-CMainWindow* CMainWindow::NewL(CWsClient* aClient, const TRect& aRect,
+CMainWindow* CMainWindow::NewL(CWsClient& aClient, const TRect& aRect,
 			       const TRgb& aColor, CWindow* aParent = 0)
 {
 	CMainWindow* self = CMainWindow::NewLC(aClient, aRect, aColor, aParent);
@@ -8,7 +8,7 @@ CMainWindow* CMainWindow::NewL(CWsClient* aClient, const TRect& aRect,
 	return self;
 }
 
-CMainWindow* CMainWindow::NewLC(CWsClient* aClient, const TRect& aRect,
+CMainWindow* CMainWindow::NewLC(CWsClient& aClient, const TRect& aRect,
 			        const TRgb& aColor, CWindow* aParent = 0)
 {
 	CMainWindow* self = new(ELeave) CMainWindow(aClient);
@@ -41,7 +41,7 @@ void CMainWindow::HandlePointerEvent (TPointerEvent& aPointerEvent)
 	}
 }
 
-CMainWindow::CMainWindow(CWsClient* aClient) : CWindow(aClient)
+CMainWindow::CMainWindow(CWsClient& aClient) : CWindow(aClient)
 {
 }
 

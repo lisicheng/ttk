@@ -6,10 +6,10 @@
 class CNumberedWindow : public CWindow
 {
 public:
-	static CNumberedWindow* NewL(CWsClient* aClient, TInt aNum,
+	static CNumberedWindow* NewL(CWsClient& aClient, TInt aNum,
 				     const TRect& aRect, const TRgb& aColor,
 				     CWindow* aParent = 0);
-	static CNumberedWindow* NewLC(CWsClient* aClient, TInt aNum,
+	static CNumberedWindow* NewLC(CWsClient& aClient, TInt aNum,
 				      const TRect& aRect, const TRgb& aColor,
 				      CWindow* aParent = 0);
 public:
@@ -18,7 +18,7 @@ public:
 	void HandlePointerEvent (TPointerEvent& aPointerEvent);
 	void HandlePointerMoveBufferReady () {}
 private:
-	CNumberedWindow(CWsClient* aClient, TInt aNum);
+	CNumberedWindow(CWsClient& aClient, TInt aNum);
 private:
 	static TInt iCount;
 	TInt	iNumber;	// Number displayed in window

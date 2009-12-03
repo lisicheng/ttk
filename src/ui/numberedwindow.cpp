@@ -6,7 +6,7 @@ _LIT(KString3, "3");
 _LIT(KString4, "4");
 _LIT(KString5, "5");
 
-CNumberedWindow* CNumberedWindow::NewL(CWsClient* aClient, TInt aNum,
+CNumberedWindow* CNumberedWindow::NewL(CWsClient& aClient, TInt aNum,
 				       const TRect& aRect, const TRgb& aColor,
 				       CWindow* aParent = 0)
 {
@@ -16,7 +16,7 @@ CNumberedWindow* CNumberedWindow::NewL(CWsClient* aClient, TInt aNum,
 	return self;
 }
 
-CNumberedWindow* CNumberedWindow::NewLC(CWsClient* aClient, TInt aNum,
+CNumberedWindow* CNumberedWindow::NewLC(CWsClient& aClient, TInt aNum,
 					const TRect& aRect, const TRgb& aColor,
 					CWindow* aParent = 0)
 {
@@ -89,7 +89,7 @@ void CNumberedWindow::HandlePointerEvent(TPointerEvent& aPointerEvent)
 	}
 }
 
-CNumberedWindow::CNumberedWindow(CWsClient* aClient, TInt aNum)
+CNumberedWindow::CNumberedWindow(CWsClient& aClient, TInt aNum)
 	: CWindow(aClient), iNumber(aNum),
 	  iOldPos(0, 0), iOffset(0, 0), iRepeatRect(0, 0, 0, 0)
 {

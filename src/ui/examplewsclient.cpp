@@ -34,10 +34,10 @@ CExampleWsClient::CExampleWsClient(const TRect& aRect) :iRect(aRect)
  */
 void CExampleWsClient::ConstructMainWindowL()
 {
-	iMainWindow = CMainWindow::NewL(this, iRect, TRgb(255, 255, 255));
+	iMainWindow = CMainWindow::NewL(*this, iRect, TRgb(255, 255, 255));
 	TRect rec(iRect);
 	rec.Resize(-50, -50);
-	iWindow1 = CNumberedWindow::NewL(this, 1, rec, TRgb(200, 200, 200),
+	iWindow1 = CNumberedWindow::NewL(*this, 1, rec, TRgb(200, 200, 200),
 					 iMainWindow);
 }
 
