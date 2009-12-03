@@ -17,26 +17,19 @@ CMainWindow* CMainWindow::NewLC(CWsClient* aClient, const TRect& aRect,
 	return self;
 }
 
-/****************************************************************************\
-|	Function:	CMainWindow::Draw
-|	Purpose:	Redraws the contents of CMainWindow within a given
-|				rectangle.
-|	Input:		aRect	Rectangle that needs redrawing
-|	Output:		None
-\****************************************************************************/
+/**
+ * Redraws the contents of CMainWindow within a given rectangle.
+ */
 void CMainWindow::Draw(const TRect& aRect)
 {
-	CWindowGc* gc=SystemGc(); // get a gc
-	gc->SetClippingRect(aRect); // clip outside this rect
-	gc->Clear(aRect); // clear
+	CWindowGc* gc = SystemGc();
+	gc->SetClippingRect(aRect);
+	gc->Clear(aRect);
 }
 
-/****************************************************************************\
-|	Function:	CMainWindow::HandlePointerEvent
-|	Purpose:	Handles pointer events for CMainWindow.
-|	Input:		aPointerEvent	The pointer event!
-|	Output:		None
-\****************************************************************************/
+/**
+ * Handles pointer events for CMainWindow.
+ */
 void CMainWindow::HandlePointerEvent (TPointerEvent& aPointerEvent)
 {	
 	switch (aPointerEvent.iType) {

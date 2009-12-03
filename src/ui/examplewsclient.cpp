@@ -2,67 +2,62 @@
 #include "ui/mainwindow.h"
 #include "ui/numberedwindow.h"
 
-CExampleWsClient* CExampleWsClient::NewL(const TRect& aRect)
-{
-	// make new client
-	CExampleWsClient* client=new (ELeave) CExampleWsClient(aRect); 
-	CleanupStack::PushL(client); // push, just in case
-	client->ConstructL(); // construct and run
-	CleanupStack::Pop();
-	return client;
-}
-
-/****************************************************************************\
-|	Function:	Constructor/Destructor for CExampleWsClient
-|				Destructor deletes everything that was allocated by
-|				ConstructMainWindowL()
-\****************************************************************************/
-CExampleWsClient::CExampleWsClient(const TRect& aRect)
-		:iRect(aRect)
-{
-}
-
 CExampleWsClient::~CExampleWsClient ()
 {
 	delete iMainWindow;
 	delete iWindow1;
 }
 
-/****************************************************************************\
-|	Function:	CExampleWsClient::ConstructMainWindowL()
-|				Called by base class's ConstructL
-|	Purpose:	Allocates and creates all the windows owned by this client
-|				(See list of windows in CExampleWsCLient declaration).
-\****************************************************************************/
+CExampleWsClient* CExampleWsClient::NewL(const TRect& aRect)
+{
+	CExampleWsClient* self = CExampleWsClient::NewLC(aRect); 
+	CleanupStack::Pop(self);
+	return self;
+}
+
+CExampleWsClient* CExampleWsClient::NewLC(const TRect& aRect)
+{
+	CExampleWsClient* self = new(ELeave) CExampleWsClient(aRect); 
+	CleanupStack::PushL(self);
+	self->ConstructL();
+	return self;
+}
+
+CExampleWsClient::CExampleWsClient(const TRect& aRect) :iRect(aRect)
+{
+}
+
+/**
+ * Called by base class's ConstructL.
+ * Allocates and creates all the windows owned by this client.
+ * (See list of windows in CExampleWsCLient declaration).
+ */
 void CExampleWsClient::ConstructMainWindowL()
 {
-	iMainWindow = CMainWindow::NewL(this, iRect, TRgb(255,255,255));
+	iMainWindow = CMainWindow::NewL(this, iRect, TRgb(255, 255, 255));
 	TRect rec(iRect);
-	rec.Resize(-50,-50);
+	rec.Resize(-50, -50);
 	iWindow1 = CNumberedWindow::NewL(this, 1, rec, TRgb(200, 200, 200),
 					 iMainWindow);
 }
 
-/****************************************************************************\
-|	Function:	CExampleWsClient::RunL()
-|				Called by active scheduler when an even occurs
-|	Purpose:	Processes events according to their type
-|				For key events: calls HandleKeyEventL() (global to client)
-|				For pointer event: calls HandlePointerEvent() for window
-|                                  event occurred in.
-\****************************************************************************/
+/**
+ * Processes events according to their type
+ * For key events: calls HandleKeyEventL() (global to client)
+ * For pointer event: calls HandlePointerEvent() for window event occurred in.
+ */
 void CExampleWsClient::RunL()
 {
-	// get the event
-	iWs.GetEvent(iWsEvent);
-	TInt eventType=iWsEvent.Type();
+	TWsEvent event;
+	iWs.GetEvent(event);
+	TInt eventType = event.Type();
 	// take action on it
 	switch (eventType) {
 	// events global within window group
 	case EEventNull:
 		break;
 	case EEventKey: {
-			TKeyEvent& keyEvent=*iWsEvent.Key(); // get key event
+			TKeyEvent& keyEvent=*event.Key(); // get key event
 			HandleKeyEventL (keyEvent);
 			break;
 		}
@@ -79,8 +74,8 @@ void CExampleWsClient::RunL()
 		break;
 	// events local to specific windows
 	case EEventPointer: {
-			CWindow* window=(CWindow*)(iWsEvent.Handle()); // get window
-			TPointerEvent& pointerEvent=*iWsEvent.Pointer();
+			CWindow* window=(CWindow*)(event.Handle()); // get window
+			TPointerEvent& pointerEvent=*event.Pointer();
 			window->HandlePointerEvent (pointerEvent);
 			break;
 		}
@@ -95,11 +90,7 @@ void CExampleWsClient::RunL()
 	IssueRequest(); // maintain outstanding request
 }
 
-/****************************************************************************\
-|	Function:	CExampleWsClient::HandleKeyEventL()
-|	Purpose:	Processes key events for CExampleWsClient
-\****************************************************************************/
-void CExampleWsClient::HandleKeyEventL (TKeyEvent& /*aKeyEvent*/)
+void CExampleWsClient::HandleKeyEventL(TKeyEvent& /*aKeyEvent*/)
 {
 }
 

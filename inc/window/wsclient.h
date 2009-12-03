@@ -12,24 +12,22 @@ class CWsClient : public CActive
 public:
 	~CWsClient();
 public:
-	// main window
-	virtual void ConstructMainWindowL();
-	// terminate cleanly
-	void Exit();
+	void DoCancel();
+	virtual void RunL() = 0;
+public:
 	// active object protocol
 	void IssueRequest(); // request an event
-	void DoCancel(); // cancel the request
-	virtual void RunL() = 0; // handle completed request
+	// main window
+	virtual void ConstructMainWindowL();
 	virtual void HandleKeyEventL(TKeyEvent& aKeyEvent) = 0;
 protected:
-	//construct
 	CWsClient();
 	void ConstructL();
 protected:
 	CWsScreenDevice* iScreen;
 	CWsRedrawer* iRedrawer;
 	RWsSession iWs;
-	TWsEvent iWsEvent;
+	//TWsEvent iWsEvent;
 private:
 	RWindowGroup iGroup;
 	CWindowGc* iGc;

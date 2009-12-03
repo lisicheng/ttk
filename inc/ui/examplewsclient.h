@@ -9,13 +9,14 @@ class CNumberedWindow;
 class CExampleWsClient : public CWsClient
 {
 public:
+	~CExampleWsClient();
 	static CExampleWsClient* NewL(const TRect& aRect);
+	static CExampleWsClient* NewLC(const TRect& aRect);
 private:
-	CExampleWsClient (const TRect& aRect);
+	CExampleWsClient(const TRect& aRect);
 	void ConstructMainWindowL();
-	~CExampleWsClient ();
-	void RunL ();
-	void HandleKeyEventL (TKeyEvent& aKeyEvent);
+	void RunL();
+	void HandleKeyEventL(TKeyEvent& aKeyEvent);
 private:
 	CMainWindow* iMainWindow;
 	CNumberedWindow* iWindow1;

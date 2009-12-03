@@ -31,12 +31,12 @@ CWindow::CWindow(CWsClient* aClient) : iClient(aClient)
 {
 }
 
-void CWindow::ConstructL (const TRect& aRect, const TRgb& aColor, CWindow* aParent)
+void CWindow::ConstructL(const TRect& aRect, const TRgb& aColor, CWindow* aParent)
 {
-	_LIT(KFontName,"Swiss");
+	_LIT(KFontName, "Swiss");
 	// If a parent window was specified, use it; if not, use the window group
 	// (aParent defaults to 0).
-	RWindowTreeNode* parent= aParent ? (RWindowTreeNode*) &(aParent->Window()) : &(iClient->iGroup);
+	RWindowTreeNode* parent = aParent ? (RWindowTreeNode*) &(aParent->Window()) : &(iClient->iGroup);
 	// Allocate and construct the window
 	iWindow=RWindow(iClient->iWs);
 	User::LeaveIfError(iWindow.Construct(*parent,(TUint32)this));
