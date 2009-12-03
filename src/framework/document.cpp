@@ -19,4 +19,3 @@ CEikAppUi* CDocument::CreateAppUiL()
 {
 	return new(ELeave) CAppUi();
 }
-

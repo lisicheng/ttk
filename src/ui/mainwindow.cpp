@@ -22,9 +22,9 @@ CMainWindow* CMainWindow::NewLC(CWsClient& aClient, const TRect& aRect,
  */
 void CMainWindow::Draw(const TRect& aRect)
 {
-	CWindowGc* gc = SystemGc();
-	gc->SetClippingRect(aRect);
-	gc->Clear(aRect);
+	CWindowGc& gc = SystemGc();
+	gc.SetClippingRect(aRect);
+	gc.Clear(aRect);
 }
 
 /**

@@ -7,59 +7,59 @@ CWsRedrawer::~CWsRedrawer()
 	Cancel();
 }
 
-CWsRedrawer* CWsRedrawer::NewL(CWsClient* aClient)
+CWsRedrawer* CWsRedrawer::NewL(CWsClient& aClient)
 {
 	CWsRedrawer* self = CWsRedrawer::NewLC(aClient);
 	CleanupStack::Pop(self);
 	return self;
 }
 
-CWsRedrawer* CWsRedrawer::NewLC(CWsClient* aClient)
+CWsRedrawer* CWsRedrawer::NewLC(CWsClient& aClient)
 {
-	CWsRedrawer* self = new(ELeave) CWsRedrawer();
+	CWsRedrawer* self = new(ELeave) CWsRedrawer(aClient);
 	CleanupStack::PushL(self);
-	self->ConstructL(aClient);
+	self->ConstructL();
 	return self;
 }
 
 void CWsRedrawer::IssueRequest()
 {
-	iClient->iWs.RedrawReady(&iStatus);
+	iClient.iWs.RedrawReady(&iStatus);
 	SetActive();
 }
 
 void CWsRedrawer::DoCancel()
 {
-	iClient->iWs.RedrawReadyCancel();
+	iClient.iWs.RedrawReadyCancel();
 }
 
 void CWsRedrawer::RunL()
 {	
 	// find out what needs to be done in response to the event
 	TWsRedrawEvent redrawEvent;
-	iClient->iWs.GetRedraw(redrawEvent); // get event
+	iClient.iWs.GetRedraw(redrawEvent); // get event
 	CWindow* window = (CWindow*)(redrawEvent.Handle()); // get window
 	if (window) {
 		TRect rect=redrawEvent.Rect(); // and rectangle that needs redrawing
 		// now do drawing
-		iClient->iGc->Activate(window->Window());
+		iClient.iGc->Activate(window->Window());
 		window->Window().BeginRedraw();
 		window->Draw(rect);
 		window->Window().EndRedraw();
-		iClient->iGc->Deactivate();
+		iClient.iGc->Deactivate();
 	}
 	// maintain outstanding request
 	IssueRequest();
 }
 
-CWsRedrawer::CWsRedrawer() : CActive(CActive::EPriorityLow)
+CWsRedrawer::CWsRedrawer(CWsClient& aClient)
+	: CActive(CActive::EPriorityLow), iClient(aClient)
 {
 }
 
-void CWsRedrawer::ConstructL(CWsClient* aClient)
+void CWsRedrawer::ConstructL()
 {
-	iClient=aClient; // remember WsClient that owns us
-	CActiveScheduler::Add(this); // add ourselves to the scheduler
+	CActiveScheduler::Add(this);
 	IssueRequest(); // issue request to draw
 }
 

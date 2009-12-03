@@ -9,18 +9,18 @@ class CWsRedrawer : public CActive
 {
 public:
 	~CWsRedrawer();
-	static CWsRedrawer* NewL(CWsClient* aClient);
-	static CWsRedrawer* NewLC(CWsClient* aClient);
+	static CWsRedrawer* NewL(CWsClient& aClient);
+	static CWsRedrawer* NewLC(CWsClient& aClient);
 public:
 	void IssueRequest();
 public:
 	void DoCancel();
 	void RunL();
 private:
-	CWsRedrawer();
-	void ConstructL(CWsClient* aClient);
+	CWsRedrawer(CWsClient& aClient);
+	void ConstructL();
 private:
-	CWsClient* iClient;
+	CWsClient& iClient;
 };
 
 #endif // WSREDRAWER_H

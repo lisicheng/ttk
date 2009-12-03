@@ -9,7 +9,7 @@ class CNumberedWindow;
 class CExampleWsClient : public CWsClient
 {
 public:
-	~CExampleWsClient();
+	virtual ~CExampleWsClient();
 	static CExampleWsClient* NewL(const TRect& aRect);
 	static CExampleWsClient* NewLC(const TRect& aRect);
 private:

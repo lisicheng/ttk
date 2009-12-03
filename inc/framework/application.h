@@ -5,7 +5,7 @@
 
 class CApplication : public CEikApplication
 {
-private:
+private: /* from CEikApplication */
 	TUid AppDllUid() const;
 	CApaDocument* CreateDocumentL();
 };

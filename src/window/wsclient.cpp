@@ -41,7 +41,7 @@ void CWsClient::ConstructL()
 	iScreen = new(ELeave) CWsScreenDevice(iWs); // make device for this session
 	User::LeaveIfError(iScreen->Construct());
 	User::LeaveIfError(iScreen->CreateContext(iGc)); // create graphics context
-	iRedrawer = CWsRedrawer::NewL(this);
+	iRedrawer = CWsRedrawer::NewL(*this);
 	ConstructMainWindowL();
 	IssueRequest();
 }

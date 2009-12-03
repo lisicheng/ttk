@@ -5,8 +5,10 @@ EXPORT_C CApaApplication* NewApplication()
 	return new CApplication();
 }
 
-GLDEF_C TInt E32Dll(TDllReason)
+#ifdef EKA2
+#else
+GLDEF_C TInt E32Dll(TDllReason /*aReason*/)
 {
 	return KErrNone;
 }
-
+#endif

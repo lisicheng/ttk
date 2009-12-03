@@ -11,4 +11,3 @@ CApaDocument* CApplication::CreateDocumentL()
 {
 	return CDocument::NewL(*this);
 }
-

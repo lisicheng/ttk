@@ -6,11 +6,11 @@
 class CDocument : public CEikDocument
 {
 public:
-	~CDocument();
+	virtual ~CDocument();
 	static CDocument* NewL(CEikApplication& aApp);
 private:
 	CDocument(CEikApplication& aApp);
-private:
+private: /* from CEikDocument */
 	CEikAppUi* CreateAppUiL();
 };
 

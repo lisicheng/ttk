@@ -12,8 +12,7 @@ public:
 	virtual ~CWindow();
 public:
 	RWindow& Window(); // our own window
-	CWindowGc* SystemGc(); // system graphics context
-	CWsScreenDevice* Screen();
+	CWindowGc& SystemGc(); // system graphics context
 	CFont* Font();
 public:
 	virtual void Draw(const TRect& aRect) = 0;

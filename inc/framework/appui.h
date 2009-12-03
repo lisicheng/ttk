@@ -8,10 +8,10 @@ class CWsClient;
 class CAppUi : public CEikAppUi
 {
 public:
-	~CAppUi();
+	virtual ~CAppUi();
 private:
 	void ConstructL();
-private:
+private: /* from CEikAppUi */
 	void HandleCommandL(TInt aCommand);
 private:
 	CWsClient* iClient;

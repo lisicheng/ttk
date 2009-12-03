@@ -34,9 +34,9 @@ void CNumberedWindow::Draw(const TRect& aRect)
 {
 	const TBufC<1> strings[5] = {*&KString1, *&KString2, *&KString3, *&KString4, *&KString5};
 
-	CWindowGc* gc = SystemGc();
-	gc->SetClippingRect(aRect);
-	gc->Clear(aRect);
+	CWindowGc& gc = SystemGc();
+	gc.SetClippingRect(aRect);
+	gc.Clear(aRect);
 
 	TSize size = Window().Size();
 	TInt height=size.iHeight; // Need window height to calculate vertical text offset
@@ -44,12 +44,12 @@ void CNumberedWindow::Draw(const TRect& aRect)
 	TInt ascent = Font()->AscentInPixels();
 	TInt descent = Font()->DescentInPixels();
 	TInt offset = (height + (ascent + descent)) / 2; // Calculate vertical text offset
- 	gc->SetPenColor(TRgb(0,0,0)); // Set pen to black
-	gc->UseFont(Font());
-	gc->DrawText(strings[iNumber], TRect(TPoint(0,0) + iOffset, size), offset,
-		     CGraphicsContext::ECenter);
-	gc->DrawLine(TPoint(0,0) + iOffset, TPoint(size.iWidth, height) + iOffset);
-	gc->DiscardFont();
+ 	gc.SetPenColor(TRgb(0,0,0)); // Set pen to black
+	gc.UseFont(Font());
+	gc.DrawText(strings[iNumber], TRect(TPoint(0,0) + iOffset, size), offset,
+		    CGraphicsContext::ECenter);
+	gc.DrawLine(TPoint(0,0) + iOffset, TPoint(size.iWidth, height) + iOffset);
+	gc.DiscardFont();
 }
 
 /**

@@ -12,14 +12,9 @@ RWindow& CWindow::Window()
 	return iWindow;
 }
 
-CWindowGc* CWindow::SystemGc()
+CWindowGc& CWindow::SystemGc()
 {
-	return iClient.iGc;
-}
-
-CWsScreenDevice* CWindow::Screen()
-{
-	return iClient.iScreen;
+	return *iClient.iGc;
 }
 
 CFont* CWindow::Font()

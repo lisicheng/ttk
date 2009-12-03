@@ -10,7 +10,7 @@ CAppUi::~CAppUi()
 void CAppUi::ConstructL()
 {
 	BaseConstructL();
-	iClient = CExampleWsClient::NewL(ClientRect());
+	iClient = CExampleWsClient::NewL(ApplicationRect());
 }
 
 void CAppUi::HandleCommandL(TInt aCommand)
