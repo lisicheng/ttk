@@ -22,12 +22,6 @@ CWsRedrawer* CWsRedrawer::NewLC(CWsClient& aClient)
 	return self;
 }
 
-void CWsRedrawer::IssueRequest()
-{
-	iClient.iWs.RedrawReady(&iStatus);
-	SetActive();
-}
-
 void CWsRedrawer::DoCancel()
 {
 	iClient.iWs.RedrawReadyCancel();
@@ -35,21 +29,23 @@ void CWsRedrawer::DoCancel()
 
 void CWsRedrawer::RunL()
 {	
-	// find out what needs to be done in response to the event
-	TWsRedrawEvent redrawEvent;
-	iClient.iWs.GetRedraw(redrawEvent); // get event
-	CWindow* window = (CWindow*)(redrawEvent.Handle()); // get window
+	TWsRedrawEvent event;
+	iClient.iWs.GetRedraw(event);
+	CWindow* window = reinterpret_cast<CWindow*>(event.Handle());
 	if (window) {
-		TRect rect=redrawEvent.Rect(); // and rectangle that needs redrawing
-		// now do drawing
 		iClient.iGc->Activate(window->Window());
 		window->Window().BeginRedraw();
-		window->Draw(rect);
+		window->Draw(event.Rect());
 		window->Window().EndRedraw();
 		iClient.iGc->Deactivate();
 	}
-	// maintain outstanding request
 	IssueRequest();
+}
+
+void CWsRedrawer::IssueRequest()
+{
+	iClient.iWs.RedrawReady(&iStatus);
+	SetActive();
 }
 
 CWsRedrawer::CWsRedrawer(CWsClient& aClient)
@@ -60,6 +56,5 @@ CWsRedrawer::CWsRedrawer(CWsClient& aClient)
 void CWsRedrawer::ConstructL()
 {
 	CActiveScheduler::Add(this);
-	IssueRequest(); // issue request to draw
+	IssueRequest();
 }
-

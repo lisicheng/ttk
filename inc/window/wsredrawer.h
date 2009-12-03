@@ -11,11 +11,11 @@ public:
 	~CWsRedrawer();
 	static CWsRedrawer* NewL(CWsClient& aClient);
 	static CWsRedrawer* NewLC(CWsClient& aClient);
-public:
-	void IssueRequest();
-public:
+public: /* from CActive */
 	void DoCancel();
 	void RunL();
+public:
+	void IssueRequest();
 private:
 	CWsRedrawer(CWsClient& aClient);
 	void ConstructL();
