@@ -2,21 +2,24 @@
 #include "window/window.h"
 #include "window/wsclient.h"
 
-CWsRedrawer::CWsRedrawer()
-	: CActive(CActive::EPriorityLow)
-{
-}
-
-void CWsRedrawer::ConstructL(CWsClient* aClient)
-{
-	iClient=aClient; // remember WsClient that owns us
-	CActiveScheduler::Add(this); // add ourselves to the scheduler
-	IssueRequest(); // issue request to draw
-}
-
 CWsRedrawer::~CWsRedrawer()
 {
 	Cancel();
+}
+
+CWsRedrawer* CWsRedrawer::NewL(CWsClient* aClient)
+{
+	CWsRedrawer* self = CWsRedrawer::NewLC(aClient);
+	CleanupStack::Pop(self);
+	return self;
+}
+
+CWsRedrawer* CWsRedrawer::NewLC(CWsClient* aClient)
+{
+	CWsRedrawer* self = new(ELeave) CWsRedrawer();
+	CleanupStack::PushL(self);
+	self->ConstructL(aClient);
+	return self;
 }
 
 void CWsRedrawer::IssueRequest()
@@ -47,5 +50,16 @@ void CWsRedrawer::RunL()
 	}
 	// maintain outstanding request
 	IssueRequest();
+}
+
+CWsRedrawer::CWsRedrawer() : CActive(CActive::EPriorityLow)
+{
+}
+
+void CWsRedrawer::ConstructL(CWsClient* aClient)
+{
+	iClient=aClient; // remember WsClient that owns us
+	CActiveScheduler::Add(this); // add ourselves to the scheduler
+	IssueRequest(); // issue request to draw
 }
 

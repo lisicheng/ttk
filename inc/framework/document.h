@@ -6,8 +6,10 @@
 class CDocument : public CEikDocument
 {
 public:
-	CDocument(CEikApplication& aApp);
 	~CDocument();
+	static CDocument* NewL(CEikApplication& aApp);
+private:
+	CDocument(CEikApplication& aApp);
 private:
 	CEikAppUi* CreateAppUiL();
 };

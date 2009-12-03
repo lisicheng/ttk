@@ -6,10 +6,15 @@
 class CMainWindow : public CWindow
 {
 public:
-	CMainWindow (CWsClient* aClient);
-	~CMainWindow ();
-	void Draw (const TRect& aRect);
-	void HandlePointerEvent (TPointerEvent& aPointerEvent);
+	static CMainWindow* NewL(CWsClient* aClient, const TRect& aRect,
+				 const TRgb& aColor, CWindow* aParent = 0);
+	static CMainWindow* NewLC(CWsClient* aClient, const TRect& aRect,
+				  const TRgb& aColor, CWindow* aParent = 0);
+public:
+	void Draw(const TRect& aRect);
+	void HandlePointerEvent(TPointerEvent& aPointerEvent);
+private:
+	CMainWindow(CWsClient* aClient);
 };
 
 #endif // MAINWINDOW_H

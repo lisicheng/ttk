@@ -6,24 +6,25 @@ _LIT(KString3,"3");
 _LIT(KString4,"4");
 _LIT(KString5,"5");
 
-//////////////////////////////////////////////////////////////////////////////
-//					 CNumberedWindow implementation
-//////////////////////////////////////////////////////////////////////////////
-
-/****************************************************************************\
-|	Function:	Constructor/Destructor for CNumberedWindow
-|	Input:		aClient		Client application that owns the window
-\****************************************************************************/
-CNumberedWindow::CNumberedWindow (CWsClient* aClient, TInt aNum)
-: CWindow (aClient), iNumber(aNum), iOldPos(0,0), iOffset(0,0), iRepeatRect(0,0,0,0)
+CNumberedWindow* CNumberedWindow::NewL(CWsClient* aClient, TInt aNum,
+				       const TRect& aRect, const TRgb& aColor,
+				       CWindow* aParent = 0)
 {
+	CNumberedWindow* self = CNumberedWindow::NewLC(aClient, aNum, aRect,
+						       aColor, aParent);
+	CleanupStack::Pop(self);
+	return self;
 }
 
-
-CNumberedWindow::~CNumberedWindow ()
+CNumberedWindow* CNumberedWindow::NewLC(CWsClient* aClient, TInt aNum,
+					const TRect& aRect, const TRgb& aColor,
+					CWindow* aParent = 0)
 {
+	CNumberedWindow* self = new(ELeave) CNumberedWindow(aClient, aNum);
+	CleanupStack::PushL(aClient);
+	self->ConstructL(aRect, aColor, aParent);
+	return self;
 }
-
 
 /****************************************************************************\
 |	Function:	CNumberedWindow::Draw
@@ -39,7 +40,7 @@ void CNumberedWindow::Draw(const TRect& aRect)
 	CWindowGc* gc=SystemGc(); // get a graphics context
 	gc->SetClippingRect(aRect); // clip outside the redraw area
 	gc->Clear(aRect); // clear the redraw area
-	TSize size=iWindow.Size();
+	TSize size = Window().Size();
 	TInt height=size.iHeight; // Need window height to calculate vertical text offset
 	TInt ascent = Font()->AscentInPixels();
 	TInt descent = Font()->DescentInPixels();
@@ -90,5 +91,15 @@ void CNumberedWindow::HandlePointerEvent (TPointerEvent& aPointerEvent)
 	default:
 		break;
 	}
+}
+
+/****************************************************************************\
+|	Function:	Constructor/Destructor for CNumberedWindow
+|	Input:		aClient		Client application that owns the window
+\****************************************************************************/
+CNumberedWindow::CNumberedWindow(CWsClient* aClient, TInt aNum)
+	: CWindow(aClient), iNumber(aNum),
+	  iOldPos(0, 0), iOffset(0, 0), iRepeatRect(0, 0, 0, 0)
+{
 }
 

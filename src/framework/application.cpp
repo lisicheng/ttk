@@ -1,6 +1,6 @@
 #include "framework/application.h"
-#include "framework/document.h"
 #include "common.h"
+#include "framework/document.h"
 
 TUid CApplication::AppDllUid() const
 {
@@ -9,6 +9,6 @@ TUid CApplication::AppDllUid() const
 
 CApaDocument* CApplication::CreateDocumentL()
 {
-	return new(ELeave) CDocument(*this);
+	return CDocument::NewL(*this);
 }
 

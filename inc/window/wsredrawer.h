@@ -8,15 +8,18 @@ class CWsClient;
 class CWsRedrawer : public CActive
 {
 public:
-	// construct/destruct
-	CWsRedrawer();
-	void ConstructL(CWsClient* aClient);
 	~CWsRedrawer();
-	// drawing
+	static CWsRedrawer* NewL(CWsClient* aClient);
+	static CWsRedrawer* NewLC(CWsClient* aClient);
+public:
 	void IssueRequest();
+public:
 	void DoCancel();
 	void RunL();
-protected:
+private:
+	CWsRedrawer();
+	void ConstructL(CWsClient* aClient);
+private:
 	CWsClient* iClient;
 };
 

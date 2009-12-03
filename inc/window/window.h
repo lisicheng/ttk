@@ -5,29 +5,33 @@
 #include <w32std.h> // TPointerEvent
 
 class CWsClient;
-class CWindow;
 
 class CWindow : public CBase
 {
 public:
-	enum {KPointerMoveBufferSize=32};
-	CWindow(CWsClient* aClient);
-	void ConstructL(const TRect& aRect, const TRgb& aColor, CWindow* aParent=0);
-	~CWindow();
-	// access
+	enum {
+		KPointerMoveBufferSize = 32
+	};
+public:
+	virtual ~CWindow();
+public:
 	RWindow& Window(); // our own window
 	CWindowGc* SystemGc(); // system graphics context
 	CWsScreenDevice* Screen();
 	CFont* Font();
+public:
 	// drawing
 	virtual void Draw(const TRect& aRect) = 0;
 	virtual void HandlePointerEvent (TPointerEvent& aPointerEvent) = 0;
 protected:
+	CWindow(CWsClient* aClient);
+	void ConstructL(const TRect& aRect, const TRgb& aColor, CWindow* aParent=0);
+protected:
+private:
 	RWindow iWindow; // window server window
 	TRect iRect; // window's extent
-private:
 	CWsClient* iClient; // client including session and group
-	CFont*	iFont;
+	CFont* iFont;
 };
 
 #endif // WINDOW_H

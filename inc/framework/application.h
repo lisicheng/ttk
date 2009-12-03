@@ -6,8 +6,8 @@
 class CApplication : public CEikApplication
 {
 private:
-	CApaDocument* CreateDocumentL();
 	TUid AppDllUid() const;
+	CApaDocument* CreateDocumentL();
 };
 
 #endif // APPLICATION_H

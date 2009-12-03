@@ -2,15 +2,15 @@
 #include <uikon.hrh>
 #include "ui/examplewsclient.h"
 
+CAppUi::~CAppUi()
+{
+	delete iClient;
+}
+
 void CAppUi::ConstructL()
 {
 	BaseConstructL();
 	iClient = CExampleWsClient::NewL(ClientRect());
-}
-
-CAppUi::~CAppUi()
-{
-	delete iClient;
 }
 
 void CAppUi::HandleCommandL(TInt aCommand)

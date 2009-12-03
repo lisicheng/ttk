@@ -6,12 +6,19 @@
 class CNumberedWindow : public CWindow
 {
 public:
+	static CNumberedWindow* NewL(CWsClient* aClient, TInt aNum,
+				     const TRect& aRect, const TRgb& aColor,
+				     CWindow* aParent = 0);
+	static CNumberedWindow* NewLC(CWsClient* aClient, TInt aNum,
+				      const TRect& aRect, const TRgb& aColor,
+				      CWindow* aParent = 0);
+public:
 	enum EScrollDir {Up, Down};
-	CNumberedWindow (CWsClient* aClient, TInt aNum);
-	~CNumberedWindow ();
 	void Draw (const TRect& aRect);
 	void HandlePointerEvent (TPointerEvent& aPointerEvent);
 	void HandlePointerMoveBufferReady () {}
+private:
+	CNumberedWindow(CWsClient* aClient, TInt aNum);
 private:
 	static TInt iCount;
 	TInt	iNumber;	// Number displayed in window

@@ -36,12 +36,11 @@ CExampleWsClient::~CExampleWsClient ()
 \****************************************************************************/
 void CExampleWsClient::ConstructMainWindowL()
 {
-	iMainWindow=new (ELeave) CMainWindow(this);
-	iMainWindow->ConstructL(iRect, TRgb (255,255,255));
-	iWindow1  = new (ELeave) CNumberedWindow (this,1);
+	iMainWindow = CMainWindow::NewL(this, iRect, TRgb(255,255,255));
 	TRect rec(iRect);
 	rec.Resize(-50,-50);
-	iWindow1->ConstructL (rec, TRgb (200, 200, 200),iMainWindow);
+	iWindow1 = CNumberedWindow::NewL(this, 1, rec, TRgb(200, 200, 200),
+					 iMainWindow);
 }
 
 /****************************************************************************\

@@ -10,8 +10,8 @@ class CWindow;
 class CWsClient : public CActive
 {
 public:
-	void ConstructL();
 	~CWsClient();
+public:
 	// main window
 	virtual void ConstructMainWindowL();
 	// terminate cleanly
@@ -24,6 +24,8 @@ public:
 protected:
 	//construct
 	CWsClient();
+	void ConstructL();
+protected:
 	CWsScreenDevice* iScreen;
 	CWsRedrawer* iRedrawer;
 	RWsSession iWs;

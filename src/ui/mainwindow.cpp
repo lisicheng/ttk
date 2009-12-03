@@ -1,13 +1,20 @@
 #include "ui/mainwindow.h"
 
-CMainWindow::CMainWindow (CWsClient* aClient)
-		: CWindow (aClient)
+CMainWindow* CMainWindow::NewL(CWsClient* aClient, const TRect& aRect,
+			       const TRgb& aColor, CWindow* aParent = 0)
 {
+	CMainWindow* self = CMainWindow::NewLC(aClient, aRect, aColor, aParent);
+	CleanupStack::Pop(self);
+	return self;
 }
 
-CMainWindow::~CMainWindow ()
+CMainWindow* CMainWindow::NewLC(CWsClient* aClient, const TRect& aRect,
+			        const TRgb& aColor, CWindow* aParent = 0)
 {
-	iWindow.Close();
+	CMainWindow* self = new(ELeave) CMainWindow(aClient);
+	CleanupStack::PushL(self);
+	self->ConstructL(aRect, aColor, aParent);
+	return self;
 }
 
 /****************************************************************************\
@@ -39,5 +46,9 @@ void CMainWindow::HandlePointerEvent (TPointerEvent& aPointerEvent)
 	default:
 		break;
 	}
+}
+
+CMainWindow::CMainWindow(CWsClient* aClient) : CWindow(aClient)
+{
 }
 
