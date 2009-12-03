@@ -26,10 +26,8 @@ public:
 protected:
 	CWindow(CWsClient* aClient);
 	void ConstructL(const TRect& aRect, const TRgb& aColor, CWindow* aParent=0);
-protected:
 private:
 	RWindow iWindow; // window server window
-	TRect iRect; // window's extent
 	CWsClient* iClient; // client including session and group
 	CFont* iFont;
 };

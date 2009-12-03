@@ -40,10 +40,8 @@ void CWindow::ConstructL(const TRect& aRect, const TRgb& aColor, CWindow* aParen
 	// Allocate and construct the window
 	iWindow=RWindow(iClient->iWs);
 	User::LeaveIfError(iWindow.Construct(*parent,(TUint32)this));
-	// Store the window's extent
-	iRect = aRect;
 	// Set up the new window's extent
-	iWindow.SetExtent(iRect.iTl, iRect.Size());
+	iWindow.SetExtent(aRect.iTl, aRect.Size());
 	// Set its background color
 	iWindow.SetBackgroundColor (aColor);
 	// Set up font for displaying text

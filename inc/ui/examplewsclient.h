@@ -14,6 +14,7 @@ public:
 	static CExampleWsClient* NewLC(const TRect& aRect);
 private:
 	CExampleWsClient(const TRect& aRect);
+private:
 	void ConstructMainWindowL();
 	void RunL();
 	void HandleKeyEventL(TKeyEvent& aKeyEvent);

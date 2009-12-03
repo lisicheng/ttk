@@ -21,7 +21,7 @@ CNumberedWindow* CNumberedWindow::NewLC(CWsClient* aClient, TInt aNum,
 					CWindow* aParent = 0)
 {
 	CNumberedWindow* self = new(ELeave) CNumberedWindow(aClient, aNum);
-	CleanupStack::PushL(aClient);
+	CleanupStack::PushL(self);
 	self->ConstructL(aRect, aColor, aParent);
 	return self;
 }
@@ -55,34 +55,34 @@ void CNumberedWindow::Draw(const TRect& aRect)
 /**
  * Handles pointer events for CNumberedWindow.
  */
-void CNumberedWindow::HandlePointerEvent (TPointerEvent& aPointerEvent)
+void CNumberedWindow::HandlePointerEvent(TPointerEvent& aPointerEvent)
 {	
 	switch (aPointerEvent.iType) {
 	case TPointerEvent::EButton1Down:
-		Window().Scroll(TPoint(0,-2));
-		iOffset += TPoint(0,-2);
-		iRepeatRect.iTl = aPointerEvent.iPosition - TPoint(10,10);
-		iRepeatRect.iBr = aPointerEvent.iPosition + TPoint(10,10);
+		Window().Scroll(TPoint(0, -2));
+		iOffset += TPoint(0, -2);
+		iRepeatRect.iTl = aPointerEvent.iPosition - TPoint(10, 10);
+		iRepeatRect.iBr = aPointerEvent.iPosition + TPoint(10, 10);
 		iScrollDir = Up;
-		Window().RequestPointerRepeatEvent(TTimeIntervalMicroSeconds32 (20000), iRepeatRect);
+		Window().RequestPointerRepeatEvent(TTimeIntervalMicroSeconds32(20000), iRepeatRect);
 		break;
 	case TPointerEvent::EButtonRepeat:
 		if (iScrollDir == Up) {
-			Window().Scroll(TPoint(0,-2));
-			iOffset += TPoint(0,-2);
+			Window().Scroll(TPoint(0, -2));
+			iOffset += TPoint(0, -2);
 		} else {
-			Window().Scroll(TPoint(0,2));
-			iOffset += TPoint(0,2);
+			Window().Scroll(TPoint(0, 2));
+			iOffset += TPoint(0, 2);
 		}
-		Window().RequestPointerRepeatEvent(TTimeIntervalMicroSeconds32 (20000), iRepeatRect);
+		Window().RequestPointerRepeatEvent(TTimeIntervalMicroSeconds32(20000), iRepeatRect);
 		break;
 	case TPointerEvent::EButton3Down:
-		Window().Scroll(TPoint(0,2));
-		iOffset += TPoint(0,2);
-		iRepeatRect.iTl = aPointerEvent.iPosition - TPoint(10,10);
-		iRepeatRect.iBr = aPointerEvent.iPosition + TPoint(10,10);
+		Window().Scroll(TPoint(0, 2));
+		iOffset += TPoint(0, 2);
+		iRepeatRect.iTl = aPointerEvent.iPosition - TPoint(10, 10);
+		iRepeatRect.iBr = aPointerEvent.iPosition + TPoint(10, 10);
 		iScrollDir = Down;
-		Window().RequestPointerRepeatEvent(TTimeIntervalMicroSeconds32 (100000), iRepeatRect);
+		Window().RequestPointerRepeatEvent(TTimeIntervalMicroSeconds32(100000), iRepeatRect);
 		break;
 	default:
 		break;
