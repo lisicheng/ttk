@@ -1,0 +1,6 @@
+*.d
+*.o
+/dist
+/inc/*.rsg
+/sis/*.sis
+/sis/*.sisx

@@ -1,0 +1,111 @@
+#
+#   Copyright 2009, Harry Li <harry.li AT pagefreedom.org>
+#   Copyright 2009, Yuan Ye <yuanyelele@gmail.com>
+#
+#   This program is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+GCCPATH = /home/symbian/symbian-gcc
+
+SYSINCPATH = $(EPOCROOT)/epoc32/include
+LANG_MACRO = LANGUAGE_SC
+
+include config_2nd.mk
+
+check:
+	@echo 'EPOCROOT is' $(EPOCROOT)
+	@echo 'GCCPATH is ' $(GCCPATH)
+	@echo 'PATH is ' $(PATH)
+	@echo '==============================================================='
+
+CXX     = arm-epoc-pe-gcc     # GNU project C and C++ compiler
+LD      = arm-epoc-pe-ld      # The GNU linker
+DLLTOOL = arm-epoc-pe-dlltool # Create files needed to build and use DLLs
+AR      = arm-epoc-pe-ar      # Create, modify, and extract from archives
+AS      = arm-epoc-pe-as      # The portable GNU assembler
+
+ARMIURELPATH = $(EPOCROOT)/epoc32/release/armi/urel
+
+CXXFLAGS = -fomit-frame-pointer -O \
+	-march=armv4t -mthumb-interwork \
+	-pipe -c -nostdinc -Wall -Wno-ctor-dtor-privacy -Wno-unknown-pragmas \
+	-DNDEBUG -D_UNICODE \
+	-D__SYMBIAN32__ -D__GCC32__ -D__EPOC32__ -D__MARM__ -D__MARM_ARMI__ \
+	-D__DLL__ -Iinc -I$(SYSINCPATH)
+
+OBJS = $(patsubst %.cpp,src/%.o,$(SRCFILES))
+
+clean: check
+	rm -rfv dist/*
+	rm -fv $(OBJS)
+	rm -fv $(patsubst %.o,%.d,$(OBJS))
+	rm -fv inc/$(PROJECT)help.hrh
+	rm -fv inc/$(PROJECT).mbg
+	rm -fv inc/*.rsg
+
+$(OBJS): src/%.o : src/%.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $<
+
+dist/$(PROJECT).in: $(OBJS)
+	$(AR) cr $@ $^
+
+dist/$(PROJECT).inf: dist/$(PROJECT).in
+	$(DLLTOOL) --output-def $@ --as $(AS) --machine arm_interwork \
+		$^ $(addprefix $(ARMIURELPATH)/,$(STATICLIBRARY))
+
+dist/$(PROJECT).def: dist/$(PROJECT).inf
+	makedef.pl -Deffile $^ -1 NewApplication__Fv $@
+
+dist/$(PROJECT).exp.old: dist/$(PROJECT).def
+	$(DLLTOOL) --input-def $^ --output-exp $@ --as $(AS) \
+		--dllname $(PROJECT)[$(UID3)].app --machine arm_interwork
+
+dist/$(PROJECT).bas: dist/$(PROJECT).exp.old dist/$(PROJECT).in
+	$(LD) --entry _E32Dll --output dist/$(PROJECT).pe.old --strip-all \
+		--undefined _E32Dll --base-file $@ --dll \
+		--whole-archive dist/$(PROJECT).in --no-whole-archive \
+		dist/$(PROJECT).exp.old \
+		$(addprefix $(ARMIURELPATH)/,edll.lib edllstub.lib) \
+		$(addprefix $(ARMIURELPATH)/,egcc.lib $(STATICLIBRARY) $(LIBRARY))
+
+dist/$(PROJECT).exp: dist/$(PROJECT).def dist/$(PROJECT).bas
+	$(DLLTOOL) --input-def dist/$(PROJECT).def --base-file dist/$(PROJECT).bas \
+		--output-exp $@ --as $(AS) --dllname $(PROJECT)[$(UID3)].app \
+		--machine arm_interwork
+
+dist/$(PROJECT).pe: dist/$(PROJECT).exp dist/$(PROJECT).in
+	$(LD) --entry _E32Dll --output $@ --strip-all \
+		--undefined _E32Dll --dll \
+		--whole-archive dist/$(PROJECT).in --no-whole-archive \
+		dist/$(PROJECT).exp \
+		$(addprefix $(ARMIURELPATH)/,edll.lib edllstub.lib egcc.lib) \
+		$(addprefix $(ARMIURELPATH)/,$(STATICLIBRARY) $(LIBRARY))
+
+dist/$(PROJECT).$(TARGETTYPE): dist/$(PROJECT).pe
+	petran -nocall -uid1 0x10000079 -uid2 0x$(UID2) -uid3 0x$(UID3) $^ $@
+
+bin: check dist/$(PROJECT).$(TARGETTYPE)
+
+$(RSSTARGET): dist/%.rsc : rss/%.rss
+	epocrc.pl -Iinc -I- -I$(SYSINCPATH) \
+		-D$(LANG_MACRO) -u -v \
+		$< -o$@ -hinc/$(basename $(notdir $@)).rsg
+
+resource: check $(RSSTARGET)
+
+build: check resource bin
+
+pack: build sis/$(PROJECT)_2nd.pkg
+	makesis -v sis/$(PROJECT)_2nd.pkg sis/$(PROJECT)_2nd.sis
+
