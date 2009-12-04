@@ -10,7 +10,7 @@ public:
 				 const TRgb& aColor, CWindow* aParent = 0);
 	static CMainWindow* NewLC(CWsClient& aClient, const TRect& aRect,
 				  const TRgb& aColor, CWindow* aParent = 0);
-public:
+public: /* from CWindow */
 	void Draw(const TRect& aRect);
 	void HandlePointerEvent(TPointerEvent& aPointerEvent);
 private:

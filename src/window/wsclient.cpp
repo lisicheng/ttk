@@ -3,12 +3,10 @@
 
 CWsClient::~CWsClient()
 {
-	// neutralize us as an active object
-	Deque(); // cancels and removes from scheduler
 	delete iGc;
-	delete iScreen;
 	delete iRedrawer;
-	iGroup.Close(); // what's the difference between this and destroy?
+	delete iScreen;
+	iGroup.Close();
 	iWs.Close();
 }
 
@@ -17,10 +15,30 @@ void CWsClient::DoCancel()
 	iWs.EventReadyCancel(); // cancel event request
 }
 
+RWsSession& CWsClient::Ws()
+{
+	return iWs;
+}
+
+const RWindowGroup& CWsClient::Group() const
+{
+	return iGroup;
+}
+
+CWsScreenDevice& CWsClient::Screen()
+{
+	return *iScreen;
+}
+
+CWindowGc& CWsClient::Gc()
+{
+	return *iGc;
+}
+
 void CWsClient::IssueRequest()
 {
 	iWs.EventReady(&iStatus); // request an event
-	SetActive(); // so we're now active
+	SetActive();
 }
 
 void CWsClient::ConstructMainWindowL()
@@ -45,4 +63,3 @@ void CWsClient::ConstructL()
 	ConstructMainWindowL();
 	IssueRequest();
 }
-

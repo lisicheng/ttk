@@ -1,10 +1,10 @@
 #include "ui/numberedwindow.h"
 
+_LIT(KString0, "0");
 _LIT(KString1, "1");
 _LIT(KString2, "2");
 _LIT(KString3, "3");
 _LIT(KString4, "4");
-_LIT(KString5, "5");
 
 CNumberedWindow* CNumberedWindow::NewL(CWsClient& aClient, TInt aNum,
 				       const TRect& aRect, const TRgb& aColor,
@@ -32,23 +32,23 @@ CNumberedWindow* CNumberedWindow::NewLC(CWsClient& aClient, TInt aNum,
  */
 void CNumberedWindow::Draw(const TRect& aRect)
 {
-	const TBufC<1> strings[5] = {*&KString1, *&KString2, *&KString3, *&KString4, *&KString5};
-
 	CWindowGc& gc = SystemGc();
 	gc.SetClippingRect(aRect);
 	gc.Clear(aRect);
 
 	TSize size = Window().Size();
-	TInt height=size.iHeight; // Need window height to calculate vertical text offset
-
 	TInt ascent = Font()->AscentInPixels();
 	TInt descent = Font()->DescentInPixels();
-	TInt offset = (height + (ascent + descent)) / 2; // Calculate vertical text offset
- 	gc.SetPenColor(TRgb(0,0,0)); // Set pen to black
+	// vertical text offset
+	TInt offset = (size.iHeight + ascent - descent) / 2;
+
+	const TBufC<1> strings[5] = {*&KString0, *&KString1, *&KString2, *&KString3, *&KString4};
+
+ 	gc.SetPenColor(KRgbBlack);
 	gc.UseFont(Font());
-	gc.DrawText(strings[iNumber], TRect(TPoint(0,0) + iOffset, size), offset,
+	gc.DrawText(strings[iNumber], TRect(iOffset, size), offset,
 		    CGraphicsContext::ECenter);
-	gc.DrawLine(TPoint(0,0) + iOffset, TPoint(size.iWidth, height) + iOffset);
+	gc.DrawLine(iOffset, iOffset + size);
 	gc.DiscardFont();
 }
 
@@ -66,16 +66,6 @@ void CNumberedWindow::HandlePointerEvent(TPointerEvent& aPointerEvent)
 		iScrollDir = Up;
 		Window().RequestPointerRepeatEvent(TTimeIntervalMicroSeconds32(20000), iRepeatRect);
 		break;
-	case TPointerEvent::EButtonRepeat:
-		if (iScrollDir == Up) {
-			Window().Scroll(TPoint(0, -2));
-			iOffset += TPoint(0, -2);
-		} else {
-			Window().Scroll(TPoint(0, 2));
-			iOffset += TPoint(0, 2);
-		}
-		Window().RequestPointerRepeatEvent(TTimeIntervalMicroSeconds32(20000), iRepeatRect);
-		break;
 	case TPointerEvent::EButton3Down:
 		Window().Scroll(TPoint(0, 2));
 		iOffset += TPoint(0, 2);
@@ -84,14 +74,22 @@ void CNumberedWindow::HandlePointerEvent(TPointerEvent& aPointerEvent)
 		iScrollDir = Down;
 		Window().RequestPointerRepeatEvent(TTimeIntervalMicroSeconds32(100000), iRepeatRect);
 		break;
+	case TPointerEvent::EButtonRepeat:
+		if (iScrollDir == Up) {
+			Window().Scroll(TPoint(0, -2));
+			iOffset += TPoint(0, -2);
+		} else {
+			Window().Scroll(TPoint(0, 2));
+			iOffset += TPoint(0, 2);
+		}
+		Window().RequestPointerRepeatEvent(TTimeIntervalMicroSeconds32(100000), iRepeatRect);
+		break;
 	default:
 		break;
 	}
 }
 
 CNumberedWindow::CNumberedWindow(CWsClient& aClient, TInt aNum)
-	: CWindow(aClient), iNumber(aNum),
-	  iOldPos(0, 0), iOffset(0, 0), iRepeatRect(0, 0, 0, 0)
+	: CWindow(aClient), iNumber(aNum)
 {
 }
-

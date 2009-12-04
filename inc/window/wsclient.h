@@ -5,7 +5,6 @@
 #include <w32std.h> // TKeyEvent
 
 class CWsRedrawer;
-class CWindow;
 
 class CWsClient : public CActive
 {
@@ -15,26 +14,23 @@ public: /* from CActive */
 	void DoCancel();
 	virtual void RunL() = 0;
 public:
+	RWsSession& Ws();
+	const RWindowGroup& Group() const;
+	CWsScreenDevice& Screen();
+	CWindowGc& Gc();
+public:
 	void IssueRequest(); // request an event
 	virtual void ConstructMainWindowL(); // main window
 	virtual void HandleKeyEventL(TKeyEvent& aKeyEvent) = 0;
-public:
-	RWsSession& Ws() { return iWs; }
-	CWindowGc& Gc() { return *iGc; }
-	const RWindowGroup& Group() const { return iGroup; }
-	CWsScreenDevice& Screen() { return *iScreen; }
-
 protected:
 	CWsClient();
 	void ConstructL();
-protected:
-	CWsScreenDevice* iScreen;
-	CWsRedrawer* iRedrawer;
-	RWsSession iWs;
 private:
+	RWsSession iWs;
 	RWindowGroup iGroup;
+	CWsScreenDevice* iScreen;
 	CWindowGc* iGc;
+	CWsRedrawer* iRedrawer;
 };
 
 #endif // WSCLIENT_H
-

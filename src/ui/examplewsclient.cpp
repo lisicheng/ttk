@@ -2,7 +2,7 @@
 #include "ui/mainwindow.h"
 #include "ui/numberedwindow.h"
 
-CExampleWsClient::~CExampleWsClient ()
+CExampleWsClient::~CExampleWsClient()
 {
 	delete iMainWindow;
 	delete iWindow1;
@@ -23,22 +23,8 @@ CExampleWsClient* CExampleWsClient::NewLC(const TRect& aRect)
 	return self;
 }
 
-CExampleWsClient::CExampleWsClient(const TRect& aRect) :iRect(aRect)
+CExampleWsClient::CExampleWsClient(const TRect& aRect) : iRect(aRect)
 {
-}
-
-/**
- * Called by base class's ConstructL.
- * Allocates and creates all the windows owned by this client.
- * (See list of windows in CExampleWsCLient declaration).
- */
-void CExampleWsClient::ConstructMainWindowL()
-{
-	iMainWindow = CMainWindow::NewL(*this, iRect, TRgb(255, 255, 255));
-	TRect rec(iRect);
-	rec.Resize(-50, -50);
-	iWindow1 = CNumberedWindow::NewL(*this, 1, rec, TRgb(200, 200, 200),
-					 iMainWindow);
 }
 
 /**
@@ -49,48 +35,33 @@ void CExampleWsClient::ConstructMainWindowL()
 void CExampleWsClient::RunL()
 {
 	TWsEvent event;
-	iWs.GetEvent(event);
-	TInt eventType = event.Type();
-	// take action on it
-	switch (eventType) {
-	// events global within window group
-	case EEventNull:
+	Ws().GetEvent(event);
+	switch (event.Type()) {
+	case EEventKey:
+		HandleKeyEventL(*event.Key());
 		break;
-	case EEventKey: {
-			TKeyEvent& keyEvent=*event.Key(); // get key event
-			HandleKeyEventL (keyEvent);
-			break;
-		}
-	case EEventModifiersChanged:
-		break;
-	case EEventKeyUp:
-	case EEventKeyDown:
-	case EEventFocusLost:
-	case EEventFocusGained:
-	case EEventSwitchOn:
-	case EEventPassword:
-	case EEventWindowGroupsChanged:
-	case EEventErrorMessage:
-		break;
-	// events local to specific windows
-	case EEventPointer: {
-			CWindow* window=(CWindow*)(event.Handle()); // get window
-			TPointerEvent& pointerEvent=*event.Pointer();
-			window->HandlePointerEvent (pointerEvent);
-			break;
-		}
-	case EEventPointerExit:
-	case EEventPointerEnter:
-	case EEventPointerBufferReady:
-	case EEventDragDrop:
+	case EEventPointer:
+		reinterpret_cast<CWindow*>(event.Handle())->
+			HandlePointerEvent(*event.Pointer());
 		break;
 	default:
 		break;
 	}
-	IssueRequest(); // maintain outstanding request
+	IssueRequest();
+}
+
+/**
+ * Called by base class's ConstructL.
+ * Allocates and creates all the windows owned by this client.
+ */
+void CExampleWsClient::ConstructMainWindowL()
+{
+	iMainWindow = CMainWindow::NewL(*this, iRect, KRgbWhite);
+	TRect rect(iRect);
+	rect.Resize(-50, -50);
+	iWindow1 = CNumberedWindow::NewL(*this, 1, rect, KRgbGray, iMainWindow);
 }
 
 void CExampleWsClient::HandleKeyEventL(TKeyEvent& /*aKeyEvent*/)
 {
 }
-

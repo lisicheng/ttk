@@ -30,18 +30,10 @@ void CMainWindow::Draw(const TRect& aRect)
 /**
  * Handles pointer events for CMainWindow.
  */
-void CMainWindow::HandlePointerEvent (TPointerEvent& aPointerEvent)
+void CMainWindow::HandlePointerEvent(TPointerEvent& aPointerEvent)
 {	
-	switch (aPointerEvent.iType) {
-	case TPointerEvent::EButton1Down:
-	case TPointerEvent::EButton1Up:
-		break;
-	default:
-		break;
-	}
 }
 
 CMainWindow::CMainWindow(CWsClient& aClient) : CWindow(aClient)
 {
 }
-

@@ -29,18 +29,23 @@ CWindow::CWindow(CWsClient& aClient) : iClient(aClient)
 void CWindow::ConstructL(const TRect& aRect, const TRgb& aColor,
 			 CWindow* aParent)
 {
-	_LIT(KFontName, "Swiss");
 	const RWindowTreeNode* parent;
 	if (aParent)
-		parent = static_cast<const RWindowTreeNode*>(&(aParent->Window()));
+		parent = static_cast<const RWindowTreeNode*>
+				    (&(aParent->Window()));
 	else
-		parent = static_cast<const RWindowTreeNode*>(&(iClient.Group()));
+		parent = static_cast<const RWindowTreeNode*>
+				    (&(iClient.Group()));
 	iWindow = RWindow(iClient.Ws());
-	User::LeaveIfError(iWindow.Construct(*parent, (TUint32)this));
+	User::LeaveIfError(iWindow.Construct(*parent,
+					     reinterpret_cast<TUint32>(this)));
 	iWindow.SetExtent(aRect.iTl, aRect.Size());
-	iWindow.SetBackgroundColor (aColor);
-	TFontSpec fontSpec(KFontName, 200);
+	iWindow.SetBackgroundColor(aColor);
+
+	_LIT(KFontName, "Swiss");
+	const TInt KFontHeight = 200;
+	TFontSpec fontSpec(KFontName, KFontHeight);
 	User::LeaveIfError(iClient.Screen().GetNearestFontInTwips(iFont,fontSpec));
+
 	iWindow.Activate();
 }
-
