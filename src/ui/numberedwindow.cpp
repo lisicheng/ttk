@@ -52,41 +52,20 @@ void CNumberedWindow::Draw(const TRect& aRect)
 	gc.DiscardFont();
 }
 
-/**
- * Handles pointer events for CNumberedWindow.
- */
-void CNumberedWindow::HandlePointerEvent(TPointerEvent& aPointerEvent)
+void CNumberedWindow::HandlePointerEvent(TPointerEvent& /*aPointerEvent*/)
 {	
-	switch (aPointerEvent.iType) {
-	case TPointerEvent::EButton1Down:
-		Window().Scroll(TPoint(0, -2));
-		iOffset += TPoint(0, -2);
-		iRepeatRect.iTl = aPointerEvent.iPosition - TPoint(10, 10);
-		iRepeatRect.iBr = aPointerEvent.iPosition + TPoint(10, 10);
-		iScrollDir = Up;
-		Window().RequestPointerRepeatEvent(TTimeIntervalMicroSeconds32(20000), iRepeatRect);
-		break;
-	case TPointerEvent::EButton3Down:
-		Window().Scroll(TPoint(0, 2));
-		iOffset += TPoint(0, 2);
-		iRepeatRect.iTl = aPointerEvent.iPosition - TPoint(10, 10);
-		iRepeatRect.iBr = aPointerEvent.iPosition + TPoint(10, 10);
-		iScrollDir = Down;
-		Window().RequestPointerRepeatEvent(TTimeIntervalMicroSeconds32(100000), iRepeatRect);
-		break;
-	case TPointerEvent::EButtonRepeat:
-		if (iScrollDir == Up) {
-			Window().Scroll(TPoint(0, -2));
-			iOffset += TPoint(0, -2);
-		} else {
-			Window().Scroll(TPoint(0, 2));
-			iOffset += TPoint(0, 2);
-		}
-		Window().RequestPointerRepeatEvent(TTimeIntervalMicroSeconds32(100000), iRepeatRect);
-		break;
-	default:
-		break;
-	}
+}
+
+void CNumberedWindow::ScrollUpL()
+{	
+	Window().Scroll(TPoint(0, -2));
+	iOffset += TPoint(0, -2);
+}
+
+void CNumberedWindow::ScrollDownL()
+{	
+	Window().Scroll(TPoint(0, 2));
+	iOffset += TPoint(0, 2);
 }
 
 CNumberedWindow::CNumberedWindow(CWsClient& aClient, TInt aNum)

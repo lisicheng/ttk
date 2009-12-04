@@ -62,6 +62,14 @@ void CExampleWsClient::ConstructMainWindowL()
 	iWindow1 = CNumberedWindow::NewL(*this, 1, rect, KRgbGray, iMainWindow);
 }
 
-void CExampleWsClient::HandleKeyEventL(TKeyEvent& /*aKeyEvent*/)
+void CExampleWsClient::HandleKeyEventL(TKeyEvent& aKeyEvent)
 {
+	switch (aKeyEvent.iCode) {
+	case EKeyUpArrow:
+		iWindow1->ScrollUpL();
+		break;
+	case EKeyDownArrow:
+		iWindow1->ScrollDownL();
+		break;
+	}
 }

@@ -15,13 +15,14 @@ public:
 public: /* from CWindow */
 	void Draw(const TRect& aRect);
 	void HandlePointerEvent(TPointerEvent& aPointerEvent);
+public:
+	void ScrollUpL();
+	void ScrollDownL();
 private:
 	CNumberedWindow(CWsClient& aClient, TInt aNum);
 private:
 	TInt iNumber; // Number displayed in window
 	TPoint iOffset; // Used for scrolling
-	TRect iRepeatRect; // Boundary for pointer repeat events
-	enum {Up, Down} iScrollDir; // Scroll direction
 };
 
 #endif // NUMBEREDWINDOW_H
