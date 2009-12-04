@@ -37,15 +37,15 @@ void CNumberedWindow::Draw(const TRect& aRect)
 	gc.Clear(aRect);
 
 	TSize size = Window().Size();
-	TInt ascent = Font()->AscentInPixels();
-	TInt descent = Font()->DescentInPixels();
+	TInt ascent = Font().AscentInPixels();
+	TInt descent = Font().DescentInPixels();
 	// vertical text offset
 	TInt offset = (size.iHeight + ascent - descent) / 2;
 
 	const TBufC<1> strings[5] = {*&KString0, *&KString1, *&KString2, *&KString3, *&KString4};
 
  	gc.SetPenColor(KRgbBlack);
-	gc.UseFont(Font());
+	gc.UseFont(&Font());
 	gc.DrawText(strings[iNumber], TRect(iOffset, size), offset,
 		    CGraphicsContext::ECenter);
 	gc.DrawLine(iOffset, iOffset + size);

@@ -13,7 +13,7 @@ public:
 public:
 	RWindow& Window();
 	CWindowGc& SystemGc();
-	CFont* Font();
+	const CFont& Font() const;
 public:
 	virtual void Draw(const TRect& aRect) = 0;
 	virtual void HandlePointerEvent(TPointerEvent& aPointerEvent) = 0;

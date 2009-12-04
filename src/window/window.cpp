@@ -17,9 +17,9 @@ CWindowGc& CWindow::SystemGc()
 	return iClient.Gc();
 }
 
-CFont* CWindow::Font()
+const CFont& CWindow::Font() const
 {
-	return iFont;
+	return *iFont;
 }
 
 CWindow::CWindow(CWsClient& aClient) : iClient(aClient)
@@ -45,7 +45,8 @@ void CWindow::ConstructL(const TRect& aRect, const TRgb& aColor,
 	_LIT(KFontName, "Swiss");
 	const TInt KFontHeight = 200;
 	TFontSpec fontSpec(KFontName, KFontHeight);
-	User::LeaveIfError(iClient.Screen().GetNearestFontInTwips(iFont,fontSpec));
+	User::LeaveIfError(iClient.Screen().GetNearestFontInTwips(iFont,
+								  fontSpec));
 
 	iWindow.Activate();
 }
