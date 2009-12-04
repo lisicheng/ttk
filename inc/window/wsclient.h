@@ -18,6 +18,12 @@ public:
 	void IssueRequest(); // request an event
 	virtual void ConstructMainWindowL(); // main window
 	virtual void HandleKeyEventL(TKeyEvent& aKeyEvent) = 0;
+public:
+	RWsSession& Ws() { return iWs; }
+	CWindowGc& Gc() { return *iGc; }
+	const RWindowGroup& Group() const { return iGroup; }
+	CWsScreenDevice& Screen() { return *iScreen; }
+
 protected:
 	CWsClient();
 	void ConstructL();
@@ -28,8 +34,6 @@ protected:
 private:
 	RWindowGroup iGroup;
 	CWindowGc* iGc;
-	friend class CWsRedrawer; // needs to get at session
-	friend class CWindow; // needs to get at session
 };
 
 #endif // WSCLIENT_H

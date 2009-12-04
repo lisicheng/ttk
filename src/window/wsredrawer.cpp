@@ -24,27 +24,27 @@ CWsRedrawer* CWsRedrawer::NewLC(CWsClient& aClient)
 
 void CWsRedrawer::DoCancel()
 {
-	iClient.iWs.RedrawReadyCancel();
+	iClient.Ws().RedrawReadyCancel();
 }
 
 void CWsRedrawer::RunL()
 {	
 	TWsRedrawEvent event;
-	iClient.iWs.GetRedraw(event);
+	iClient.Ws().GetRedraw(event);
 	CWindow* window = reinterpret_cast<CWindow*>(event.Handle());
 	if (window) {
-		iClient.iGc->Activate(window->Window());
+		iClient.Gc().Activate(window->Window());
 		window->Window().BeginRedraw();
 		window->Draw(event.Rect());
 		window->Window().EndRedraw();
-		iClient.iGc->Deactivate();
+		iClient.Gc().Deactivate();
 	}
 	IssueRequest();
 }
 
 void CWsRedrawer::IssueRequest()
 {
-	iClient.iWs.RedrawReady(&iStatus);
+	iClient.Ws().RedrawReady(&iStatus);
 	SetActive();
 }
 

@@ -54,7 +54,7 @@ clean: check
 	rm -fv inc/$(PROJECT).mbg
 	rm -fv inc/*.rsg
 
-$(OBJS): src/%.o : src/%.cpp
+$(OBJS): src/%.o : src/%.cpp inc/%.h inc/*.h
 	$(CXX) $(CXXFLAGS) -o $@ $<
 
 dist/$(PROJECT).in: $(OBJS)

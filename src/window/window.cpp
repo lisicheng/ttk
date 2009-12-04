@@ -4,7 +4,7 @@
 CWindow::~CWindow()
 {
 	iWindow.Close();
-	iClient.iScreen->ReleaseFont(iFont);
+	iClient.Screen().ReleaseFont(iFont);
 }
 
 RWindow& CWindow::Window()
@@ -14,7 +14,7 @@ RWindow& CWindow::Window()
 
 CWindowGc& CWindow::SystemGc()
 {
-	return *iClient.iGc;
+	return iClient.Gc();
 }
 
 CFont* CWindow::Font()
@@ -30,13 +30,17 @@ void CWindow::ConstructL(const TRect& aRect, const TRgb& aColor,
 			 CWindow* aParent)
 {
 	_LIT(KFontName, "Swiss");
-	RWindowTreeNode* parent = aParent ? &(aParent->Window()) : &(iClient.iGroup);
-	iWindow = RWindow(iClient.iWs);
+	const RWindowTreeNode* parent;
+	if (aParent)
+		parent = static_cast<const RWindowTreeNode*>(&(aParent->Window()));
+	else
+		parent = static_cast<const RWindowTreeNode*>(&(iClient.Group()));
+	iWindow = RWindow(iClient.Ws());
 	User::LeaveIfError(iWindow.Construct(*parent, (TUint32)this));
 	iWindow.SetExtent(aRect.iTl, aRect.Size());
 	iWindow.SetBackgroundColor (aColor);
 	TFontSpec fontSpec(KFontName, 200);
-	User::LeaveIfError(iClient.iScreen->GetNearestFontInTwips(iFont,fontSpec));
+	User::LeaveIfError(iClient.Screen().GetNearestFontInTwips(iFont,fontSpec));
 	iWindow.Activate();
 }
 
