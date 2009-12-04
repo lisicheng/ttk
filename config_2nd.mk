@@ -14,6 +14,7 @@ SRCFILES = \
 	window/window.cpp \
 	window/wsclient.cpp \
 	window/wsredrawer.cpp \
+	window/widget.cpp \
 	ui/examplewsclient.cpp \
 	ui/mainwindow.cpp \
 	ui/numberedwindow.cpp
