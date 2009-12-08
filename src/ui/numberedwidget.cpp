@@ -1,6 +1,6 @@
 #include "ui/numberedwidget.h"
+
 #include "window/wsclient.h"
-#include "common.h"
 
 _LIT(KString0, "0");
 _LIT(KString1, "1");
@@ -12,9 +12,8 @@ CNumberedWidget::~CNumberedWidget()
 {
 }
 
-CNumberedWidget* CNumberedWidget::NewL(CWsClient& aWsEnv,
-				       const TRect& aRect, TInt aNum,
-				       const CWindow* aParent)
+CNumberedWidget* CNumberedWidget::NewL(CWsClient& aWsEnv, const TRect& aRect,
+				       TInt aNum, const CWindow* aParent)
 {
 	CNumberedWidget* self = CNumberedWidget::NewLC(aWsEnv, aRect, aNum,
 						       aParent);
@@ -22,9 +21,8 @@ CNumberedWidget* CNumberedWidget::NewL(CWsClient& aWsEnv,
 	return self;
 }
 
-CNumberedWidget* CNumberedWidget::NewLC(CWsClient& aWsEnv,
-					const TRect& aRect, TInt aNum,
-					const CWindow* aParent)
+CNumberedWidget* CNumberedWidget::NewLC(CWsClient& aWsEnv, const TRect& aRect,
+					TInt aNum, const CWindow* aParent)
 {
 	CNumberedWidget* self = new(ELeave) CNumberedWidget(aWsEnv, aRect,
 							    aNum);
@@ -39,7 +37,6 @@ CNumberedWidget* CNumberedWidget::NewLC(CWsClient& aWsEnv,
  */
 void CNumberedWidget::Draw(const TRect& aRect)
 {
-	LOG("Num:Draw");
 	CWindowGc& gc = WsEnv().Gc();
 	gc.SetClippingRect(aRect);
 	gc.Clear(aRect);
@@ -60,15 +57,16 @@ void CNumberedWidget::Draw(const TRect& aRect)
 
  	gc.SetPenColor(KRgbBlack);
 	gc.UseFont(font);
-	gc.DrawText(strings[iNumber], TRect(size), offset,
+	gc.DrawText(strings[iNum], TRect(size), offset,
 		    CGraphicsContext::ECenter);
 	gc.DrawLine(Rect().iTl, size.AsPoint());
 	gc.DiscardFont();
+
 	WsEnv().Screen().ReleaseFont(font);
 }
 
 CNumberedWidget::CNumberedWidget(CWsClient& aWsEnv, const TRect& aRect,
 				 TInt aNum)
-		: CWidget(aWsEnv, aRect), iNumber(aNum)
+		: CWidget(aWsEnv, aRect), iNum(aNum)
 {
 }

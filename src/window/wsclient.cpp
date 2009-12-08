@@ -63,7 +63,7 @@ void CWsClient::ConstructL(const TRect& aRect)
 	User::LeaveIfError(iScreen->Construct());
 	User::LeaveIfError(iScreen->CreateContext(iGc));
 	iRedrawer = CWsRedrawer::NewL(*this);
-	iRootWidget = CMainWidget::NewL(*this, NULL, aRect);
+	iRootWidget = CMainWidget::NewL(*this, aRect);
 	IssueRequest();
 }
 

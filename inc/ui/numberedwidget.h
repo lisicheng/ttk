@@ -18,7 +18,7 @@ public: /* from CWidget */
 private:
 	CNumberedWidget(CWsClient& aWsEnv, const TRect& aRect, TInt aNum);
 private:
-	TInt iNumber;
+	TInt iNum;
 };
 
 #endif // NUMBEREDWIDGET_H
