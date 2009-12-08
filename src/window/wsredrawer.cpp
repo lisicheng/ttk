@@ -1,4 +1,5 @@
 #include "window/wsredrawer.h"
+#include "window/widget.h"
 #include "window/window.h"
 #include "window/wsclient.h"
 
@@ -7,16 +8,16 @@ CWsRedrawer::~CWsRedrawer()
 	Cancel();
 }
 
-CWsRedrawer* CWsRedrawer::NewL(CWsClient& aClient)
+CWsRedrawer* CWsRedrawer::NewL(CWsClient& aWsEnv)
 {
-	CWsRedrawer* self = CWsRedrawer::NewLC(aClient);
+	CWsRedrawer* self = CWsRedrawer::NewLC(aWsEnv);
 	CleanupStack::Pop(self);
 	return self;
 }
 
-CWsRedrawer* CWsRedrawer::NewLC(CWsClient& aClient)
+CWsRedrawer* CWsRedrawer::NewLC(CWsClient& aWsEnv)
 {
-	CWsRedrawer* self = new(ELeave) CWsRedrawer(aClient);
+	CWsRedrawer* self = new(ELeave) CWsRedrawer(aWsEnv);
 	CleanupStack::PushL(self);
 	self->ConstructL();
 	return self;
@@ -24,32 +25,32 @@ CWsRedrawer* CWsRedrawer::NewLC(CWsClient& aClient)
 
 void CWsRedrawer::DoCancel()
 {
-	iClient.Ws().RedrawReadyCancel();
+	iWsEnv.Ws().RedrawReadyCancel();
 }
 
 void CWsRedrawer::RunL()
 {	
 	TWsRedrawEvent event;
-	iClient.Ws().GetRedraw(event);
+	iWsEnv.Ws().GetRedraw(event);
 	CWindow* window = reinterpret_cast<CWindow*>(event.Handle());
 	if (window) {
-		iClient.Gc().Activate(window->Window());
+		iWsEnv.Gc().Activate(window->Window());
 		window->Window().BeginRedraw();
-		window->Draw(event.Rect());
+		window->RootWidget().Draw(event.Rect());
 		window->Window().EndRedraw();
-		iClient.Gc().Deactivate();
+		iWsEnv.Gc().Deactivate();
 	}
 	IssueRequest();
 }
 
 void CWsRedrawer::IssueRequest()
 {
-	iClient.Ws().RedrawReady(&iStatus);
+	iWsEnv.Ws().RedrawReady(&iStatus);
 	SetActive();
 }
 
-CWsRedrawer::CWsRedrawer(CWsClient& aClient)
-	: CActive(CActive::EPriorityLow), iClient(aClient)
+CWsRedrawer::CWsRedrawer(CWsClient& aWsEnv)
+	: CActive(CActive::EPriorityLow), iWsEnv(aWsEnv)
 {
 }
 

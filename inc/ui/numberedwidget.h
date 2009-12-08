@@ -7,14 +7,16 @@ class CNumberedWidget : public CWidget
 {
 public:
 	virtual ~CNumberedWidget();
-	CNumberedWidget* NewL(CWsClient& aWsEnv, const CWidget* aParent,
-			      const TRect* aRect, TInt aNum)
-	CNumberedWidget* NewLC(CWsClient& aWsEnv, const CWidget* aParent,
-			       const TRect* aRect, TInt aNum)
+	static CNumberedWidget* NewL(CWsClient& aWsEnv, const CWindow* aParent,
+				     const TRect& aRect, TInt aNum);
+	static CNumberedWidget* NewLC(CWsClient& aWsEnv, const CWindow* aParent,
+				      const TRect& aRect, TInt aNum);
 public: /* from CWidget */
 	void Draw(const TRect& aRect);
 private:
 	CNumberedWidget(CWsClient& aWsEnv, TInt aNum);
-}
+private:
+	TInt iNumber;
+};
 
 #endif // NUMBEREDWIDGET_H

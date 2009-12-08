@@ -5,14 +5,17 @@
 #include <w32std.h> // TKeyEvent
 
 class CWsRedrawer;
+class CWidget;
 
 class CWsClient : public CActive
 {
 public:
 	virtual ~CWsClient();
+	static CWsClient* NewL(const TRect& aRect);
+	static CWsClient* NewLC(const TRect& aRect);
 public: /* from CActive */
 	void DoCancel();
-	virtual void RunL() = 0;
+	void RunL();
 public:
 	RWsSession& Ws();
 	const RWindowGroup& Group() const;
@@ -20,18 +23,17 @@ public:
 	CWindowGc& Gc();
 public:
 	void IssueRequest(); // request an event
-	virtual void ConstructMainWindowL(); // main window
-	virtual void HandleKeyEventL(TKeyEvent& aKeyEvent) = 0;
+	void HandleKeyEventL(TKeyEvent& aKeyEvent);
 protected:
 	CWsClient();
-	void ConstructL();
+	void ConstructL(const TRect& aRect);
 private:
 	RWsSession iWs;
 	RWindowGroup iGroup;
 	CWsScreenDevice* iScreen;
 	CWindowGc* iGc;
 	CWsRedrawer* iRedrawer;
-	CWidget* aRootWidget; // not owned
+	CWidget* iRootWidget;
 };
 
 #endif // WSCLIENT_H

@@ -5,18 +5,21 @@
 #include <w32std.h> // TKeyEvent
 
 class CWsClient;
+class CWindow;
 
 class CWidget : public CBase
 {
 public:
 	virtual ~CWidget();
 public:
+	CWindow& Window();
+	CWsClient& WsEnv();
+	TRect& Rect();
 	void HandleKeyEventL(TKeyEvent& aKeyEvent);
 	void Draw(const TRect& aRect);
-	CWindow* Window();
 protected:
 	CWidget(CWsClient& aWsEnv);
-	void ConstructL();
+	void ConstructL(const CWindow* aWindow, const TRect& aRect);
 private:
 	CWsClient& iWsEnv;
 	CWindow* iWindow;

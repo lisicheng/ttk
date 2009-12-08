@@ -4,6 +4,7 @@
 #include <eikappui.h> // CEikAppUi
 
 class CWsClient;
+class CWidget;
 
 class CAppUi : public CEikAppUi
 {
@@ -14,7 +15,7 @@ private:
 private: /* from CEikAppUi */
 	void HandleCommandL(TInt aCommand);
 private:
-	CWsClient* iClient;
+	CWsClient* iWsEnv;
 	CWidget* iRoot;
 };
 

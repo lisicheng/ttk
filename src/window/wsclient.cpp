@@ -1,13 +1,30 @@
 #include "window/wsclient.h"
 #include "window/wsredrawer.h"
+#include "ui/mainwidget.h"
 
 CWsClient::~CWsClient()
 {
 	delete iGc;
 	delete iRedrawer;
 	delete iScreen;
+	delete iRootWidget;
 	iGroup.Close();
 	iWs.Close();
+}
+
+CWsClient* CWsClient::NewL(const TRect& aRect)
+{
+	CWsClient* self = CWsClient::NewLC(aRect);
+	CleanupStack::Pop(self);
+	return self;
+}
+
+CWsClient* CWsClient::NewLC(const TRect& aRect)
+{
+	CWsClient* self = new(ELeave) CWsClient();
+	CleanupStack::PushL(self);
+	self->ConstructL(aRect);
+	return self;
 }
 
 void CWsClient::DoCancel()
@@ -41,15 +58,11 @@ void CWsClient::IssueRequest()
 	SetActive();
 }
 
-void CWsClient::ConstructMainWindowL()
-{
-}
-
 CWsClient::CWsClient() : CActive(CActive::EPriorityStandard)
 {
 }
 
-void CWsClient::ConstructL()
+void CWsClient::ConstructL(const TRect& aRect)
 {
 	CActiveScheduler::Add(this);
 	User::LeaveIfError(iWs.Connect());
@@ -60,7 +73,7 @@ void CWsClient::ConstructL()
 	User::LeaveIfError(iScreen->Construct());
 	User::LeaveIfError(iScreen->CreateContext(iGc)); // create graphics context
 	iRedrawer = CWsRedrawer::NewL(*this);
-	ConstructMainWindowL();
+	iRootWidget = CMainWidget::NewL(*this, NULL, aRect);
 	IssueRequest();
 }
 
@@ -68,13 +81,7 @@ void CWsClient::RunL()
 {
 	TWsEvent event;
 	Ws().GetEvent(event);
-	if (event.Type() == EEventKey && iRootWidget)
+	if (event.Type() == EEventKey)
 		iRootWidget->HandleKeyEventL(*event.Key());
-	}
 	IssueRequest();
-}
-
-void CWsClient::SetRootWidget(CWidget* aRootWidget)
-{
-	iRootWidget = aRootWidget;
 }

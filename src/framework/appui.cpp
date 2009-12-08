@@ -1,18 +1,18 @@
 #include "framework/appui.h"
 #include <uikon.hrh>
-#include "ui/examplewsclient.h"
+#include "window/wsclient.h"
+#include "ui/mainwidget.h"
 
 CAppUi::~CAppUi()
 {
-	delete iClient;
+	delete iWsEnv;
 	delete iRoot;
 }
 
 void CAppUi::ConstructL()
 {
 	BaseConstructL();
-	iClient = CWsClient::NewL();
-	iRoot = CMainWidget::NewL(*iClient, ApplicationRect(), KRgbWhite);
+	iWsEnv = CWsClient::NewL(ApplicationRect());
 }
 
 void CAppUi::HandleCommandL(TInt aCommand)

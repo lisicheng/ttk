@@ -15,9 +15,8 @@ SRCFILES = \
 	window/wsclient.cpp \
 	window/wsredrawer.cpp \
 	window/widget.cpp \
-	ui/examplewsclient.cpp \
-	ui/mainwindow.cpp \
-	ui/numberedwindow.cpp
+	ui/mainwidget.cpp \
+	ui/numberedwidget.cpp
 
 LIBRARY = \
 	apparc.lib \
