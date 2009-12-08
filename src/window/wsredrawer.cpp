@@ -2,6 +2,7 @@
 #include "window/widget.h"
 #include "window/window.h"
 #include "window/wsclient.h"
+#include "common.h"
 
 CWsRedrawer::~CWsRedrawer()
 {
@@ -30,10 +31,12 @@ void CWsRedrawer::DoCancel()
 
 void CWsRedrawer::RunL()
 {	
+	LOG("redrawer::runL");
 	TWsRedrawEvent event;
 	iWsEnv.Ws().GetRedraw(event);
 	CWindow* window = reinterpret_cast<CWindow*>(event.Handle());
 	if (window) {
+		LOG("redrawer::ha!");
 		iWsEnv.Gc().Activate(window->Window());
 		window->Window().BeginRedraw();
 		window->RootWidget().Draw(event.Rect());
@@ -45,6 +48,7 @@ void CWsRedrawer::RunL()
 
 void CWsRedrawer::IssueRequest()
 {
+	LOG("redrawer::issue");
 	iWsEnv.Ws().RedrawReady(&iStatus);
 	SetActive();
 }

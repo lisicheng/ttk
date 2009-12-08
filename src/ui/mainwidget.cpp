@@ -1,5 +1,6 @@
 #include "ui/mainwidget.h"
 #include "ui/numberedwidget.h"
+#include "common.h"
 
 CMainWidget::~CMainWidget()
 {
@@ -25,6 +26,13 @@ CMainWidget* CMainWidget::NewLC(CWsClient& aWsEnv, const CWindow* aParent,
 
 void CMainWidget::HandleKeyEventL(TKeyEvent& aKeyEvent)
 {
+}
+
+void CMainWidget::Draw(const TRect& aRect)
+{
+	LOG("main:draw");
+	CWidget::Draw(aRect);
+	iComponent->Draw(aRect);
 }
 
 CMainWidget::CMainWidget(CWsClient& aWsEnv) : CWidget(aWsEnv)

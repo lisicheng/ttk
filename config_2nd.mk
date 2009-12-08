@@ -23,5 +23,6 @@ LIBRARY = \
 	cone.lib \
 	eikcore.lib \
 	euser.lib \
+	flogger.lib \
 	gdi.lib \
 	ws32.lib

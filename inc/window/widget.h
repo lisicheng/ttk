@@ -15,8 +15,8 @@ public:
 	CWindow& Window();
 	CWsClient& WsEnv();
 	TRect& Rect();
-	void HandleKeyEventL(TKeyEvent& aKeyEvent);
-	void Draw(const TRect& aRect);
+	virtual void HandleKeyEventL(TKeyEvent& aKeyEvent);
+	virtual void Draw(const TRect& aRect);
 protected:
 	CWidget(CWsClient& aWsEnv);
 	void ConstructL(const CWindow* aWindow, const TRect& aRect);

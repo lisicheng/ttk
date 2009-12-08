@@ -17,6 +17,7 @@ public:
 				  const TRect& aRect);
 public: /* from CWidget */
 	void HandleKeyEventL(TKeyEvent& aKeyEvent);
+	void Draw(const TRect& aRect);
 private:
 	CMainWidget(CWsClient& aWsEnv);
 	void ConstructL(const CWindow* aParent, const TRect& aRect);
