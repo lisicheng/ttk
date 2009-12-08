@@ -31,7 +31,7 @@ void CMainWidget::ConstructL()
 {
 	CWidget::ConstructL(NULL);
 	TRect rect(Rect());
-	rect.Resize(-50, -50);
+	rect.Resize(-100, -100);
 	rect.Move(50, 50);
 	iComponent = CNumberedWidget::NewL(WsEnv(), rect, 3, &Window());
 }

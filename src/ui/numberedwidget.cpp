@@ -47,19 +47,17 @@ void CNumberedWidget::Draw(const TRect& aRect)
 	CFont* font;
 	User::LeaveIfError(WsEnv().Screen().GetNearestFontInTwips(font,
 								  fontSpec));
-	TSize size = Rect().Size();
 	TInt ascent = font->AscentInPixels();
 	TInt descent = font->DescentInPixels();
 	// vertical text offset
-	TInt offset = (size.iHeight + ascent - descent) / 2;
+	TInt offset = (Rect().Size().iHeight + ascent - descent) / 2;
 
 	const TBufC<1> strings[5] = {*&KString0, *&KString1, *&KString2, *&KString3, *&KString4};
 
  	gc.SetPenColor(KRgbBlack);
 	gc.UseFont(font);
-	gc.DrawText(strings[iNum], TRect(size), offset,
-		    CGraphicsContext::ECenter);
-	gc.DrawLine(Rect().iTl, size.AsPoint());
+	gc.DrawText(strings[iNum], Rect(), offset, CGraphicsContext::ECenter);
+	gc.DrawLine(Rect().iTl, Rect().iBr);
 	gc.DiscardFont();
 
 	WsEnv().Screen().ReleaseFont(font);
