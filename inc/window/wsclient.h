@@ -17,10 +17,10 @@ public: /* from CActive */
 	void DoCancel();
 	void RunL();
 public:
-	RWsSession& Ws();
+	RWsSession& Ws(); // CHECKED
 	const RWindowGroup& Group() const;
 	CWsScreenDevice& Screen();
-	CWindowGc& Gc();
+	CWindowGc& Gc() const;
 public:
 	void IssueRequest(); // request an event
 	void HandleKeyEventL(TKeyEvent& aKeyEvent);

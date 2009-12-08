@@ -19,8 +19,8 @@ public: /* from CWidget */
 	void HandleKeyEventL(TKeyEvent& aKeyEvent);
 	void Draw(const TRect& aRect);
 private:
-	CMainWidget(CWsClient& aWsEnv);
-	void ConstructL(const CWindow* aParent, const TRect& aRect);
+	CMainWidget(CWsClient& aWsEnv, const TRect& aRect);
+	void ConstructL(const CWindow* aParent);
 private:
 	CNumberedWidget* iComponent;
 };

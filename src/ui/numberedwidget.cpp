@@ -13,22 +13,23 @@ CNumberedWidget::~CNumberedWidget()
 }
 
 CNumberedWidget* CNumberedWidget::NewL(CWsClient& aWsEnv,
-					const CWindow* aParent,
-					const TRect& aRect, TInt aNum)
+				       const TRect& aRect, TInt aNum,
+				       const CWindow* aParent)
 {
-	CNumberedWidget* self = CNumberedWidget::NewLC(aWsEnv, aParent, aRect,
-						       aNum);
+	CNumberedWidget* self = CNumberedWidget::NewLC(aWsEnv, aRect, aNum,
+						       aParent);
 	CleanupStack::Pop(self);
 	return self;
 }
 
 CNumberedWidget* CNumberedWidget::NewLC(CWsClient& aWsEnv,
-					const CWindow* aParent,
-					const TRect& aRect, TInt aNum)
+					const TRect& aRect, TInt aNum,
+					const CWindow* aParent)
 {
-	CNumberedWidget* self = new(ELeave) CNumberedWidget(aWsEnv, aNum);
+	CNumberedWidget* self = new(ELeave) CNumberedWidget(aWsEnv, aRect,
+							    aNum);
 	CleanupStack::PushL(self);
-	self->ConstructL(aParent, aRect);
+	self->ConstructL(aParent);
 	return self;
 }
 
@@ -66,7 +67,8 @@ void CNumberedWidget::Draw(const TRect& aRect)
 	WsEnv().Screen().ReleaseFont(font);
 }
 
-CNumberedWidget::CNumberedWidget(CWsClient& aWsEnv, TInt aNum)
-	: CWidget(aWsEnv), iNumber(aNum)
+CNumberedWidget::CNumberedWidget(CWsClient& aWsEnv, const TRect& aRect,
+				 TInt aNum)
+		: CWidget(aWsEnv, aRect), iNumber(aNum)
 {
 }

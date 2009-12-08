@@ -1,5 +1,6 @@
 #include "window/window.h"
 #include "window/wsclient.h"
+#include "window/widget.h"
 #include "common.h"
 
 CWindow::~CWindow()
@@ -7,21 +8,24 @@ CWindow::~CWindow()
 	iWindow.Close();
 }
 
-CWindow* CWindow::NewL(CWsClient& aWsEnv, const TRect aRect,
-		       CWidget& aRootWidget, const TRgb& aColor)
+CWindow* CWindow::NewL(CWsClient& aWsEnv, CWidget& aWidget, const TRgb& aColor)
 {
-	CWindow* self = CWindow::NewLC(aWsEnv, aRect, aRootWidget, aColor);
+	CWindow* self = CWindow::NewLC(aWsEnv, aWidget, aColor);
 	CleanupStack::Pop(self);
 	return self;
 }
 
-CWindow* CWindow::NewLC(CWsClient& aWsEnv, const TRect aRect,
-			CWidget& aRootWidget, const TRgb& aColor)
+CWindow* CWindow::NewLC(CWsClient& aWsEnv, CWidget& aWidget, const TRgb& aColor)
 {
-	CWindow* self = new(ELeave) CWindow(aWsEnv, aRootWidget);
-	self->ConstructL(aRect, aColor);
+	CWindow* self = new(ELeave) CWindow(aWsEnv, aWidget);
+	self->ConstructL(aColor);
 	CleanupStack::PushL(self);
 	return self;
+}
+
+CWidget& CWindow::Widget()
+{
+	return iWidget;
 }
 
 RWindow& CWindow::Window()
@@ -29,25 +33,17 @@ RWindow& CWindow::Window()
 	return iWindow;
 }
 
-CWidget& CWindow::RootWidget()
-{
-	return iRootWidget;
-}
-
-CWindow::CWindow(CWsClient& aWsEnv, CWidget& aRootWidget)
-		: iWsEnv(aWsEnv), iRootWidget(aRootWidget)
+CWindow::CWindow(CWsClient& aWsEnv, CWidget& aWidget)
+		: iWsEnv(aWsEnv), iWidget(aWidget)
 {
 }
 
-void CWindow::ConstructL(const TRect& aRect, const TRgb& aColor)
+void CWindow::ConstructL(const TRgb& aColor)
 {
-	LOG("window:construct");
-	const RWindowTreeNode* parent;
-	parent = static_cast<const RWindowTreeNode*>(&(iWsEnv.Group()));
 	iWindow = RWindow(iWsEnv.Ws());
-	User::LeaveIfError(iWindow.Construct(*parent,
+	User::LeaveIfError(iWindow.Construct(iWsEnv.Group(),
 					     reinterpret_cast<TUint32>(this)));
-	iWindow.SetExtent(aRect.iTl, aRect.Size());
+	iWindow.SetExtent(iWidget.Rect().iTl, iWidget.Rect().Size());
 	iWindow.SetBackgroundColor(aColor);
 
 	iWindow.Activate();

@@ -11,20 +11,26 @@ class CWidget : public CBase
 {
 public:
 	virtual ~CWidget();
+	static CWidget* NewL(CWsClient& aWsClient, const TRect& aRect,
+			     const CWindow* aWindow);
+	static CWidget* NewLC(CWsClient& aWsClient, const TRect& aRect,
+			      const CWindow* aWindow);
 public:
-	CWindow& Window();
-	CWsClient& WsEnv();
-	TRect& Rect();
 	virtual void HandleKeyEventL(TKeyEvent& aKeyEvent);
 	virtual void Draw(const TRect& aRect);
+	const TRect& Rect() const;
 protected:
-	CWidget(CWsClient& aWsEnv);
-	void ConstructL(const CWindow* aWindow, const TRect& aRect);
+	CWidget(CWsClient& aWsEnv, const TRect& aRect);
+	void ConstructL(const CWindow* aWindow);
+protected:
+	CWsClient& WsEnv();
+	void SetRect(TRect& aRect);
+	const CWindow& Window() const;
 private:
 	CWsClient& iWsEnv;
-	CWindow* iWindow;
-	TBool iOwnWindow;
 	TRect iRect;
+	const CWindow* iWindow;
+	TBool iOwnWindow;
 };
 
 #endif // WIDGET_H

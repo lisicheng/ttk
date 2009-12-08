@@ -5,22 +5,22 @@
 
 const TUid KApplicationUid = { 0x100098e6 };
 
-#define LOG(MSG) do {								\
-	RFileLogger logger;								\
-	logger.Connect();								\
+#define LOG(MSG) do {							\
+	RFileLogger logger;						\
+	logger.Connect();						\
 	logger.CreateLog(_L("log"), _L("log"), EFileLoggingModeAppend);	\
-	logger.Write(_L(MSG));								\
-	logger.CloseLog();								\
-	logger.Close();									\
+	logger.Write(_L(MSG));						\
+	logger.CloseLog();						\
+	logger.Close();							\
 } while(0);
 
-#define LOGNUM(MSG) do {								\
-	RFileLogger logger;								\
-	logger.Connect();								\
+#define LOGNUM(MSG) do {						\
+	RFileLogger logger;						\
+	logger.Connect();						\
 	logger.CreateLog(_L("log"), _L("log"), EFileLoggingModeAppend);	\
-	logger.WriteFormat(_L("%d"), MSG);						\
-	logger.CloseLog();								\
-	logger.Close();									\
+	logger.WriteFormat(_L("%d"), MSG);				\
+	logger.CloseLog();						\
+	logger.Close();							\
 } while(0);
 
 #endif // COMMON_H

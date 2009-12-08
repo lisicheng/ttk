@@ -39,7 +39,7 @@ void CWsRedrawer::RunL()
 		LOG("redrawer::ha!");
 		iWsEnv.Gc().Activate(window->Window());
 		window->Window().BeginRedraw();
-		window->RootWidget().Draw(event.Rect());
+		window->Widget().Draw(event.Rect());
 		window->Window().EndRedraw();
 		iWsEnv.Gc().Deactivate();
 	}

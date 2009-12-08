@@ -12,20 +12,20 @@ class CWindow : public CBase
 {
 public:
 	virtual ~CWindow();
-	static CWindow* NewL(CWsClient& aWsEnv, const TRect aRect,
-			     CWidget& aRootWidget, const TRgb& aColor);
-	static CWindow* NewLC(CWsClient& aWsEnv, const TRect aRect,
-			      CWidget& aRootWidget, const TRgb& aColor);
+	static CWindow* NewL(CWsClient& aWsEnv, CWidget& aWidget,
+			     const TRgb& aColor);
+	static CWindow* NewLC(CWsClient& aWsEnv, CWidget& aWidget,
+			      const TRgb& aColor);
 public:
+	CWidget& Widget();
 	RWindow& Window();
-	CWidget& RootWidget();
 protected:
-	CWindow(CWsClient& aWsEnv, CWidget& aRootWidget);
-	void ConstructL(const TRect& aRect, const TRgb& aColor);
+	CWindow(CWsClient& aWsEnv, CWidget& aWidget);
+	void ConstructL(const TRgb& aColor);
 private:
-	RWindow iWindow; // window server window
-	CWsClient& iWsEnv; // client including session and group
-	CWidget& iRootWidget;
+	CWsClient& iWsEnv;
+	CWidget& iWidget;
+	RWindow iWindow;
 };
 
 #endif // WINDOW_H

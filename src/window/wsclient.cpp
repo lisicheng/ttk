@@ -47,7 +47,7 @@ CWsScreenDevice& CWsClient::Screen()
 	return *iScreen;
 }
 
-CWindowGc& CWsClient::Gc()
+CWindowGc& CWsClient::Gc() const
 {
 	return *iGc;
 }

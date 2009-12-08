@@ -18,8 +18,8 @@ CMainWidget* CMainWidget::NewL(CWsClient& aWsEnv, const CWindow* aParent,
 CMainWidget* CMainWidget::NewLC(CWsClient& aWsEnv, const CWindow* aParent,
 				const TRect& aRect)
 {
-	CMainWidget* self = new(ELeave) CMainWidget(aWsEnv);
-	self->ConstructL(aParent, aRect);
+	CMainWidget* self = new(ELeave) CMainWidget(aWsEnv, aRect);
+	self->ConstructL(aParent);
 	CleanupStack::PushL(self);
 	return self;
 }
@@ -35,14 +35,15 @@ void CMainWidget::Draw(const TRect& aRect)
 	iComponent->Draw(aRect);
 }
 
-CMainWidget::CMainWidget(CWsClient& aWsEnv) : CWidget(aWsEnv)
+CMainWidget::CMainWidget(CWsClient& aWsEnv, const TRect& aRect)
+		: CWidget(aWsEnv, aRect)
 {
 }
 
-void CMainWidget::ConstructL(const CWindow* aParent, const TRect& aRect)
+void CMainWidget::ConstructL(const CWindow* aParent)
 {
-	CWidget::ConstructL(aParent, aRect);
-	TRect rect(aRect);
+	CWidget::ConstructL(aParent);
+	TRect rect(Rect());
 	rect.Resize(-50, -50);
-	iComponent = CNumberedWidget::NewL(WsEnv(), &Window(), rect, 3);
+	iComponent = CNumberedWidget::NewL(WsEnv(), rect, 3, &Window());
 }

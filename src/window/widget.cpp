@@ -1,4 +1,5 @@
 #include "window/widget.h"
+
 #include "window/wsclient.h"
 #include "window/window.h"
 #include "window/wsredrawer.h"
@@ -9,19 +10,21 @@ CWidget::~CWidget()
 		delete iWindow;
 }
 
-CWindow& CWidget::Window()
+CWidget* CWidget::NewL(CWsClient& aWsEnv, const TRect& aRect,
+		       const CWindow* aWindow)
 {
-	return *iWindow;
+	CWidget* self = CWidget::NewLC(aWsEnv, aRect, aWindow);
+	CleanupStack::Pop(self);
+	return self;
 }
 
-TRect& CWidget::Rect()
+CWidget* CWidget::NewLC(CWsClient& aWsEnv, const TRect& aRect,
+			const CWindow* aWindow)
 {
-	return iRect;
-}
-
-CWsClient& CWidget::WsEnv()
-{
-	return iWsEnv;
+	CWidget* self = new(ELeave) CWidget(aWsEnv, aRect);
+	CleanupStack::PushL(self);
+	self->ConstructL(aWindow);
+	return self;
 }
 
 void CWidget::HandleKeyEventL(TKeyEvent& aKeyEvent)
@@ -35,27 +38,38 @@ void CWidget::Draw(const TRect& aRect)
 	gc.Clear(aRect);
 }
 
-CWidget::CWidget(CWsClient& aWsEnv) : iWsEnv(aWsEnv)
+const TRect& CWidget::Rect() const
+{
+	return iRect;
+}
+
+CWidget::CWidget(CWsClient& aWsEnv, const TRect& aRect)
+		: iWsEnv(aWsEnv), iRect(aRect)
 {
 }
 
-void CWidget::ConstructL(const CWindow* aWindow, const TRect& aRect)
+void CWidget::ConstructL(const CWindow* aWindow)
 {
 	if (aWindow) {
 		iWindow = aWindow;
 		iOwnWindow = EFalse;
 	} else {
-		iWindow = CWindow::NewL(iWsEnv, aRect, *this, KRgbWhite);
+		iWindow = CWindow::NewL(iWsEnv, *this, KRgbWhite);
 		iOwnWindow = ETrue;
 	}
+}
+
+CWsClient& CWidget::WsEnv()
+{
+	return iWsEnv;
+}
+
+void CWidget::SetRect(TRect& aRect)
+{
 	iRect = aRect;
-	/*
-	_LIT(KFontName, "Swiss");
-	const TInt KFontHeight = 200;
-	TFontSpec fontSpec(KFontName, KFontHeight);
-	TFont font;
-	User::LeaveIfError(iWsEnv.Screen().GetNearestFontInTwips(font,
-								 fontSpec));
-	iWsEnv.Screen().ReleaseFont(font);
-	*/
+}
+
+const CWindow& CWidget::Window() const
+{
+	return *iWindow;
 }
