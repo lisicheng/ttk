@@ -2,7 +2,7 @@
 #define WSCLIENT_H
 
 #include <e32base.h> // CActive
-#include <w32std.h> // TKeyEvent
+#include <w32std.h> // RWsSession
 
 class CWsRedrawer;
 class CWidget;
@@ -13,26 +13,25 @@ public:
 	virtual ~CWsClient();
 	static CWsClient* NewL(const TRect& aRect);
 	static CWsClient* NewLC(const TRect& aRect);
-public: /* from CActive */
-	void DoCancel();
-	void RunL();
 public:
-	RWsSession& Ws(); // CHECKED
+	RWsSession& Ws();
 	const RWindowGroup& Group() const;
-	CWsScreenDevice& Screen();
+	CWsScreenDevice& Screen() const;
 	CWindowGc& Gc() const;
-public:
-	void IssueRequest(); // request an event
-	void HandleKeyEventL(TKeyEvent& aKeyEvent);
-protected:
+private:
 	CWsClient();
 	void ConstructL(const TRect& aRect);
+private: /* from CActive */
+	void DoCancel();
+	void RunL();
+private:
+	void IssueRequest();
 private:
 	RWsSession iWs;
 	RWindowGroup iGroup;
 	CWsScreenDevice* iScreen;
 	CWindowGc* iGc;
-	CWsRedrawer* iRedrawer;
+	const CWsRedrawer* iRedrawer;
 	CWidget* iRootWidget;
 };
 

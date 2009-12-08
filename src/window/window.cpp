@@ -1,23 +1,23 @@
 #include "window/window.h"
-#include "window/wsclient.h"
+
 #include "window/widget.h"
-#include "common.h"
+#include "window/wsclient.h"
 
 CWindow::~CWindow()
 {
 	iWindow.Close();
 }
 
-CWindow* CWindow::NewL(CWsClient& aWsEnv, CWidget& aWidget, const TRgb& aColor)
+CWindow* CWindow::NewL(CWidget& aWidget, const TRgb& aColor)
 {
-	CWindow* self = CWindow::NewLC(aWsEnv, aWidget, aColor);
+	CWindow* self = CWindow::NewLC(aWidget, aColor);
 	CleanupStack::Pop(self);
 	return self;
 }
 
-CWindow* CWindow::NewLC(CWsClient& aWsEnv, CWidget& aWidget, const TRgb& aColor)
+CWindow* CWindow::NewLC(CWidget& aWidget, const TRgb& aColor)
 {
-	CWindow* self = new(ELeave) CWindow(aWsEnv, aWidget);
+	CWindow* self = new(ELeave) CWindow(aWidget);
 	self->ConstructL(aColor);
 	CleanupStack::PushL(self);
 	return self;
@@ -33,15 +33,14 @@ RWindow& CWindow::Window()
 	return iWindow;
 }
 
-CWindow::CWindow(CWsClient& aWsEnv, CWidget& aWidget)
-		: iWsEnv(aWsEnv), iWidget(aWidget)
+CWindow::CWindow(CWidget& aWidget) : iWidget(aWidget)
 {
 }
 
 void CWindow::ConstructL(const TRgb& aColor)
 {
-	iWindow = RWindow(iWsEnv.Ws());
-	User::LeaveIfError(iWindow.Construct(iWsEnv.Group(),
+	iWindow = RWindow(iWidget.WsEnv().Ws());
+	User::LeaveIfError(iWindow.Construct(iWidget.WsEnv().Group(),
 					     reinterpret_cast<TUint32>(this)));
 	iWindow.SetExtent(iWidget.Rect().iTl, iWidget.Rect().Size());
 	iWindow.SetBackgroundColor(aColor);

@@ -1,13 +1,14 @@
 #include "window/wsclient.h"
-#include "window/wsredrawer.h"
+
 #include "ui/mainwidget.h"
+#include "window/wsredrawer.h"
 
 CWsClient::~CWsClient()
 {
-	delete iGc;
-	delete iRedrawer;
-	delete iScreen;
 	delete iRootWidget;
+	delete iRedrawer;
+	delete iGc;
+	delete iScreen;
 	iGroup.Close();
 	iWs.Close();
 }
@@ -27,11 +28,6 @@ CWsClient* CWsClient::NewLC(const TRect& aRect)
 	return self;
 }
 
-void CWsClient::DoCancel()
-{
-	iWs.EventReadyCancel(); // cancel event request
-}
-
 RWsSession& CWsClient::Ws()
 {
 	return iWs;
@@ -42,7 +38,7 @@ const RWindowGroup& CWsClient::Group() const
 	return iGroup;
 }
 
-CWsScreenDevice& CWsClient::Screen()
+CWsScreenDevice& CWsClient::Screen() const
 {
 	return *iScreen;
 }
@@ -50,12 +46,6 @@ CWsScreenDevice& CWsClient::Screen()
 CWindowGc& CWsClient::Gc() const
 {
 	return *iGc;
-}
-
-void CWsClient::IssueRequest()
-{
-	iWs.EventReady(&iStatus);
-	SetActive();
 }
 
 CWsClient::CWsClient() : CActive(CActive::EPriorityStandard)
@@ -69,12 +59,17 @@ void CWsClient::ConstructL(const TRect& aRect)
 	iGroup = RWindowGroup(iWs);
 	TInt dummy = 2; // meaningless
 	User::LeaveIfError(iGroup.Construct(dummy, ETrue));
-	iScreen = new(ELeave) CWsScreenDevice(iWs); // make device for this session
+	iScreen = new(ELeave) CWsScreenDevice(iWs);
 	User::LeaveIfError(iScreen->Construct());
-	User::LeaveIfError(iScreen->CreateContext(iGc)); // create graphics context
+	User::LeaveIfError(iScreen->CreateContext(iGc));
 	iRedrawer = CWsRedrawer::NewL(*this);
 	iRootWidget = CMainWidget::NewL(*this, NULL, aRect);
 	IssueRequest();
+}
+
+void CWsClient::DoCancel()
+{
+	iWs.EventReadyCancel();
 }
 
 void CWsClient::RunL()
@@ -84,4 +79,10 @@ void CWsClient::RunL()
 	if (event.Type() == EEventKey)
 		iRootWidget->HandleKeyEventL(*event.Key());
 	IssueRequest();
+}
+
+void CWsClient::IssueRequest()
+{
+	iWs.EventReady(&iStatus);
+	SetActive();
 }

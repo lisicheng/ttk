@@ -1,8 +1,7 @@
 #include "window/widget.h"
 
-#include "window/wsclient.h"
 #include "window/window.h"
-#include "window/wsredrawer.h"
+#include "window/wsclient.h"
 
 CWidget::~CWidget()
 {
@@ -38,6 +37,11 @@ void CWidget::Draw(const TRect& aRect)
 	gc.Clear(aRect);
 }
 
+CWsClient& CWidget::WsEnv()
+{
+	return iWsEnv;
+}
+
 const TRect& CWidget::Rect() const
 {
 	return iRect;
@@ -54,14 +58,9 @@ void CWidget::ConstructL(const CWindow* aWindow)
 		iWindow = aWindow;
 		iOwnWindow = EFalse;
 	} else {
-		iWindow = CWindow::NewL(iWsEnv, *this, KRgbWhite);
+		iWindow = CWindow::NewL(*this, KRgbWhite);
 		iOwnWindow = ETrue;
 	}
-}
-
-CWsClient& CWidget::WsEnv()
-{
-	return iWsEnv;
 }
 
 void CWidget::SetRect(TRect& aRect)

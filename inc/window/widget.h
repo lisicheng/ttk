@@ -18,12 +18,12 @@ public:
 public:
 	virtual void HandleKeyEventL(TKeyEvent& aKeyEvent);
 	virtual void Draw(const TRect& aRect);
+	CWsClient& WsEnv();
 	const TRect& Rect() const;
 protected:
 	CWidget(CWsClient& aWsEnv, const TRect& aRect);
 	void ConstructL(const CWindow* aWindow);
 protected:
-	CWsClient& WsEnv();
 	void SetRect(TRect& aRect);
 	const CWindow& Window() const;
 private:

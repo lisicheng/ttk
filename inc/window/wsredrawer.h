@@ -11,14 +11,14 @@ public:
 	~CWsRedrawer();
 	static CWsRedrawer* NewL(CWsClient& aWsEnv);
 	static CWsRedrawer* NewLC(CWsClient& aWsEnv);
-public: /* from CActive */
-	void DoCancel();
-	void RunL();
-public:
-	void IssueRequest();
 private:
 	CWsRedrawer(CWsClient& aWsEnv);
 	void ConstructL();
+private: /* from CActive */
+	void DoCancel();
+	void RunL();
+private:
+	void IssueRequest();
 private:
 	CWsClient& iWsEnv;
 };

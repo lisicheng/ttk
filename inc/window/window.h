@@ -12,18 +12,15 @@ class CWindow : public CBase
 {
 public:
 	virtual ~CWindow();
-	static CWindow* NewL(CWsClient& aWsEnv, CWidget& aWidget,
-			     const TRgb& aColor);
-	static CWindow* NewLC(CWsClient& aWsEnv, CWidget& aWidget,
-			      const TRgb& aColor);
+	static CWindow* NewL(CWidget& aWidget, const TRgb& aColor);
+	static CWindow* NewLC(CWidget& aWidget, const TRgb& aColor);
 public:
 	CWidget& Widget();
 	RWindow& Window();
 protected:
-	CWindow(CWsClient& aWsEnv, CWidget& aWidget);
+	CWindow(CWidget& aWidget);
 	void ConstructL(const TRgb& aColor);
 private:
-	CWsClient& iWsEnv;
 	CWidget& iWidget;
 	RWindow iWindow;
 };
