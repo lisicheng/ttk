@@ -40,10 +40,6 @@ void CExampleWsClient::RunL()
 	case EEventKey:
 		HandleKeyEventL(*event.Key());
 		break;
-	case EEventPointer:
-		reinterpret_cast<CWindow*>(event.Handle())->
-			HandlePointerEvent(*event.Pointer());
-		break;
 	default:
 		break;
 	}
@@ -62,14 +58,3 @@ void CExampleWsClient::ConstructMainWindowL()
 	iWindow1 = CNumberedWindow::NewL(*this, 1, rect, KRgbGray, iMainWindow);
 }
 
-void CExampleWsClient::HandleKeyEventL(TKeyEvent& aKeyEvent)
-{
-	switch (aKeyEvent.iCode) {
-	case EKeyUpArrow:
-		iWindow1->ScrollUpL();
-		break;
-	case EKeyDownArrow:
-		iWindow1->ScrollDownL();
-		break;
-	}
-}

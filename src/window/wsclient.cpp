@@ -37,7 +37,7 @@ CWindowGc& CWsClient::Gc()
 
 void CWsClient::IssueRequest()
 {
-	iWs.EventReady(&iStatus); // request an event
+	iWs.EventReady(&iStatus);
 	SetActive();
 }
 
@@ -54,12 +54,27 @@ void CWsClient::ConstructL()
 	CActiveScheduler::Add(this);
 	User::LeaveIfError(iWs.Connect());
 	iGroup = RWindowGroup(iWs);
-	// '2' is a meaningless handle
-	User::LeaveIfError(iGroup.Construct(2, ETrue));
+	TInt dummy = 2; // meaningless
+	User::LeaveIfError(iGroup.Construct(dummy, ETrue));
 	iScreen = new(ELeave) CWsScreenDevice(iWs); // make device for this session
 	User::LeaveIfError(iScreen->Construct());
 	User::LeaveIfError(iScreen->CreateContext(iGc)); // create graphics context
 	iRedrawer = CWsRedrawer::NewL(*this);
 	ConstructMainWindowL();
 	IssueRequest();
+}
+
+void CWsClient::RunL()
+{
+	TWsEvent event;
+	Ws().GetEvent(event);
+	if (event.Type() == EEventKey && iRootWidget)
+		iRootWidget->HandleKeyEventL(*event.Key());
+	}
+	IssueRequest();
+}
+
+void CWsClient::SetRootWidget(CWidget* aRootWidget)
+{
+	iRootWidget = aRootWidget;
 }

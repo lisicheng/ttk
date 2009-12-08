@@ -5,12 +5,14 @@
 CAppUi::~CAppUi()
 {
 	delete iClient;
+	delete iRoot;
 }
 
 void CAppUi::ConstructL()
 {
 	BaseConstructL();
-	iClient = CExampleWsClient::NewL(ApplicationRect());
+	iClient = CWsClient::NewL();
+	iRoot = CMainWidget::NewL(*iClient, ApplicationRect(), KRgbWhite);
 }
 
 void CAppUi::HandleCommandL(TInt aCommand)

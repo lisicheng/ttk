@@ -31,6 +31,7 @@ private:
 	CWsScreenDevice* iScreen;
 	CWindowGc* iGc;
 	CWsRedrawer* iRedrawer;
+	CWidget* aRootWidget; // not owned
 };
 
 #endif // WSCLIENT_H

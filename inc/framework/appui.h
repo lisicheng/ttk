@@ -15,6 +15,7 @@ private: /* from CEikAppUi */
 	void HandleCommandL(TInt aCommand);
 private:
 	CWsClient* iClient;
+	CWidget* iRoot;
 };
 
 #endif // APPUI_H
