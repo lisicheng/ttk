@@ -31,6 +31,11 @@ void CWidget::HandleKeyEventL(TKeyEvent& aKeyEvent)
 	return;
 }
 
+void CWidget::HandlePointerEventL(TPointerEvent& aPointerEvent)
+{
+	return;
+}
+
 void CWidget::Draw(const TRect& aRect)
 {
 	CWindowGc& gc = WsEnv().Gc();

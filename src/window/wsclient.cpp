@@ -1,6 +1,7 @@
 #include "window/wsclient.h"
 
 #include "ui/mainwidget.h"
+#include "window/window.h"
 #include "window/wsredrawer.h"
 
 CWsClient::~CWsClient()
@@ -76,8 +77,17 @@ void CWsClient::RunL()
 {
 	TWsEvent event;
 	Ws().GetEvent(event);
-	if (event.Type() == EEventKey)
+	switch (event.Type()) {
+	case EEventKey:
 		iRootWidget->HandleKeyEventL(*event.Key());
+		break;
+	case EEventPointer:
+		reinterpret_cast<CWindow*>(event.Handle())->
+			Widget().HandlePointerEventL(*event.Pointer());
+		break;
+	default:
+		break;
+	}
 	IssueRequest();
 }
 

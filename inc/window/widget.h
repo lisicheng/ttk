@@ -17,6 +17,7 @@ public:
 			      const CWindow* aWindow);
 public:
 	virtual void HandleKeyEventL(TKeyEvent& aKeyEvent);
+	virtual void HandlePointerEventL(TPointerEvent& aPointerEvent);
 	virtual void Draw(const TRect& aRect);
 	CWsClient& WsEnv();
 	const TRect& Rect() const;
