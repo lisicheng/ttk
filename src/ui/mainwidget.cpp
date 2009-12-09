@@ -1,6 +1,8 @@
 #include "ui/mainwidget.h"
 
+#include "common.h"
 #include "ui/numberedwidget.h"
+#include "window/window.h"
 
 CMainWidget::~CMainWidget()
 {
@@ -38,10 +40,31 @@ void CMainWidget::ConstructL()
 
 void CMainWidget::HandleKeyEventL(TKeyEvent& aKeyEvent)
 {
+	TRect rect(iComponent->Rect());
+	switch (aKeyEvent.iCode) {
+	case EKeyUpArrow:
+		LOG("up");
+		rect.Move(0, -10);
+		iComponent->SetRect(rect);
+		rect.Resize(0, 10);
+		Window().Window().Invalidate(rect);
+		break;
+	case EKeyDownArrow:
+		rect.Move(0, 10);
+		iComponent->SetRect(rect);
+		rect.Move(0, -10);
+		rect.Resize(0, 10);
+		Window().Window().Invalidate(rect);
+		break;
+	default:
+		break;
+	}
+	LOG("end:handleKeyevent");
 }
 
 void CMainWidget::Draw(const TRect& aRect)
 {
+	LOG("draw");
 	CWidget::Draw(aRect);
 	iComponent->Draw(aRect);
 }

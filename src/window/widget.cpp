@@ -9,16 +9,14 @@ CWidget::~CWidget()
 		delete iWindow;
 }
 
-CWidget* CWidget::NewL(CWsClient& aWsEnv, const TRect& aRect,
-		       const CWindow* aWindow)
+CWidget* CWidget::NewL(CWsClient& aWsEnv, const TRect& aRect, CWindow* aWindow)
 {
 	CWidget* self = CWidget::NewLC(aWsEnv, aRect, aWindow);
 	CleanupStack::Pop(self);
 	return self;
 }
 
-CWidget* CWidget::NewLC(CWsClient& aWsEnv, const TRect& aRect,
-			const CWindow* aWindow)
+CWidget* CWidget::NewLC(CWsClient& aWsEnv, const TRect& aRect, CWindow* aWindow)
 {
 	CWidget* self = new(ELeave) CWidget(aWsEnv, aRect);
 	CleanupStack::PushL(self);
@@ -52,12 +50,17 @@ const TRect& CWidget::Rect() const
 	return iRect;
 }
 
+void CWidget::SetRect(const TRect& aRect)
+{
+	iRect = aRect;
+}
+
 CWidget::CWidget(CWsClient& aWsEnv, const TRect& aRect)
 		: iWsEnv(aWsEnv), iRect(aRect)
 {
 }
 
-void CWidget::ConstructL(const CWindow* aWindow)
+void CWidget::ConstructL(CWindow* aWindow)
 {
 	if (aWindow) {
 		iWindow = aWindow;
@@ -68,12 +71,7 @@ void CWidget::ConstructL(const CWindow* aWindow)
 	}
 }
 
-void CWidget::SetRect(TRect& aRect)
-{
-	iRect = aRect;
-}
-
-const CWindow& CWidget::Window() const
+CWindow& CWidget::Window() const
 {
 	return *iWindow;
 }
