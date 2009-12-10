@@ -15,6 +15,8 @@ SRCFILES = \
 	symttk/wsenv.cpp \
 	symttk/redrawer.cpp \
 	ttk/widget.cpp \
+	ttk/common/point.cpp \
+	ttk/common/rect.cpp \
 	ui/mainwidget.cpp \
 	ui/numberedwidget.cpp
 
