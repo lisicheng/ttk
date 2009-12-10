@@ -64,7 +64,7 @@ void CSymTtkWsEnv::ConstructL(const TRect& aRect)
 	User::LeaveIfError(iScreen->Construct());
 	User::LeaveIfError(iScreen->CreateContext(iGc));
 	iRedrawer = CSymTtkRedrawer::NewL(*this);
-	iRootWidget = CMainWidget::NewL(*this, aRect);
+	iRootWidget = MainWidget::NewL(*this, aRect);
 	IssueRequest();
 }
 
@@ -79,11 +79,11 @@ void CSymTtkWsEnv::RunL()
 	Ws().GetEvent(event);
 	switch (event.Type()) {
 	case EEventKey:
-		iRootWidget->HandleKeyEventL(*event.Key());
+		iRootWidget->handle_key_event(*event.Key());
 		break;
 	case EEventPointer:
 		reinterpret_cast<CSymTtkWindow*>(event.Handle())->
-			Widget().HandlePointerEventL(*event.Pointer());
+			Widget().handle_pointer_event(*event.Pointer());
 		break;
 	default:
 		break;

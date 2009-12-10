@@ -4,64 +4,64 @@
 #include "ui/numberedwidget.h"
 #include "symttk/window.h"
 
-CMainWidget::~CMainWidget()
+MainWidget::~MainWidget()
 {
-	delete iComponent;
+	delete component_;
 }
 
-CMainWidget* CMainWidget::NewL(CSymTtkWsEnv& aWsEnv, const TRect& aRect)
+MainWidget* MainWidget::NewL(CSymTtkWsEnv& ws_env, const TRect& rect)
 {
-	CMainWidget* self = CMainWidget::NewLC(aWsEnv, aRect);
+	MainWidget* self = MainWidget::NewLC(ws_env, rect);
 	CleanupStack::Pop(self);
 	return self;
 }
 
-CMainWidget* CMainWidget::NewLC(CSymTtkWsEnv& aWsEnv, const TRect& aRect)
+MainWidget* MainWidget::NewLC(CSymTtkWsEnv& ws_env, const TRect& rect)
 {
-	CMainWidget* self = new(ELeave) CMainWidget(aWsEnv, aRect);
+	MainWidget* self = new(ELeave) MainWidget(ws_env, rect);
 	self->ConstructL();
 	CleanupStack::PushL(self);
 	return self;
 }
 
-CMainWidget::CMainWidget(CSymTtkWsEnv& aWsEnv, const TRect& aRect)
-		: TtkWidget(aWsEnv, aRect)
+MainWidget::MainWidget(CSymTtkWsEnv& ws_env, const TRect& rect)
+		: TtkWidget(ws_env, rect)
 {
 }
 
-void CMainWidget::ConstructL()
+void MainWidget::ConstructL()
 {
 	TtkWidget::ConstructL(NULL);
-	TRect rect(Rect());
+	TRect rect(rect());
 	rect.Resize(-100, -100);
 	rect.Move(50, 50);
-	iComponent = CNumberedWidget::NewL(WsEnv(), rect, 3, &Window());
+	component_ = NumberedWidget::NewL(ws_env(), rect, 3, &window());
 }
 
-void CMainWidget::HandleKeyEventL(TKeyEvent& aKeyEvent)
+void MainWidget::handle_key_event(TKeyEvent& key_event)
 {
-	TRect rect(iComponent->Rect());
-	switch (aKeyEvent.iCode) {
+	TRect rect(component_->rect());
+	switch (key_event.iCode) {
 	case EKeyUpArrow:
 		rect.Move(0, -10);
-		iComponent->SetRect(rect);
+		component_->set_rect(rect);
 		rect.Resize(0, 10);
-		Window().Window().Invalidate(rect);
+		window().Window().Invalidate(rect);
 		break;
 	case EKeyDownArrow:
 		rect.Move(0, 10);
-		iComponent->SetRect(rect);
+		component_->set_rect(rect);
 		rect.Move(0, -10);
 		rect.Resize(0, 10);
-		Window().Window().Invalidate(rect);
+		window().Window().Invalidate(rect);
 		break;
 	default:
 		break;
 	}
 }
 
-void CMainWidget::Draw(const TRect& aRect)
+void MainWidget::handle_redraw_event(const TRect& rect)
 {
-	TtkWidget::Draw(aRect);
-	iComponent->Draw(aRect);
+	TtkWidget::handle_redraw_event(rect);
+	component_->handle_redraw_event(rect);
 }

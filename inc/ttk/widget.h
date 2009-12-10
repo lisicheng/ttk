@@ -11,27 +11,28 @@ class TtkWidget : public CBase
 {
 public:
 	virtual ~TtkWidget();
-	static TtkWidget* NewL(CSymTtkWsEnv& aWsClient, const TRect& aRect,
-			     CSymTtkWindow* aWindow);
-	static TtkWidget* NewLC(CSymTtkWsEnv& aWsClient, const TRect& aRect,
-			      CSymTtkWindow* aWindow);
+	static TtkWidget* NewL(CSymTtkWsEnv& ws_client, const TRect& rect,
+			     CSymTtkWindow* window);
+	static TtkWidget* NewLC(CSymTtkWsEnv& ws_client, const TRect& rect,
+			      CSymTtkWindow* window);
 public:
-	virtual void HandleKeyEventL(TKeyEvent& aKeyEvent);
-	virtual void HandlePointerEventL(TPointerEvent& aPointerEvent);
-	virtual void Draw(const TRect& aRect);
-	CSymTtkWsEnv& WsEnv();
-	const TRect& Rect() const;
-	void SetRect(const TRect& aRect);
+	virtual void handle_key_event(TKeyEvent& key_event);
+	virtual void handle_pointer_event(TPointerEvent& pointer_event);
+	virtual void handle_redraw_event(const TRect& rect);
+public:
+	CSymTtkWsEnv& ws_env();
+	const TRect& rect() const;
+	void set_rect(const TRect& rect);
 protected:
-	TtkWidget(CSymTtkWsEnv& aWsEnv, const TRect& aRect);
-	void ConstructL(CSymTtkWindow* aWindow);
+	TtkWidget(CSymTtkWsEnv& ws_env, const TRect& rect);
+	void ConstructL(CSymTtkWindow* window);
 protected:
-	CSymTtkWindow& Window() const;
+	CSymTtkWindow& window() const;
 private:
-	CSymTtkWsEnv& iWsEnv;
-	TRect iRect;
-	CSymTtkWindow* iWindow;
-	TBool iOwnWindow;
+	CSymTtkWsEnv& ws_env_;
+	TRect rect_;
+	CSymTtkWindow* window_;
+	TBool own_window_;
 };
 
 #endif // TTK_WIDGET_H

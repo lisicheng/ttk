@@ -39,10 +39,10 @@ CSymTtkWindow::CSymTtkWindow(TtkWidget& aWidget) : iWidget(aWidget)
 
 void CSymTtkWindow::ConstructL(const TRgb& aColor)
 {
-	iWindow = RWindow(iWidget.WsEnv().Ws());
-	User::LeaveIfError(iWindow.Construct(iWidget.WsEnv().Group(),
+	iWindow = RWindow(iWidget.ws_env().Ws());
+	User::LeaveIfError(iWindow.Construct(iWidget.ws_env().Group(),
 					     reinterpret_cast<TUint32>(this)));
-	iWindow.SetExtent(iWidget.Rect().iTl, iWidget.Rect().Size());
+	iWindow.SetExtent(iWidget.rect().iTl, iWidget.rect().Size());
 	iWindow.SetBackgroundColor(aColor);
 
 	iWindow.Activate();

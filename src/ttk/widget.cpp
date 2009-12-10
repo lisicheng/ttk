@@ -5,73 +5,73 @@
 
 TtkWidget::~TtkWidget()
 {
-	if (iOwnWindow)
-		delete iWindow;
+	if (own_window_)
+		delete window_;
 }
 
-TtkWidget* TtkWidget::NewL(CSymTtkWsEnv& aWsEnv, const TRect& aRect, CSymTtkWindow* aWindow)
+TtkWidget* TtkWidget::NewL(CSymTtkWsEnv& ws_env, const TRect& rect, CSymTtkWindow* window)
 {
-	TtkWidget* self = TtkWidget::NewLC(aWsEnv, aRect, aWindow);
+	TtkWidget* self = TtkWidget::NewLC(ws_env, rect, window);
 	CleanupStack::Pop(self);
 	return self;
 }
 
-TtkWidget* TtkWidget::NewLC(CSymTtkWsEnv& aWsEnv, const TRect& aRect, CSymTtkWindow* aWindow)
+TtkWidget* TtkWidget::NewLC(CSymTtkWsEnv& ws_env, const TRect& rect, CSymTtkWindow* window)
 {
-	TtkWidget* self = new(ELeave) TtkWidget(aWsEnv, aRect);
+	TtkWidget* self = new(ELeave) TtkWidget(ws_env, rect);
 	CleanupStack::PushL(self);
-	self->ConstructL(aWindow);
+	self->ConstructL(window);
 	return self;
 }
 
-void TtkWidget::HandleKeyEventL(TKeyEvent& aKeyEvent)
+void TtkWidget::handle_key_event(TKeyEvent& key_event)
 {
 	return;
 }
 
-void TtkWidget::HandlePointerEventL(TPointerEvent& aPointerEvent)
+void TtkWidget::handle_pointer_event(TPointerEvent& pointer_event)
 {
 	return;
 }
 
-void TtkWidget::Draw(const TRect& aRect)
+void TtkWidget::handle_redraw_event(const TRect& rect)
 {
-	CWindowGc& gc = WsEnv().Gc();
-	gc.Clear(aRect);
+	CWindowGc& gc = ws_env().Gc();
+	gc.Clear(rect);
 }
 
-CSymTtkWsEnv& TtkWidget::WsEnv()
+CSymTtkWsEnv& TtkWidget::ws_env()
 {
-	return iWsEnv;
+	return ws_env_;
 }
 
-const TRect& TtkWidget::Rect() const
+const TRect& TtkWidget::rect() const
 {
-	return iRect;
+	return rect_;
 }
 
-void TtkWidget::SetRect(const TRect& aRect)
+void TtkWidget::set_rect(const TRect& rect)
 {
-	iRect = aRect;
+	rect_ = rect;
 }
 
-TtkWidget::TtkWidget(CSymTtkWsEnv& aWsEnv, const TRect& aRect)
-		: iWsEnv(aWsEnv), iRect(aRect)
+TtkWidget::TtkWidget(CSymTtkWsEnv& ws_env, const TRect& rect)
+		: ws_env_(ws_env), rect_(rect)
 {
 }
 
-void TtkWidget::ConstructL(CSymTtkWindow* aWindow)
+void TtkWidget::ConstructL(CSymTtkWindow* window)
 {
-	if (aWindow) {
-		iWindow = aWindow;
-		iOwnWindow = EFalse;
+	if (window) {
+		window_ = window;
+		own_window_ = EFalse;
 	} else {
-		iWindow = CSymTtkWindow::NewL(*this, KRgbWhite);
-		iOwnWindow = ETrue;
+		window_ = CSymTtkWindow::NewL(*this, KRgbWhite);
+		own_window_ = ETrue;
 	}
 }
 
-CSymTtkWindow& TtkWidget::Window() const
+CSymTtkWindow& TtkWidget::window() const
 {
-	return *iWindow;
+	return *window_;
 }

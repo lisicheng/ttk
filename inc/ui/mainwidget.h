@@ -3,22 +3,22 @@
 
 #include "ttk/widget.h" // TtkWidget
 
-class CNumberedWidget;
+class NumberedWidget;
 
-class CMainWidget : public TtkWidget
+class MainWidget : public TtkWidget
 {
 public:
-	virtual ~CMainWidget();
-	static CMainWidget* NewL(CSymTtkWsEnv& aWsEnv, const TRect& aRect);
-	static CMainWidget* NewLC(CSymTtkWsEnv& aWsEnv, const TRect& aRect);
+	virtual ~MainWidget();
+	static MainWidget* NewL(CSymTtkWsEnv& ws_env, const TRect& rect);
+	static MainWidget* NewLC(CSymTtkWsEnv& ws_env, const TRect& rect);
 private:
-	CMainWidget(CSymTtkWsEnv& aWsEnv, const TRect& aRect);
+	MainWidget(CSymTtkWsEnv& ws_env, const TRect& rect);
 	void ConstructL();
 private: /* from TtkWidget */
-	void HandleKeyEventL(TKeyEvent& aKeyEvent);
-	void Draw(const TRect& aRect);
+	void handle_key_event(TKeyEvent& key_event);
+	void handle_redraw_event(const TRect& rect);
 private:
-	CNumberedWidget* iComponent;
+	NumberedWidget* component_;
 };
 
 #endif // MAINWIDGET_H

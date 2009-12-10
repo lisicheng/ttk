@@ -9,62 +9,62 @@ _LIT(KString2, "2");
 _LIT(KString3, "3");
 _LIT(KString4, "4");
 
-CNumberedWidget::~CNumberedWidget()
+NumberedWidget::~NumberedWidget()
 {
 }
 
-CNumberedWidget* CNumberedWidget::NewL(CSymTtkWsEnv& aWsEnv, const TRect& aRect,
-				       TInt aNum, CSymTtkWindow* aParent)
+NumberedWidget* NumberedWidget::NewL(CSymTtkWsEnv& ws_env, const TRect& rect,
+				       TInt num, CSymTtkWindow* window)
 {
-	CNumberedWidget* self = CNumberedWidget::NewLC(aWsEnv, aRect, aNum,
-						       aParent);
+	NumberedWidget* self = NumberedWidget::NewLC(ws_env, rect, num,
+						       window);
 	CleanupStack::Pop(self);
 	return self;
 }
 
-CNumberedWidget* CNumberedWidget::NewLC(CSymTtkWsEnv& aWsEnv, const TRect& aRect,
-					TInt aNum, CSymTtkWindow* aParent)
+NumberedWidget* NumberedWidget::NewLC(CSymTtkWsEnv& ws_env, const TRect& rect,
+					TInt num, CSymTtkWindow* window)
 {
-	CNumberedWidget* self = new(ELeave) CNumberedWidget(aWsEnv, aRect,
-							    aNum);
+	NumberedWidget* self = new(ELeave) NumberedWidget(ws_env, rect,
+							    num);
 	CleanupStack::PushL(self);
-	self->ConstructL(aParent);
+	self->ConstructL(window);
 	return self;
 }
 
 /**
- * Redraws the contents of CNumberedWidget within a given
- * rectangle. CNumberedWidget displays a number in the window.
+ * Redraws the contents of NumberedWidget within a given
+ * rectangle. NumberedWidget displays a number in the window.
  */
-void CNumberedWidget::Draw(const TRect& aRect)
+void NumberedWidget::handle_redraw_event(const TRect& rect)
 {
-	CWindowGc& gc = WsEnv().Gc();
-	gc.SetClippingRect(aRect);
-	gc.Clear(aRect);
+	CWindowGc& gc = ws_env().Gc();
+	gc.SetClippingRect(rect);
+	gc.Clear(rect);
 
 	_LIT(KFontName, "Swiss");
 	const TInt KFontHeight = 200;
 	TFontSpec fontSpec(KFontName, KFontHeight);
 	CFont* font;
-	User::LeaveIfError(WsEnv().Screen().GetNearestFontInTwips(font,
+	User::LeaveIfError(ws_env().Screen().GetNearestFontInTwips(font,
 								  fontSpec));
 	TInt ascent = font->AscentInPixels();
 	TInt descent = font->DescentInPixels();
 	// vertical text offset
-	TInt offset = (Rect().Size().iHeight + ascent - descent) / 2;
+	TInt offset = (this->rect().Size().iHeight + ascent - descent) / 2;
 
 	const TBufC<1> strings[5] = {*&KString0, *&KString1, *&KString2, *&KString3, *&KString4};
  	gc.SetPenColor(KRgbBlack);
 	gc.UseFont(font);
-	gc.DrawText(strings[iNum], Rect(), offset, CGraphicsContext::ECenter);
-	gc.DrawLine(Rect().iTl, Rect().iBr);
+	gc.DrawText(strings[num_], this->rect(), offset, CGraphicsContext::ECenter);
+	gc.DrawLine(this->rect().iTl, this->rect().iBr);
 	gc.DiscardFont();
 
-	WsEnv().Screen().ReleaseFont(font);
+	ws_env().Screen().ReleaseFont(font);
 }
 
-CNumberedWidget::CNumberedWidget(CSymTtkWsEnv& aWsEnv, const TRect& aRect,
-				 TInt aNum)
-		: TtkWidget(aWsEnv, aRect), iNum(aNum)
+NumberedWidget::NumberedWidget(CSymTtkWsEnv& ws_env, const TRect& rect,
+				 TInt num)
+		: TtkWidget(ws_env, rect), num_(num)
 {
 }
