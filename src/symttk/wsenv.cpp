@@ -31,6 +31,21 @@ CSymTtkWsEnv* CSymTtkWsEnv::NewLC(const TRect& aRect)
 	return self;
 }
 
+TtkWindowInterface* CSymTtkWsEnv::new_window(TtkWidget& widget,
+					     TtkColor color) const
+{
+	TRgb rgb(color & kTtkColorRawRed,
+		 color & kTtkColorRawGreen,
+		 color & kTtkColorRawBlue,
+		 color & kTtkColorRawAlpha);
+	return CSymTtkWindow::NewL(widget, rgb);
+}
+
+TtkGcInterface& CSymTtkWsEnv::gc() const
+{
+	return *iGc;
+}
+
 RWsSession& CSymTtkWsEnv::Ws()
 {
 	return iWs;

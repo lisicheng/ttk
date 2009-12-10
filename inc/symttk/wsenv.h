@@ -3,17 +3,21 @@
 
 #include <e32base.h> // CActive
 #include <w32std.h> // RWsSession
+#include "ttk/wsenvinterface.h" // TtkWsEnvInterface
 
 class CSymTtkGc;
 class CSymTtkRedrawer;
 class TtkWidget;
 
-class CSymTtkWsEnv : public CActive
+class CSymTtkWsEnv : public CActive, public TtkWsEnvInterface
 {
 public:
 	virtual ~CSymTtkWsEnv();
 	static CSymTtkWsEnv* NewL(const TRect& aRect);
 	static CSymTtkWsEnv* NewLC(const TRect& aRect);
+public: /* from WsEnvInterface */
+	TtkWindowInterface* new_window(TtkWidget& widget, TtkColor color) const;
+	TtkGcInterface& gc() const;
 public:
 	RWsSession& Ws();
 	const RWindowGroup& Group() const;
