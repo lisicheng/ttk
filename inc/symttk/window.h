@@ -4,15 +4,18 @@
 #include <e32base.h> // CBase
 #include <gdi.h> // TRgb
 #include <w32std.h> // RWindow
+#include "ttk/windowinterface.h" // TtkWindowInterface
 
 class TtkWidget;
 
-class CSymTtkWindow : public CBase
+class CSymTtkWindow : public CBase, public TtkWindowInterface
 {
 public:
 	virtual ~CSymTtkWindow();
 	static CSymTtkWindow* NewL(TtkWidget& aWidget, const TRgb& aColor);
 	static CSymTtkWindow* NewLC(TtkWidget& aWidget, const TRgb& aColor);
+public: /* from WindowInterface */
+	void redraw(const TtkRect& rect);
 public:
 	TtkWidget& Widget();
 	RWindow& Window();

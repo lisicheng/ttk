@@ -23,6 +23,13 @@ CSymTtkWindow* CSymTtkWindow::NewLC(TtkWidget& aWidget, const TRgb& aColor)
 	return self;
 }
 
+void CSymTtkWindow::redraw(const TtkRect& rect)
+{
+	TRect sym_rect(rect.tl_.x_, rect.tl_.y_,
+		       rect.br_.x_, rect.br_.y_);
+	iWindow.Invalidate(sym_rect);
+}
+
 TtkWidget& CSymTtkWindow::Widget()
 {
 	return iWidget;
@@ -43,9 +50,9 @@ void CSymTtkWindow::ConstructL(const TRgb& aColor)
 	User::LeaveIfError(iWindow.Construct(iWidget.ws_env().Group(),
 					     reinterpret_cast<TUint32>(this)));
 	const TtkRect& rect = iWidget.rect();
-	TPoint point(rect.tl_.x_, rect.tl_.y_);
+	TPoint tl(rect.tl_.x_, rect.tl_.y_);
 	TSize size(rect.width(), rect.height());
-	iWindow.SetExtent(point, size);
+	iWindow.SetExtent(tl, size);
 	iWindow.SetBackgroundColor(aColor);
 
 	iWindow.Activate();
