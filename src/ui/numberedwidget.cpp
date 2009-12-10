@@ -3,11 +3,13 @@
 #include "symttk/wsenv.h"
 #include "common.h"
 
+/*
 _LIT(KString0, "0");
 _LIT(KString1, "1");
 _LIT(KString2, "2");
 _LIT(KString3, "3");
 _LIT(KString4, "4");
+*/
 
 NumberedWidget::~NumberedWidget()
 {
