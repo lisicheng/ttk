@@ -4,7 +4,7 @@
 #include "symttk/window.h"
 #include "ui/mainwidget.h"
 
-CWsClient::~CWsClient()
+CSymTtkWsEnv::~CSymTtkWsEnv()
 {
 	delete iRootWidget;
 	delete iRedrawer;
@@ -14,46 +14,46 @@ CWsClient::~CWsClient()
 	iWs.Close();
 }
 
-CWsClient* CWsClient::NewL(const TRect& aRect)
+CSymTtkWsEnv* CSymTtkWsEnv::NewL(const TRect& aRect)
 {
-	CWsClient* self = CWsClient::NewLC(aRect);
+	CSymTtkWsEnv* self = CSymTtkWsEnv::NewLC(aRect);
 	CleanupStack::Pop(self);
 	return self;
 }
 
-CWsClient* CWsClient::NewLC(const TRect& aRect)
+CSymTtkWsEnv* CSymTtkWsEnv::NewLC(const TRect& aRect)
 {
-	CWsClient* self = new(ELeave) CWsClient();
+	CSymTtkWsEnv* self = new(ELeave) CSymTtkWsEnv();
 	CleanupStack::PushL(self);
 	self->ConstructL(aRect);
 	return self;
 }
 
-RWsSession& CWsClient::Ws()
+RWsSession& CSymTtkWsEnv::Ws()
 {
 	return iWs;
 }
 
-const RWindowGroup& CWsClient::Group() const
+const RWindowGroup& CSymTtkWsEnv::Group() const
 {
 	return iGroup;
 }
 
-CWsScreenDevice& CWsClient::Screen() const
+CWsScreenDevice& CSymTtkWsEnv::Screen() const
 {
 	return *iScreen;
 }
 
-CWindowGc& CWsClient::Gc() const
+CWindowGc& CSymTtkWsEnv::Gc() const
 {
 	return *iGc;
 }
 
-CWsClient::CWsClient() : CActive(CActive::EPriorityStandard)
+CSymTtkWsEnv::CSymTtkWsEnv() : CActive(CActive::EPriorityStandard)
 {
 }
 
-void CWsClient::ConstructL(const TRect& aRect)
+void CSymTtkWsEnv::ConstructL(const TRect& aRect)
 {
 	CActiveScheduler::Add(this);
 	User::LeaveIfError(iWs.Connect());
@@ -63,17 +63,17 @@ void CWsClient::ConstructL(const TRect& aRect)
 	iScreen = new(ELeave) CWsScreenDevice(iWs);
 	User::LeaveIfError(iScreen->Construct());
 	User::LeaveIfError(iScreen->CreateContext(iGc));
-	iRedrawer = CWsRedrawer::NewL(*this);
+	iRedrawer = CSymTtkRedrawer::NewL(*this);
 	iRootWidget = CMainWidget::NewL(*this, aRect);
 	IssueRequest();
 }
 
-void CWsClient::DoCancel()
+void CSymTtkWsEnv::DoCancel()
 {
 	iWs.EventReadyCancel();
 }
 
-void CWsClient::RunL()
+void CSymTtkWsEnv::RunL()
 {
 	TWsEvent event;
 	Ws().GetEvent(event);
@@ -82,7 +82,7 @@ void CWsClient::RunL()
 		iRootWidget->HandleKeyEventL(*event.Key());
 		break;
 	case EEventPointer:
-		reinterpret_cast<CWindow*>(event.Handle())->
+		reinterpret_cast<CSymTtkWindow*>(event.Handle())->
 			Widget().HandlePointerEventL(*event.Pointer());
 		break;
 	default:
@@ -91,7 +91,7 @@ void CWsClient::RunL()
 	IssueRequest();
 }
 
-void CWsClient::IssueRequest()
+void CSymTtkWsEnv::IssueRequest()
 {
 	iWs.EventReady(&iStatus);
 	SetActive();

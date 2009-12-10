@@ -4,22 +4,22 @@
 #include <e32base.h> // CActive
 #include <w32std.h> // RWsSession
 
-class CWsRedrawer;
-class CWidget;
+class CSymTtkRedrawer;
+class TtkWidget;
 
-class CWsClient : public CActive
+class CSymTtkWsEnv : public CActive
 {
 public:
-	virtual ~CWsClient();
-	static CWsClient* NewL(const TRect& aRect);
-	static CWsClient* NewLC(const TRect& aRect);
+	virtual ~CSymTtkWsEnv();
+	static CSymTtkWsEnv* NewL(const TRect& aRect);
+	static CSymTtkWsEnv* NewLC(const TRect& aRect);
 public:
 	RWsSession& Ws();
 	const RWindowGroup& Group() const;
 	CWsScreenDevice& Screen() const;
 	CWindowGc& Gc() const;
 private:
-	CWsClient();
+	CSymTtkWsEnv();
 	void ConstructL(const TRect& aRect);
 private: /* from CActive */
 	void DoCancel();
@@ -31,8 +31,8 @@ private:
 	RWindowGroup iGroup;
 	CWsScreenDevice* iScreen;
 	CWindowGc* iGc;
-	const CWsRedrawer* iRedrawer;
-	CWidget* iRootWidget;
+	const CSymTtkRedrawer* iRedrawer;
+	TtkWidget* iRootWidget;
 };
 
 #endif // SYMTTK_WSENV_H

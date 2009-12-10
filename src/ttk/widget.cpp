@@ -3,75 +3,75 @@
 #include "symttk/window.h"
 #include "symttk/wsenv.h"
 
-CWidget::~CWidget()
+TtkWidget::~TtkWidget()
 {
 	if (iOwnWindow)
 		delete iWindow;
 }
 
-CWidget* CWidget::NewL(CWsClient& aWsEnv, const TRect& aRect, CWindow* aWindow)
+TtkWidget* TtkWidget::NewL(CSymTtkWsEnv& aWsEnv, const TRect& aRect, CSymTtkWindow* aWindow)
 {
-	CWidget* self = CWidget::NewLC(aWsEnv, aRect, aWindow);
+	TtkWidget* self = TtkWidget::NewLC(aWsEnv, aRect, aWindow);
 	CleanupStack::Pop(self);
 	return self;
 }
 
-CWidget* CWidget::NewLC(CWsClient& aWsEnv, const TRect& aRect, CWindow* aWindow)
+TtkWidget* TtkWidget::NewLC(CSymTtkWsEnv& aWsEnv, const TRect& aRect, CSymTtkWindow* aWindow)
 {
-	CWidget* self = new(ELeave) CWidget(aWsEnv, aRect);
+	TtkWidget* self = new(ELeave) TtkWidget(aWsEnv, aRect);
 	CleanupStack::PushL(self);
 	self->ConstructL(aWindow);
 	return self;
 }
 
-void CWidget::HandleKeyEventL(TKeyEvent& aKeyEvent)
+void TtkWidget::HandleKeyEventL(TKeyEvent& aKeyEvent)
 {
 	return;
 }
 
-void CWidget::HandlePointerEventL(TPointerEvent& aPointerEvent)
+void TtkWidget::HandlePointerEventL(TPointerEvent& aPointerEvent)
 {
 	return;
 }
 
-void CWidget::Draw(const TRect& aRect)
+void TtkWidget::Draw(const TRect& aRect)
 {
 	CWindowGc& gc = WsEnv().Gc();
 	gc.Clear(aRect);
 }
 
-CWsClient& CWidget::WsEnv()
+CSymTtkWsEnv& TtkWidget::WsEnv()
 {
 	return iWsEnv;
 }
 
-const TRect& CWidget::Rect() const
+const TRect& TtkWidget::Rect() const
 {
 	return iRect;
 }
 
-void CWidget::SetRect(const TRect& aRect)
+void TtkWidget::SetRect(const TRect& aRect)
 {
 	iRect = aRect;
 }
 
-CWidget::CWidget(CWsClient& aWsEnv, const TRect& aRect)
+TtkWidget::TtkWidget(CSymTtkWsEnv& aWsEnv, const TRect& aRect)
 		: iWsEnv(aWsEnv), iRect(aRect)
 {
 }
 
-void CWidget::ConstructL(CWindow* aWindow)
+void TtkWidget::ConstructL(CSymTtkWindow* aWindow)
 {
 	if (aWindow) {
 		iWindow = aWindow;
 		iOwnWindow = EFalse;
 	} else {
-		iWindow = CWindow::NewL(*this, KRgbWhite);
+		iWindow = CSymTtkWindow::NewL(*this, KRgbWhite);
 		iOwnWindow = ETrue;
 	}
 }
 
-CWindow& CWidget::Window() const
+CSymTtkWindow& TtkWidget::Window() const
 {
 	return *iWindow;
 }

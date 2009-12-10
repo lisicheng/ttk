@@ -4,33 +4,33 @@
 #include <e32base.h> // CBase
 #include <w32std.h> // TKeyEvent
 
-class CWsClient;
-class CWindow;
+class CSymTtkWsEnv;
+class CSymTtkWindow;
 
-class CWidget : public CBase
+class TtkWidget : public CBase
 {
 public:
-	virtual ~CWidget();
-	static CWidget* NewL(CWsClient& aWsClient, const TRect& aRect,
-			     CWindow* aWindow);
-	static CWidget* NewLC(CWsClient& aWsClient, const TRect& aRect,
-			      CWindow* aWindow);
+	virtual ~TtkWidget();
+	static TtkWidget* NewL(CSymTtkWsEnv& aWsClient, const TRect& aRect,
+			     CSymTtkWindow* aWindow);
+	static TtkWidget* NewLC(CSymTtkWsEnv& aWsClient, const TRect& aRect,
+			      CSymTtkWindow* aWindow);
 public:
 	virtual void HandleKeyEventL(TKeyEvent& aKeyEvent);
 	virtual void HandlePointerEventL(TPointerEvent& aPointerEvent);
 	virtual void Draw(const TRect& aRect);
-	CWsClient& WsEnv();
+	CSymTtkWsEnv& WsEnv();
 	const TRect& Rect() const;
 	void SetRect(const TRect& aRect);
 protected:
-	CWidget(CWsClient& aWsEnv, const TRect& aRect);
-	void ConstructL(CWindow* aWindow);
+	TtkWidget(CSymTtkWsEnv& aWsEnv, const TRect& aRect);
+	void ConstructL(CSymTtkWindow* aWindow);
 protected:
-	CWindow& Window() const;
+	CSymTtkWindow& Window() const;
 private:
-	CWsClient& iWsEnv;
+	CSymTtkWsEnv& iWsEnv;
 	TRect iRect;
-	CWindow* iWindow;
+	CSymTtkWindow* iWindow;
 	TBool iOwnWindow;
 };
 

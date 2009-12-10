@@ -12,7 +12,7 @@ CAppUi::~CAppUi()
 void CAppUi::ConstructL()
 {
 	BaseConstructL();
-	iWsEnv = CWsClient::NewL(ApplicationRect());
+	iWsEnv = CSymTtkWsEnv::NewL(ApplicationRect());
 }
 
 void CAppUi::HandleCommandL(TInt aCommand)

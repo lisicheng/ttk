@@ -4,47 +4,47 @@
 #include "symttk/wsenv.h"
 #include "ttk/widget.h"
 
-CWsRedrawer::~CWsRedrawer()
+CSymTtkRedrawer::~CSymTtkRedrawer()
 {
 	Cancel();
 }
 
-CWsRedrawer* CWsRedrawer::NewL(CWsClient& aWsEnv)
+CSymTtkRedrawer* CSymTtkRedrawer::NewL(CSymTtkWsEnv& aWsEnv)
 {
-	CWsRedrawer* self = CWsRedrawer::NewLC(aWsEnv);
+	CSymTtkRedrawer* self = CSymTtkRedrawer::NewLC(aWsEnv);
 	CleanupStack::Pop(self);
 	return self;
 }
 
-CWsRedrawer* CWsRedrawer::NewLC(CWsClient& aWsEnv)
+CSymTtkRedrawer* CSymTtkRedrawer::NewLC(CSymTtkWsEnv& aWsEnv)
 {
-	CWsRedrawer* self = new(ELeave) CWsRedrawer(aWsEnv);
+	CSymTtkRedrawer* self = new(ELeave) CSymTtkRedrawer(aWsEnv);
 	CleanupStack::PushL(self);
 	self->ConstructL();
 	return self;
 }
 
-CWsRedrawer::CWsRedrawer(CWsClient& aWsEnv)
+CSymTtkRedrawer::CSymTtkRedrawer(CSymTtkWsEnv& aWsEnv)
 		: CActive(CActive::EPriorityLow), iWsEnv(aWsEnv)
 {
 }
 
-void CWsRedrawer::ConstructL()
+void CSymTtkRedrawer::ConstructL()
 {
 	CActiveScheduler::Add(this);
 	IssueRequest();
 }
 
-void CWsRedrawer::DoCancel()
+void CSymTtkRedrawer::DoCancel()
 {
 	iWsEnv.Ws().RedrawReadyCancel();
 }
 
-void CWsRedrawer::RunL()
+void CSymTtkRedrawer::RunL()
 {	
 	TWsRedrawEvent event;
 	iWsEnv.Ws().GetRedraw(event);
-	CWindow* window = reinterpret_cast<CWindow*>(event.Handle());
+	CSymTtkWindow* window = reinterpret_cast<CSymTtkWindow*>(event.Handle());
 	if (window) {
 		iWsEnv.Gc().Activate(window->Window());
 		window->Window().BeginRedraw();
@@ -55,7 +55,7 @@ void CWsRedrawer::RunL()
 	IssueRequest();
 }
 
-void CWsRedrawer::IssueRequest()
+void CSymTtkRedrawer::IssueRequest()
 {
 	iWsEnv.Ws().RedrawReady(&iStatus);
 	SetActive();

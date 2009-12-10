@@ -3,8 +3,8 @@
 
 #include <eikappui.h> // CEikAppUi
 
-class CWsClient;
-class CWidget;
+class CSymTtkWsEnv;
+class TtkWidget;
 
 class CAppUi : public CEikAppUi
 {
@@ -15,8 +15,8 @@ private:
 private: /* from CEikAppUi */
 	void HandleCommandL(TInt aCommand);
 private:
-	CWsClient* iWsEnv;
-	CWidget* iRoot;
+	CSymTtkWsEnv* iWsEnv;
+	TtkWidget* iRoot;
 };
 
 #endif // APPUI_H

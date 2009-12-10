@@ -1,20 +1,20 @@
 #ifndef MAINWIDGET_H
 #define MAINWIDGET_H
 
-#include "ttk/widget.h" // CWidget
+#include "ttk/widget.h" // TtkWidget
 
 class CNumberedWidget;
 
-class CMainWidget : public CWidget
+class CMainWidget : public TtkWidget
 {
 public:
 	virtual ~CMainWidget();
-	static CMainWidget* NewL(CWsClient& aWsEnv, const TRect& aRect);
-	static CMainWidget* NewLC(CWsClient& aWsEnv, const TRect& aRect);
+	static CMainWidget* NewL(CSymTtkWsEnv& aWsEnv, const TRect& aRect);
+	static CMainWidget* NewLC(CSymTtkWsEnv& aWsEnv, const TRect& aRect);
 private:
-	CMainWidget(CWsClient& aWsEnv, const TRect& aRect);
+	CMainWidget(CSymTtkWsEnv& aWsEnv, const TRect& aRect);
 	void ConstructL();
-private: /* from CWidget */
+private: /* from TtkWidget */
 	void HandleKeyEventL(TKeyEvent& aKeyEvent);
 	void Draw(const TRect& aRect);
 private:

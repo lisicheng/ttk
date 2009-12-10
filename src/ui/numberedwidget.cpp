@@ -13,8 +13,8 @@ CNumberedWidget::~CNumberedWidget()
 {
 }
 
-CNumberedWidget* CNumberedWidget::NewL(CWsClient& aWsEnv, const TRect& aRect,
-				       TInt aNum, CWindow* aParent)
+CNumberedWidget* CNumberedWidget::NewL(CSymTtkWsEnv& aWsEnv, const TRect& aRect,
+				       TInt aNum, CSymTtkWindow* aParent)
 {
 	CNumberedWidget* self = CNumberedWidget::NewLC(aWsEnv, aRect, aNum,
 						       aParent);
@@ -22,8 +22,8 @@ CNumberedWidget* CNumberedWidget::NewL(CWsClient& aWsEnv, const TRect& aRect,
 	return self;
 }
 
-CNumberedWidget* CNumberedWidget::NewLC(CWsClient& aWsEnv, const TRect& aRect,
-					TInt aNum, CWindow* aParent)
+CNumberedWidget* CNumberedWidget::NewLC(CSymTtkWsEnv& aWsEnv, const TRect& aRect,
+					TInt aNum, CSymTtkWindow* aParent)
 {
 	CNumberedWidget* self = new(ELeave) CNumberedWidget(aWsEnv, aRect,
 							    aNum);
@@ -77,8 +77,8 @@ void CNumberedWidget::Draw(const TRect& aRect)
 	LOG("num:draw:8");
 }
 
-CNumberedWidget::CNumberedWidget(CWsClient& aWsEnv, const TRect& aRect,
+CNumberedWidget::CNumberedWidget(CSymTtkWsEnv& aWsEnv, const TRect& aRect,
 				 TInt aNum)
-		: CWidget(aWsEnv, aRect), iNum(aNum)
+		: TtkWidget(aWsEnv, aRect), iNum(aNum)
 {
 }

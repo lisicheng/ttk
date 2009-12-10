@@ -9,14 +9,14 @@ CMainWidget::~CMainWidget()
 	delete iComponent;
 }
 
-CMainWidget* CMainWidget::NewL(CWsClient& aWsEnv, const TRect& aRect)
+CMainWidget* CMainWidget::NewL(CSymTtkWsEnv& aWsEnv, const TRect& aRect)
 {
 	CMainWidget* self = CMainWidget::NewLC(aWsEnv, aRect);
 	CleanupStack::Pop(self);
 	return self;
 }
 
-CMainWidget* CMainWidget::NewLC(CWsClient& aWsEnv, const TRect& aRect)
+CMainWidget* CMainWidget::NewLC(CSymTtkWsEnv& aWsEnv, const TRect& aRect)
 {
 	CMainWidget* self = new(ELeave) CMainWidget(aWsEnv, aRect);
 	self->ConstructL();
@@ -24,14 +24,14 @@ CMainWidget* CMainWidget::NewLC(CWsClient& aWsEnv, const TRect& aRect)
 	return self;
 }
 
-CMainWidget::CMainWidget(CWsClient& aWsEnv, const TRect& aRect)
-		: CWidget(aWsEnv, aRect)
+CMainWidget::CMainWidget(CSymTtkWsEnv& aWsEnv, const TRect& aRect)
+		: TtkWidget(aWsEnv, aRect)
 {
 }
 
 void CMainWidget::ConstructL()
 {
-	CWidget::ConstructL(NULL);
+	TtkWidget::ConstructL(NULL);
 	TRect rect(Rect());
 	rect.Resize(-100, -100);
 	rect.Move(50, 50);
@@ -65,6 +65,6 @@ void CMainWidget::HandleKeyEventL(TKeyEvent& aKeyEvent)
 void CMainWidget::Draw(const TRect& aRect)
 {
 	LOG("draw");
-	CWidget::Draw(aRect);
+	TtkWidget::Draw(aRect);
 	iComponent->Draw(aRect);
 }

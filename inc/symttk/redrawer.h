@@ -3,16 +3,16 @@
 
 #include <e32base.h> // CActive
 
-class CWsClient;
+class CSymTtkWsEnv;
 
-class CWsRedrawer : public CActive
+class CSymTtkRedrawer : public CActive
 {
 public:
-	~CWsRedrawer();
-	static CWsRedrawer* NewL(CWsClient& aWsEnv);
-	static CWsRedrawer* NewLC(CWsClient& aWsEnv);
+	~CSymTtkRedrawer();
+	static CSymTtkRedrawer* NewL(CSymTtkWsEnv& aWsEnv);
+	static CSymTtkRedrawer* NewLC(CSymTtkWsEnv& aWsEnv);
 private:
-	CWsRedrawer(CWsClient& aWsEnv);
+	CSymTtkRedrawer(CSymTtkWsEnv& aWsEnv);
 	void ConstructL();
 private: /* from CActive */
 	void DoCancel();
@@ -20,7 +20,7 @@ private: /* from CActive */
 private:
 	void IssueRequest();
 private:
-	CWsClient& iWsEnv;
+	CSymTtkWsEnv& iWsEnv;
 };
 
 #endif // SYMTTK_REDRAWER_H

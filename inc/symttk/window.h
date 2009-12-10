@@ -5,23 +5,22 @@
 #include <gdi.h> // TRgb
 #include <w32std.h> // RWindow
 
-class CWsClient;
-class CWidget;
+class TtkWidget;
 
-class CWindow : public CBase
+class CSymTtkWindow : public CBase
 {
 public:
-	virtual ~CWindow();
-	static CWindow* NewL(CWidget& aWidget, const TRgb& aColor);
-	static CWindow* NewLC(CWidget& aWidget, const TRgb& aColor);
+	virtual ~CSymTtkWindow();
+	static CSymTtkWindow* NewL(TtkWidget& aWidget, const TRgb& aColor);
+	static CSymTtkWindow* NewLC(TtkWidget& aWidget, const TRgb& aColor);
 public:
-	CWidget& Widget();
+	TtkWidget& Widget();
 	RWindow& Window();
 protected:
-	CWindow(CWidget& aWidget);
+	CSymTtkWindow(TtkWidget& aWidget);
 	void ConstructL(const TRgb& aColor);
 private:
-	CWidget& iWidget;
+	TtkWidget& iWidget;
 	RWindow iWindow;
 };
 

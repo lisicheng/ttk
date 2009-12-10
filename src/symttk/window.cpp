@@ -3,41 +3,41 @@
 #include "symttk/wsenv.h"
 #include "ttk/widget.h"
 
-CWindow::~CWindow()
+CSymTtkWindow::~CSymTtkWindow()
 {
 	iWindow.Close();
 }
 
-CWindow* CWindow::NewL(CWidget& aWidget, const TRgb& aColor)
+CSymTtkWindow* CSymTtkWindow::NewL(TtkWidget& aWidget, const TRgb& aColor)
 {
-	CWindow* self = CWindow::NewLC(aWidget, aColor);
+	CSymTtkWindow* self = CSymTtkWindow::NewLC(aWidget, aColor);
 	CleanupStack::Pop(self);
 	return self;
 }
 
-CWindow* CWindow::NewLC(CWidget& aWidget, const TRgb& aColor)
+CSymTtkWindow* CSymTtkWindow::NewLC(TtkWidget& aWidget, const TRgb& aColor)
 {
-	CWindow* self = new(ELeave) CWindow(aWidget);
+	CSymTtkWindow* self = new(ELeave) CSymTtkWindow(aWidget);
 	self->ConstructL(aColor);
 	CleanupStack::PushL(self);
 	return self;
 }
 
-CWidget& CWindow::Widget()
+TtkWidget& CSymTtkWindow::Widget()
 {
 	return iWidget;
 }
 
-RWindow& CWindow::Window()
+RWindow& CSymTtkWindow::Window()
 {
 	return iWindow;
 }
 
-CWindow::CWindow(CWidget& aWidget) : iWidget(aWidget)
+CSymTtkWindow::CSymTtkWindow(TtkWidget& aWidget) : iWidget(aWidget)
 {
 }
 
-void CWindow::ConstructL(const TRgb& aColor)
+void CSymTtkWindow::ConstructL(const TRgb& aColor)
 {
 	iWindow = RWindow(iWidget.WsEnv().Ws());
 	User::LeaveIfError(iWindow.Construct(iWidget.WsEnv().Group(),
