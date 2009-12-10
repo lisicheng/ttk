@@ -26,12 +26,10 @@ TtkWidget* TtkWidget::NewLC(CSymTtkWsEnv& ws_env, const TRect& rect, CSymTtkWind
 
 void TtkWidget::handle_key_event(TKeyEvent& key_event)
 {
-	return;
 }
 
 void TtkWidget::handle_pointer_event(TPointerEvent& pointer_event)
 {
-	return;
 }
 
 void TtkWidget::handle_redraw_event(const TRect& rect)
