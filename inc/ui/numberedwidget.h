@@ -9,13 +9,10 @@ class NumberedWidget : public TtkWidget
 {
 public:
 	virtual ~NumberedWidget();
-	static NumberedWidget* NewL(TtkWsEnvInterface& ws_env,
-				     const TtkRect& rect, int num,
-				     TtkWindowInterface* window);
+	NumberedWidget(TtkWsEnvInterface& ws_env, const TtkRect& rect,
+		       int num, TtkWindowInterface* window);
 public: /* from TtkWidget */
 	void handle_redraw_event(const TtkRect& pect);
-private:
-	NumberedWidget(TtkWsEnvInterface& ws_env, const TtkRect& rect, int num, TtkWindowInterface* window);
 private:
 	int num_;
 };

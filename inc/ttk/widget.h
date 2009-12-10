@@ -12,8 +12,8 @@ class TtkWidget
 {
 public:
 	virtual ~TtkWidget();
-	static TtkWidget* NewL(TtkWsEnvInterface& ws_env, const TtkRect& rect,
-			     TtkWindowInterface* window);
+	TtkWidget(TtkWsEnvInterface& ws_env, const TtkRect& rect,
+		  TtkWindowInterface* window);
 public:
 	virtual void handle_key_event(TtkKeyEvent& key_event);
 	virtual void handle_pointer_event(TtkPointerEvent& pointer_event);
@@ -22,8 +22,6 @@ public:
 	TtkWsEnvInterface& ws_env();
 	const TtkRect& rect() const;
 	void set_rect(const TtkRect& rect);
-protected:
-	TtkWidget(TtkWsEnvInterface& ws_env, const TtkRect& rect, TtkWindowInterface* window);
 protected:
 	TtkWindowInterface& window() const;
 private:

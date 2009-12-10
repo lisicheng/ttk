@@ -8,7 +8,7 @@ class CSymTtkWsEnv;
 class CSymTtkRedrawer : public CActive
 {
 public:
-	~CSymTtkRedrawer();
+	virtual ~CSymTtkRedrawer();
 	static CSymTtkRedrawer* NewL(CSymTtkWsEnv& aWsEnv);
 	static CSymTtkRedrawer* NewLC(CSymTtkWsEnv& aWsEnv);
 private:

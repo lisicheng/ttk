@@ -1,19 +1,13 @@
 #include "ui/mainwidget.h"
 
-#include "common.h"
-#include "ui/numberedwidget.h"
-#include "symttk/window.h"
+#include "ttk/common.h"
 #include "ttk/common/pointerevent.h"
+#include "ttk/windowinterface.h"
+#include "ui/numberedwidget.h"
 
 MainWidget::~MainWidget()
 {
 	delete component_;
-}
-
-MainWidget* MainWidget::NewL(TtkWsEnvInterface& ws_env, const TtkRect& rect)
-{
-	MainWidget* self = new MainWidget(ws_env, rect);
-	return self;
 }
 
 MainWidget::MainWidget(TtkWsEnvInterface& ws_env, const TtkRect& rect)
@@ -22,7 +16,7 @@ MainWidget::MainWidget(TtkWsEnvInterface& ws_env, const TtkRect& rect)
 	TtkRect rect(rect);
 	rect.resize(-100, -100);
 	rect.move(50, 50);
-	component_ = NumberedWidget::NewL(ws_env, rect, 3, &window());
+	component_ = new NumberedWidget(ws_env, rect, 3, &window());
 }
 
 void MainWidget::handle_key_event(TtkKeyEvent& key_event)

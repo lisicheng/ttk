@@ -80,7 +80,7 @@ void CSymTtkWsEnv::ConstructL(const TRect& aRect)
 	iRedrawer = CSymTtkRedrawer::NewL(*this);
 	TtkRect rect(aRect.iTl.iX, aRect.iTl.iY,
 		     aRect.iBr.iX, aRect.iBr.iY);
-	iRootWidget = MainWidget::NewL(*this, rect);
+	iRootWidget = new MainWidget(*this, rect);
 	IssueRequest();
 }
 

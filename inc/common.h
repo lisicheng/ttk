@@ -23,6 +23,4 @@ const TUid KApplicationUid = { 0x100098e6 };
 	logger.Close();							\
 } while(0);
 
-#define NULL 0
-
 #endif // COMMON_H

@@ -1,9 +1,9 @@
 #include "ttk/widget.h"
 
-#include "common.h"
-#include "symttk/window.h"
-#include "symttk/wsenv.h"
-#include "symttk/gc.h"
+#include "ttk/common.h"
+#include "ttk/gcinterface.h"
+#include "ttk/windowinterface.h"
+#include "ttk/wsenvinterface.h"
 
 TtkWidget::~TtkWidget()
 {
@@ -11,12 +11,19 @@ TtkWidget::~TtkWidget()
 		delete window_;
 }
 
-TtkWidget* TtkWidget::NewL(TtkWsEnvInterface& ws_env, const TtkRect& rect, TtkWindowInterface* window)
+TtkWidget::TtkWidget(TtkWsEnvInterface& ws_env, const TtkRect& rect,
+		     TtkWindowInterface* window)
+		: ws_env_(ws_env), rect_(rect), window_(NULL),
+		  own_window_(false)
 {
-	TtkWidget* self = new TtkWidget(ws_env, rect, window);
-	return self;
+	if (window) {
+		window_ = window;
+		own_window_ = false;
+	} else {
+		window_ = ws_env_.new_window(*this, kTtkColorWhite);
+		own_window_ = true;
+	}
 }
-
 
 void TtkWidget::handle_key_event(TtkKeyEvent& key_event)
 {
@@ -45,19 +52,6 @@ const TtkRect& TtkWidget::rect() const
 void TtkWidget::set_rect(const TtkRect& rect)
 {
 	rect_ = rect;
-}
-
-TtkWidget::TtkWidget(TtkWsEnvInterface& ws_env, const TtkRect& rect, TtkWindowInterface* window)
-		: ws_env_(ws_env), rect_(rect), window_(NULL),
-		  own_window_(false)
-{
-	if (window) {
-		window_ = window;
-		own_window_ = false;
-	} else {
-		window_ = ws_env_.new_window(*this, kTtkColorWhite);
-		own_window_ = true;
-	}
 }
 
 TtkWindowInterface& TtkWidget::window() const
