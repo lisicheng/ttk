@@ -12,18 +12,13 @@ TtkWidget::~TtkWidget()
 
 TtkWidget* TtkWidget::NewL(TtkWsEnvInterface& ws_env, const TtkRect& rect, TtkWindowInterface* window)
 {
-	TtkWidget* self = TtkWidget::NewLC(ws_env, rect, window);
+	TtkWidget* self = new(ELeave) TtkWidget(ws_env, rect);
+	CleanupStack::PushL(self);
+	self->ConstructL(window);
 	CleanupStack::Pop(self);
 	return self;
 }
 
-TtkWidget* TtkWidget::NewLC(TtkWsEnvInterface& ws_env, const TtkRect& rect, TtkWindowInterface* window)
-{
-	TtkWidget* self = new(ELeave) TtkWidget(ws_env, rect);
-	CleanupStack::PushL(self);
-	self->ConstructL(window);
-	return self;
-}
 
 void TtkWidget::handle_key_event(TtkKeyEvent& key_event)
 {

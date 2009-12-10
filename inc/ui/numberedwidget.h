@@ -12,9 +12,6 @@ public:
 	static NumberedWidget* NewL(TtkWsEnvInterface& ws_env,
 				     const TtkRect& rect, int num,
 				     TtkWindowInterface* window);
-	static NumberedWidget* NewLC(TtkWsEnvInterface& ws_env,
-				      const TtkRect& rect, int num,
-				      TtkWindowInterface* parent);
 public: /* from TtkWidget */
 	void handle_redraw_event(const TtkRect& pect);
 private:

@@ -10,7 +10,6 @@ class MainWidget : public TtkWidget
 public:
 	virtual ~MainWidget();
 	static MainWidget* NewL(TtkWsEnvInterface& ws_env, const TtkRect& rect);
-	static MainWidget* NewLC(TtkWsEnvInterface& ws_env, const TtkRect& rect);
 private:
 	MainWidget(TtkWsEnvInterface& ws_env, const TtkRect& rect);
 	void ConstructL();

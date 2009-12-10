@@ -20,19 +20,11 @@ NumberedWidget::~NumberedWidget()
 NumberedWidget* NumberedWidget::NewL(TtkWsEnvInterface& ws_env, const TtkRect& rect,
 				       int num, TtkWindowInterface* window)
 {
-	NumberedWidget* self = NumberedWidget::NewLC(ws_env, rect, num,
-						       window);
-	CleanupStack::Pop(self);
-	return self;
-}
-
-NumberedWidget* NumberedWidget::NewLC(TtkWsEnvInterface& ws_env, const TtkRect& rect,
-					int num, TtkWindowInterface* window)
-{
 	NumberedWidget* self = new(ELeave) NumberedWidget(ws_env, rect,
 							    num);
 	CleanupStack::PushL(self);
 	self->ConstructL(window);
+	CleanupStack::Pop(self);
 	return self;
 }
 
