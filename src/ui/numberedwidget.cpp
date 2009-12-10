@@ -20,8 +20,7 @@ NumberedWidget::~NumberedWidget()
 NumberedWidget* NumberedWidget::NewL(TtkWsEnvInterface& ws_env, const TtkRect& rect,
 				       int num, TtkWindowInterface* window)
 {
-	NumberedWidget* self = new NumberedWidget(ws_env, rect, num);
-	self->ConstructL(window);
+	NumberedWidget* self = new NumberedWidget(ws_env, rect, num, window);
 	return self;
 }
 
@@ -39,7 +38,7 @@ void NumberedWidget::handle_redraw_event(const TtkRect& rect)
 }
 
 NumberedWidget::NumberedWidget(TtkWsEnvInterface& ws_env, const TtkRect& rect,
-				 int num)
-		: TtkWidget(ws_env, rect), num_(num)
+				 int num, TtkWindowInterface* window)
+		: TtkWidget(ws_env, rect, window), num_(num)
 {
 }

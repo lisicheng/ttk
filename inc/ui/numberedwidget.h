@@ -15,7 +15,7 @@ public:
 public: /* from TtkWidget */
 	void handle_redraw_event(const TtkRect& pect);
 private:
-	NumberedWidget(TtkWsEnvInterface& ws_env, const TtkRect& rect, int num);
+	NumberedWidget(TtkWsEnvInterface& ws_env, const TtkRect& rect, int num, TtkWindowInterface* window);
 private:
 	int num_;
 };

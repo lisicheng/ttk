@@ -13,8 +13,7 @@ TtkWidget::~TtkWidget()
 
 TtkWidget* TtkWidget::NewL(TtkWsEnvInterface& ws_env, const TtkRect& rect, TtkWindowInterface* window)
 {
-	TtkWidget* self = new TtkWidget(ws_env, rect);
-	self->ConstructL(window);
+	TtkWidget* self = new TtkWidget(ws_env, rect, window);
 	return self;
 }
 
@@ -48,13 +47,9 @@ void TtkWidget::set_rect(const TtkRect& rect)
 	rect_ = rect;
 }
 
-TtkWidget::TtkWidget(TtkWsEnvInterface& ws_env, const TtkRect& rect)
+TtkWidget::TtkWidget(TtkWsEnvInterface& ws_env, const TtkRect& rect, TtkWindowInterface* window)
 		: ws_env_(ws_env), rect_(rect), window_(NULL),
 		  own_window_(false)
-{
-}
-
-void TtkWidget::ConstructL(TtkWindowInterface* window)
 {
 	if (window) {
 		window_ = window;

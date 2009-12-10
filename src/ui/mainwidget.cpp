@@ -13,22 +13,16 @@ MainWidget::~MainWidget()
 MainWidget* MainWidget::NewL(TtkWsEnvInterface& ws_env, const TtkRect& rect)
 {
 	MainWidget* self = new MainWidget(ws_env, rect);
-	self->ConstructL();
 	return self;
 }
 
 MainWidget::MainWidget(TtkWsEnvInterface& ws_env, const TtkRect& rect)
-		: TtkWidget(ws_env, rect)
+		: TtkWidget(ws_env, rect, NULL)
 {
-}
-
-void MainWidget::ConstructL()
-{
-	TtkWidget::ConstructL(NULL);
-	TtkRect rect(rect());
+	TtkRect rect(rect);
 	rect.resize(-100, -100);
 	rect.move(50, 50);
-	component_ = NumberedWidget::NewL(ws_env(), rect, 3, &window());
+	component_ = NumberedWidget::NewL(ws_env, rect, 3, &window());
 }
 
 void MainWidget::handle_key_event(TtkKeyEvent& key_event)

@@ -23,8 +23,7 @@ public:
 	const TtkRect& rect() const;
 	void set_rect(const TtkRect& rect);
 protected:
-	TtkWidget(TtkWsEnvInterface& ws_env, const TtkRect& rect);
-	void ConstructL(TtkWindowInterface* window);
+	TtkWidget(TtkWsEnvInterface& ws_env, const TtkRect& rect, TtkWindowInterface* window);
 protected:
 	TtkWindowInterface& window() const;
 private:
