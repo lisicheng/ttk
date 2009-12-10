@@ -1,0 +1,12 @@
+&ZH
+
+#{"TTK"}, (0x100098e6), 1, 0, 0
+
+(0x101f7960), 0, 0, 0, {"Series60ProductID"}
+
+"dist/ttk.rsc"
+-"!:\system\apps\ttk\ttk.rsc"
+
+"dist/ttk.app"
+-"!:\system\apps\ttk\ttk.app"
+

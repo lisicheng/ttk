@@ -1,4 +1,4 @@
-PROJECT = scroll
+PROJECT = ttk
 TARGETTYPE = app
 UID2 = 100039ce
 UID3 = 100098e6
