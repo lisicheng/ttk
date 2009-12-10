@@ -1,5 +1,6 @@
 #include "ttk/widget.h"
 
+#include "common.h"
 #include "symttk/window.h"
 #include "symttk/wsenv.h"
 #include "symttk/gc.h"
@@ -60,7 +61,7 @@ void TtkWidget::ConstructL(TtkWindowInterface* window)
 		window_ = window;
 		own_window_ = false;
 	} else {
-		window_ = CSymTtkWindow::NewL(*this, KRgbWhite);
+		window_ = ws_env_.new_window(*this, kTtkColorWhite);
 		own_window_ = true;
 	}
 }

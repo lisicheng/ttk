@@ -45,10 +45,7 @@ void CSymTtkGc::set_clipping_rect(const TtkRect& rect)
 
 void CSymTtkGc::set_pen_color(TtkColor color)
 {
-	const TRgb sym_color(color & kTtkColorRawRed,
-			     color & kTtkColorRawGreen,
-			     color & kTtkColorRawBlue,
-			     color & kTtkColorRawAlpha);
+	const TRgb sym_color(color);
 	iGc->SetPenColor(sym_color);
 }
 
