@@ -1,7 +1,9 @@
 #include "ui/numberedwidget.h"
 
-#include "symttk/wsenv.h"
 #include "common.h"
+#include "symttk/gc.h"
+#include "symttk/wsenv.h"
+#include "ttk/common/color.h"
 
 /*
 _LIT(KString0, "0");
@@ -40,15 +42,11 @@ NumberedWidget* NumberedWidget::NewLC(CSymTtkWsEnv& ws_env, const TtkRect& rect,
  */
 void NumberedWidget::handle_redraw_event(const TtkRect& rect)
 {
-	CWindowGc& gc = ws_env().Gc();
-	TRect sym_rect(rect.tl_.x_, rect.tl_.y_,
-		       rect.br_.x_, rect.br_.y_);
-	gc.SetClippingRect(sym_rect);
-	gc.Clear(sym_rect);
- 	gc.SetPenColor(KRgbBlack);
-	TPoint tl(this->rect().tl_.x_, this->rect().tl_.y_);
-	TPoint br(this->rect().br_.x_, this->rect().br_.y_);
-	gc.DrawLine(tl, br);
+	TtkGcInterface& gc = ws_env().Gc();
+	gc.set_clipping_rect(rect);
+	gc.clear(rect);
+ 	gc.set_pen_color(kTtkColorBlack);
+	gc.draw_line(this->rect().tl_, this->rect().br_);
 }
 
 NumberedWidget::NumberedWidget(CSymTtkWsEnv& ws_env, const TtkRect& rect,

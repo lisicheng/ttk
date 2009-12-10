@@ -2,6 +2,7 @@
 
 #include "symttk/window.h"
 #include "symttk/wsenv.h"
+#include "symttk/gc.h"
 #include "ttk/widget.h"
 
 CSymTtkRedrawer::~CSymTtkRedrawer()
@@ -46,14 +47,14 @@ void CSymTtkRedrawer::RunL()
 	iWsEnv.Ws().GetRedraw(event);
 	CSymTtkWindow* window = reinterpret_cast<CSymTtkWindow*>(event.Handle());
 	if (window) {
-		iWsEnv.Gc().Activate(window->Window());
+		iWsEnv.Gc().Gc().Activate(window->Window());
 		window->Window().BeginRedraw();
 		const TRect& sym_rect = event.Rect();
 		TtkRect rect(sym_rect.iTl.iX, sym_rect.iTl.iY,
 			     sym_rect.iBr.iX, sym_rect.iBr.iY);
 		window->Widget().handle_redraw_event(rect);
 		window->Window().EndRedraw();
-		iWsEnv.Gc().Deactivate();
+		iWsEnv.Gc().Gc().Deactivate();
 	}
 	IssueRequest();
 }

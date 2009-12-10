@@ -2,6 +2,7 @@
 
 #include "symttk/window.h"
 #include "symttk/wsenv.h"
+#include "symttk/gc.h"
 
 TtkWidget::~TtkWidget()
 {
@@ -34,10 +35,8 @@ void TtkWidget::handle_pointer_event(TtkPointerEvent& pointer_event)
 
 void TtkWidget::handle_redraw_event(const TtkRect& rect)
 {
-	CWindowGc& gc = ws_env().Gc();
-	const TRect sym_rect(rect.tl_.x_, rect.tl_.y_,
-			     rect.br_.x_, rect.br_.y_);
-	gc.Clear(sym_rect);
+	TtkGcInterface& gc = ws_env().Gc();
+	gc.clear(rect);
 }
 
 CSymTtkWsEnv& TtkWidget::ws_env()

@@ -2,6 +2,7 @@
 
 #include "symttk/redrawer.h"
 #include "symttk/window.h"
+#include "symttk/gc.h"
 #include "ui/mainwidget.h"
 #include "ttk/common/pointerevent.h"
 
@@ -45,7 +46,7 @@ CWsScreenDevice& CSymTtkWsEnv::Screen() const
 	return *iScreen;
 }
 
-CWindowGc& CSymTtkWsEnv::Gc() const
+CSymTtkGc& CSymTtkWsEnv::Gc() const
 {
 	return *iGc;
 }
@@ -63,7 +64,7 @@ void CSymTtkWsEnv::ConstructL(const TRect& aRect)
 	User::LeaveIfError(iGroup.Construct(dummy, ETrue));
 	iScreen = new(ELeave) CWsScreenDevice(iWs);
 	User::LeaveIfError(iScreen->Construct());
-	User::LeaveIfError(iScreen->CreateContext(iGc));
+	iGc = CSymTtkGc::NewL(*iScreen);
 	iRedrawer = CSymTtkRedrawer::NewL(*this);
 	TtkRect rect(aRect.iTl.iX, aRect.iTl.iY,
 		     aRect.iBr.iX, aRect.iBr.iY);

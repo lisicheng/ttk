@@ -4,6 +4,7 @@
 #include <e32base.h> // CActive
 #include <w32std.h> // RWsSession
 
+class CSymTtkGc;
 class CSymTtkRedrawer;
 class TtkWidget;
 
@@ -17,7 +18,7 @@ public:
 	RWsSession& Ws();
 	const RWindowGroup& Group() const;
 	CWsScreenDevice& Screen() const;
-	CWindowGc& Gc() const;
+	CSymTtkGc& Gc() const;
 private:
 	CSymTtkWsEnv();
 	void ConstructL(const TRect& aRect);
@@ -30,7 +31,7 @@ private:
 	RWsSession iWs;
 	RWindowGroup iGroup;
 	CWsScreenDevice* iScreen;
-	CWindowGc* iGc;
+	CSymTtkGc* iGc;
 	const CSymTtkRedrawer* iRedrawer;
 	TtkWidget* iRootWidget;
 };
