@@ -11,6 +11,7 @@ SRCFILES = \
 	framework/appui.cpp \
 	framework/document.cpp \
 	framework/main.cpp \
+	symttk/gc.cpp \
 	symttk/redrawer.cpp \
 	symttk/window.cpp \
 	symttk/wsenv.cpp \
