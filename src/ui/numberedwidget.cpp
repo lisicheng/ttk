@@ -41,26 +41,8 @@ void NumberedWidget::handle_redraw_event(const TRect& rect)
 	CWindowGc& gc = ws_env().Gc();
 	gc.SetClippingRect(rect);
 	gc.Clear(rect);
-
-	_LIT(KFontName, "Swiss");
-	const int KFontHeight = 200;
-	TFontSpec fontSpec(KFontName, KFontHeight);
-	CFont* font;
-	User::LeaveIfError(ws_env().Screen().GetNearestFontInTwips(font,
-								  fontSpec));
-	int ascent = font->AscentInPixels();
-	int descent = font->DescentInPixels();
-	// vertical text offset
-	int offset = (this->rect().Size().iHeight + ascent - descent) / 2;
-
-	const TBufC<1> strings[5] = {*&KString0, *&KString1, *&KString2, *&KString3, *&KString4};
  	gc.SetPenColor(KRgbBlack);
-	gc.UseFont(font);
-	gc.DrawText(strings[num_], this->rect(), offset, CGraphicsContext::ECenter);
 	gc.DrawLine(this->rect().iTl, this->rect().iBr);
-	gc.DiscardFont();
-
-	ws_env().Screen().ReleaseFont(font);
 }
 
 NumberedWidget::NumberedWidget(CSymTtkWsEnv& ws_env, const TRect& rect,
