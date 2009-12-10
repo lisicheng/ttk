@@ -24,11 +24,11 @@ TtkWidget* TtkWidget::NewLC(CSymTtkWsEnv& ws_env, const TtkRect& rect, CSymTtkWi
 	return self;
 }
 
-void TtkWidget::handle_key_event(TKeyEvent& key_event)
+void TtkWidget::handle_key_event(TtkKeyEvent& key_event)
 {
 }
 
-void TtkWidget::handle_pointer_event(TPointerEvent& pointer_event)
+void TtkWidget::handle_pointer_event(TtkPointerEvent& pointer_event)
 {
 }
 

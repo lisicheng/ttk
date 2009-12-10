@@ -3,6 +3,7 @@
 #include "common.h"
 #include "ui/numberedwidget.h"
 #include "symttk/window.h"
+#include "ttk/common/pointerevent.h"
 
 MainWidget::~MainWidget()
 {
@@ -38,12 +39,12 @@ void MainWidget::ConstructL()
 	component_ = NumberedWidget::NewL(ws_env(), rect, 3, &window());
 }
 
-void MainWidget::handle_key_event(TKeyEvent& key_event)
+void MainWidget::handle_key_event(TtkKeyEvent& key_event)
 {
 	TtkRect rect(component_->rect());
 	TRect sym_rect;
-	switch (key_event.iCode) {
-	case EKeyUpArrow:
+	switch (key_event) {
+	case kTtkKeyUp:
 		rect.move(0, -10);
 		component_->set_rect(rect);
 		rect.resize(0, 10);
@@ -51,7 +52,7 @@ void MainWidget::handle_key_event(TKeyEvent& key_event)
 				 rect.br_.x_, rect.br_.y_);
 		window().Window().Invalidate(sym_rect);
 		break;
-	case EKeyDownArrow:
+	case kTtkKeyDown:
 		rect.move(0, 10);
 		component_->set_rect(rect);
 		rect.move(0, -10);

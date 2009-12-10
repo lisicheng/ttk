@@ -4,9 +4,11 @@
 #include <e32base.h> // CBase
 #include <w32std.h> // TKeyEvent
 #include "ttk/common/rect.h" // TtkRect
+#include "ttk/common/keyevent.h" // TtkKeyEvent
 
 class CSymTtkWsEnv;
 class CSymTtkWindow;
+class TtkPointerEvent;
 
 class TtkWidget : public CBase
 {
@@ -17,8 +19,8 @@ public:
 	static TtkWidget* NewLC(CSymTtkWsEnv& ws_client, const TtkRect& rect,
 			      CSymTtkWindow* window);
 public:
-	virtual void handle_key_event(TKeyEvent& key_event);
-	virtual void handle_pointer_event(TPointerEvent& pointer_event);
+	virtual void handle_key_event(TtkKeyEvent& key_event);
+	virtual void handle_pointer_event(TtkPointerEvent& pointer_event);
 	virtual void handle_redraw_event(const TtkRect& rect);
 public:
 	CSymTtkWsEnv& ws_env();

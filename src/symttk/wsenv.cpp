@@ -3,6 +3,7 @@
 #include "symttk/redrawer.h"
 #include "symttk/window.h"
 #include "ui/mainwidget.h"
+#include "ttk/common/pointerevent.h"
 
 CSymTtkWsEnv::~CSymTtkWsEnv()
 {
@@ -79,13 +80,24 @@ void CSymTtkWsEnv::RunL()
 {
 	TWsEvent event;
 	Ws().GetEvent(event);
+	TtkKeyEvent key_event;
+	TtkPointerEvent pointer_event;
 	switch (event.Type()) {
 	case EEventKey:
-		iRootWidget->handle_key_event(*event.Key());
+		switch (event.Key()->iCode) {
+		case EKeyUpArrow:
+			key_event = kTtkKeyUp;
+			break;
+		case EKeyDownArrow:
+			key_event = kTtkKeyDown;
+			break;
+		}
+		iRootWidget->handle_key_event(key_event);
 		break;
 	case EEventPointer:
+		// TODO: pointer_event;
 		reinterpret_cast<CSymTtkWindow*>(event.Handle())->
-			Widget().handle_pointer_event(*event.Pointer());
+			Widget().handle_pointer_event(pointer_event);
 		break;
 	default:
 		break;
