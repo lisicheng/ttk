@@ -92,6 +92,9 @@ void CSymTtkWsEnv::RunL()
 		case EKeyDownArrow:
 			key_event = kTtkKeyDown;
 			break;
+		default:
+			key_event = kTtkKeyUnknown;
+			break;
 		}
 		iRootWidget->handle_key_event(key_event);
 		break;
