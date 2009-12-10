@@ -16,7 +16,6 @@ private: /* from CEikAppUi */
 	void HandleCommandL(TInt aCommand);
 private:
 	CSymTtkWsEnv* iWsEnv;
-	TtkWidget* iRoot;
 };
 
 #endif // APPUI_H

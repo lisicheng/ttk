@@ -6,7 +6,6 @@
 CAppUi::~CAppUi()
 {
 	delete iWsEnv;
-	delete iRoot;
 }
 
 void CAppUi::ConstructL()
