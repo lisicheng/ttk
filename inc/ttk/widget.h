@@ -32,7 +32,7 @@ private:
 	CSymTtkWsEnv& ws_env_;
 	TRect rect_;
 	CSymTtkWindow* window_;
-	TBool own_window_;
+	bool own_window_;
 };
 
 #endif // TTK_WIDGET_H

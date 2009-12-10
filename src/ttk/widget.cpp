@@ -64,10 +64,10 @@ void TtkWidget::ConstructL(CSymTtkWindow* window)
 {
 	if (window) {
 		window_ = window;
-		own_window_ = EFalse;
+		own_window_ = false;
 	} else {
 		window_ = CSymTtkWindow::NewL(*this, KRgbWhite);
-		own_window_ = ETrue;
+		own_window_ = true;
 	}
 }
 
