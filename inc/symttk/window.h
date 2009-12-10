@@ -1,5 +1,5 @@
-#ifndef WINDOW_H
-#define WINDOW_H
+#ifndef SYMTTK_WINDOW_H
+#define SYMTTK_WINDOW_H
 
 #include <e32base.h> // CBase
 #include <gdi.h> // TRgb
@@ -25,4 +25,4 @@ private:
 	RWindow iWindow;
 };
 
-#endif // WINDOW_H
+#endif // SYMTTK_WINDOW_H

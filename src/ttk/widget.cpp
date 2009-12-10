@@ -1,7 +1,7 @@
-#include "window/widget.h"
+#include "ttk/widget.h"
 
-#include "window/window.h"
-#include "window/wsclient.h"
+#include "symttk/window.h"
+#include "symttk/wsenv.h"
 
 CWidget::~CWidget()
 {

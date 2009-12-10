@@ -1,5 +1,5 @@
-#ifndef WSREDRAWER_H
-#define WSREDRAWER_H
+#ifndef SYMTTK_REDRAWER_H
+#define SYMTTK_REDRAWER_H
 
 #include <e32base.h> // CActive
 
@@ -23,4 +23,4 @@ private:
 	CWsClient& iWsEnv;
 };
 
-#endif // WSREDRAWER_H
+#endif // SYMTTK_REDRAWER_H

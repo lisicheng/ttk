@@ -1,7 +1,7 @@
 #ifndef NUMBEREDWIDGET_H
 #define NUMBEREDWIDGET_H
 
-#include "window/widget.h" // CWidget
+#include "ttk/widget.h" // CWidget
 
 class CNumberedWidget : public CWidget
 {

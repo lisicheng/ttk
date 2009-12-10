@@ -1,5 +1,5 @@
-#ifndef WIDGET_H
-#define WIDGET_H
+#ifndef TTK_WIDGET_H
+#define TTK_WIDGET_H
 
 #include <e32base.h> // CBase
 #include <w32std.h> // TKeyEvent
@@ -34,4 +34,4 @@ private:
 	TBool iOwnWindow;
 };
 
-#endif // WIDGET_H
+#endif // TTK_WIDGET_H

@@ -1,6 +1,6 @@
 #include "ui/numberedwidget.h"
 
-#include "window/wsclient.h"
+#include "symttk/wsenv.h"
 #include "common.h"
 
 _LIT(KString0, "0");

@@ -1,5 +1,5 @@
-#ifndef WSCLIENT_H
-#define WSCLIENT_H
+#ifndef SYMTTK_WSENV_H 
+#define SYMTTK_WSENV_H
 
 #include <e32base.h> // CActive
 #include <w32std.h> // RWsSession
@@ -35,4 +35,4 @@ private:
 	CWidget* iRootWidget;
 };
 
-#endif // WSCLIENT_H
+#endif // SYMTTK_WSENV_H

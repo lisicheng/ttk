@@ -11,10 +11,10 @@ SRCFILES = \
 	framework/application.cpp \
 	framework/document.cpp \
 	framework/appui.cpp \
-	window/window.cpp \
-	window/wsclient.cpp \
-	window/wsredrawer.cpp \
-	window/widget.cpp \
+	symttk/window.cpp \
+	symttk/wsenv.cpp \
+	symttk/redrawer.cpp \
+	ttk/widget.cpp \
 	ui/mainwidget.cpp \
 	ui/numberedwidget.cpp
 

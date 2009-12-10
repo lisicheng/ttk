@@ -1,6 +1,6 @@
 #include "framework/appui.h"
 #include <uikon.hrh>
-#include "window/wsclient.h"
+#include "symttk/wsenv.h"
 #include "ui/mainwidget.h"
 
 CAppUi::~CAppUi()

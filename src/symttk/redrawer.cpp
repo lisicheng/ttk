@@ -1,8 +1,8 @@
-#include "window/wsredrawer.h"
+#include "symttk/redrawer.h"
 
-#include "window/widget.h"
-#include "window/window.h"
-#include "window/wsclient.h"
+#include "symttk/window.h"
+#include "symttk/wsenv.h"
+#include "ttk/widget.h"
 
 CWsRedrawer::~CWsRedrawer()
 {

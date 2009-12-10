@@ -1,8 +1,8 @@
-#include "window/wsclient.h"
+#include "symttk/wsenv.h"
 
+#include "symttk/redrawer.h"
+#include "symttk/window.h"
 #include "ui/mainwidget.h"
-#include "window/window.h"
-#include "window/wsredrawer.h"
 
 CWsClient::~CWsClient()
 {

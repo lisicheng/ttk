@@ -1,7 +1,7 @@
-#include "window/window.h"
+#include "symttk/window.h"
 
-#include "window/widget.h"
-#include "window/wsclient.h"
+#include "symttk/wsenv.h"
+#include "ttk/widget.h"
 
 CWindow::~CWindow()
 {

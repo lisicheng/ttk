@@ -1,7 +1,7 @@
 #ifndef MAINWIDGET_H
 #define MAINWIDGET_H
 
-#include "window/widget.h" // CWidget
+#include "ttk/widget.h" // CWidget
 
 class CNumberedWidget;
 

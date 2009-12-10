@@ -2,7 +2,7 @@
 
 #include "common.h"
 #include "ui/numberedwidget.h"
-#include "window/window.h"
+#include "symttk/window.h"
 
 CMainWidget::~CMainWidget()
 {
