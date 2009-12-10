@@ -9,10 +9,10 @@ public:
 	virtual ~NumberedWidget();
 	static NumberedWidget* NewL(CSymTtkWsEnv& ws_env,
 				     const TtkRect& rect, int num,
-				     CSymTtkWindow* window);
+				     TtkWindowInterface* window);
 	static NumberedWidget* NewLC(CSymTtkWsEnv& ws_env,
 				      const TtkRect& rect, int num,
-				      CSymTtkWindow* parent);
+				      TtkWindowInterface* parent);
 public: /* from TtkWidget */
 	void handle_redraw_event(const TtkRect& pect);
 private:

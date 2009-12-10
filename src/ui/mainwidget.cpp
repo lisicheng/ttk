@@ -42,24 +42,19 @@ void MainWidget::ConstructL()
 void MainWidget::handle_key_event(TtkKeyEvent& key_event)
 {
 	TtkRect rect(component_->rect());
-	TRect sym_rect;
 	switch (key_event) {
 	case kTtkKeyUp:
 		rect.move(0, -10);
 		component_->set_rect(rect);
 		rect.resize(0, 10);
-		sym_rect = TRect(rect.tl_.x_, rect.tl_.y_,
-				 rect.br_.x_, rect.br_.y_);
-		window().Window().Invalidate(sym_rect);
+		window().redraw(rect);
 		break;
 	case kTtkKeyDown:
 		rect.move(0, 10);
 		component_->set_rect(rect);
 		rect.move(0, -10);
 		rect.resize(0, 10);
-		sym_rect = TRect(rect.tl_.x_, rect.tl_.y_,
-				 rect.br_.x_, rect.br_.y_);
-		window().Window().Invalidate(sym_rect);
+		window().redraw(rect);
 		break;
 	default:
 		break;

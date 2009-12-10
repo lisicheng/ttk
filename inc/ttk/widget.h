@@ -7,17 +7,17 @@
 #include "ttk/common/keyevent.h" // TtkKeyEvent
 
 class CSymTtkWsEnv;
-class CSymTtkWindow;
 class TtkPointerEvent;
+class TtkWindowInterface;
 
 class TtkWidget : public CBase
 {
 public:
 	virtual ~TtkWidget();
 	static TtkWidget* NewL(CSymTtkWsEnv& ws_client, const TtkRect& rect,
-			     CSymTtkWindow* window);
+			     TtkWindowInterface* window);
 	static TtkWidget* NewLC(CSymTtkWsEnv& ws_client, const TtkRect& rect,
-			      CSymTtkWindow* window);
+			      TtkWindowInterface* window);
 public:
 	virtual void handle_key_event(TtkKeyEvent& key_event);
 	virtual void handle_pointer_event(TtkPointerEvent& pointer_event);
@@ -28,13 +28,13 @@ public:
 	void set_rect(const TtkRect& rect);
 protected:
 	TtkWidget(CSymTtkWsEnv& ws_env, const TtkRect& rect);
-	void ConstructL(CSymTtkWindow* window);
+	void ConstructL(TtkWindowInterface* window);
 protected:
-	CSymTtkWindow& window() const;
+	TtkWindowInterface& window() const;
 private:
 	CSymTtkWsEnv& ws_env_;
 	TtkRect rect_;
-	CSymTtkWindow* window_;
+	TtkWindowInterface* window_;
 	bool own_window_;
 };
 

@@ -10,14 +10,14 @@ TtkWidget::~TtkWidget()
 		delete window_;
 }
 
-TtkWidget* TtkWidget::NewL(CSymTtkWsEnv& ws_env, const TtkRect& rect, CSymTtkWindow* window)
+TtkWidget* TtkWidget::NewL(CSymTtkWsEnv& ws_env, const TtkRect& rect, TtkWindowInterface* window)
 {
 	TtkWidget* self = TtkWidget::NewLC(ws_env, rect, window);
 	CleanupStack::Pop(self);
 	return self;
 }
 
-TtkWidget* TtkWidget::NewLC(CSymTtkWsEnv& ws_env, const TtkRect& rect, CSymTtkWindow* window)
+TtkWidget* TtkWidget::NewLC(CSymTtkWsEnv& ws_env, const TtkRect& rect, TtkWindowInterface* window)
 {
 	TtkWidget* self = new(ELeave) TtkWidget(ws_env, rect);
 	CleanupStack::PushL(self);
@@ -59,7 +59,7 @@ TtkWidget::TtkWidget(CSymTtkWsEnv& ws_env, const TtkRect& rect)
 {
 }
 
-void TtkWidget::ConstructL(CSymTtkWindow* window)
+void TtkWidget::ConstructL(TtkWindowInterface* window)
 {
 	if (window) {
 		window_ = window;
@@ -70,7 +70,7 @@ void TtkWidget::ConstructL(CSymTtkWindow* window)
 	}
 }
 
-CSymTtkWindow& TtkWidget::window() const
+TtkWindowInterface& TtkWidget::window() const
 {
 	return *window_;
 }

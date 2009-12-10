@@ -18,7 +18,7 @@ NumberedWidget::~NumberedWidget()
 }
 
 NumberedWidget* NumberedWidget::NewL(CSymTtkWsEnv& ws_env, const TtkRect& rect,
-				       int num, CSymTtkWindow* window)
+				       int num, TtkWindowInterface* window)
 {
 	NumberedWidget* self = NumberedWidget::NewLC(ws_env, rect, num,
 						       window);
@@ -27,7 +27,7 @@ NumberedWidget* NumberedWidget::NewL(CSymTtkWsEnv& ws_env, const TtkRect& rect,
 }
 
 NumberedWidget* NumberedWidget::NewLC(CSymTtkWsEnv& ws_env, const TtkRect& rect,
-					int num, CSymTtkWindow* window)
+					int num, TtkWindowInterface* window)
 {
 	NumberedWidget* self = new(ELeave) NumberedWidget(ws_env, rect,
 							    num);
