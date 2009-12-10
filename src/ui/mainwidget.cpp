@@ -12,7 +12,7 @@ MainWidget::~MainWidget()
 
 MainWidget* MainWidget::NewL(TtkWsEnvInterface& ws_env, const TtkRect& rect)
 {
-	MainWidget* self = new(ELeave) MainWidget(ws_env, rect);
+	MainWidget* self = new MainWidget(ws_env, rect);
 	CleanupStack::PushL(self);
 	self->ConstructL();
 	CleanupStack::Pop(self);

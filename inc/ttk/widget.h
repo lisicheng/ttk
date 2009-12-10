@@ -1,8 +1,6 @@
 #ifndef TTK_WIDGET_H
 #define TTK_WIDGET_H
 
-#include <e32base.h> // CBase
-#include <w32std.h> // TKeyEvent
 #include "ttk/common/rect.h" // TtkRect
 #include "ttk/common/keyevent.h" // TtkKeyEvent
 
@@ -10,7 +8,7 @@ class TtkWsEnvInterface;
 class TtkPointerEvent;
 class TtkWindowInterface;
 
-class TtkWidget : public CBase
+class TtkWidget
 {
 public:
 	virtual ~TtkWidget();
