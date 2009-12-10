@@ -42,7 +42,10 @@ void CSymTtkWindow::ConstructL(const TRgb& aColor)
 	iWindow = RWindow(iWidget.ws_env().Ws());
 	User::LeaveIfError(iWindow.Construct(iWidget.ws_env().Group(),
 					     reinterpret_cast<TUint32>(this)));
-	iWindow.SetExtent(iWidget.rect().iTl, iWidget.rect().Size());
+	const TtkRect& rect = iWidget.rect();
+	TPoint point(rect.tl_.x_, rect.tl_.y_);
+	TSize size(rect.width(), rect.height());
+	iWindow.SetExtent(point, size);
 	iWindow.SetBackgroundColor(aColor);
 
 	iWindow.Activate();

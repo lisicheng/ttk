@@ -8,15 +8,15 @@ class NumberedWidget : public TtkWidget
 public:
 	virtual ~NumberedWidget();
 	static NumberedWidget* NewL(CSymTtkWsEnv& ws_env,
-				     const TRect& rect, int num,
+				     const TtkRect& rect, int num,
 				     CSymTtkWindow* window);
 	static NumberedWidget* NewLC(CSymTtkWsEnv& ws_env,
-				      const TRect& rect, int num,
+				      const TtkRect& rect, int num,
 				      CSymTtkWindow* parent);
 public: /* from TtkWidget */
-	void handle_redraw_event(const TRect& pect);
+	void handle_redraw_event(const TtkRect& pect);
 private:
-	NumberedWidget(CSymTtkWsEnv& ws_env, const TRect& rect, int num);
+	NumberedWidget(CSymTtkWsEnv& ws_env, const TtkRect& rect, int num);
 private:
 	int num_;
 };

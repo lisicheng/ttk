@@ -64,7 +64,9 @@ void CSymTtkWsEnv::ConstructL(const TRect& aRect)
 	User::LeaveIfError(iScreen->Construct());
 	User::LeaveIfError(iScreen->CreateContext(iGc));
 	iRedrawer = CSymTtkRedrawer::NewL(*this);
-	iRootWidget = MainWidget::NewL(*this, aRect);
+	TtkRect rect(aRect.iTl.iX, aRect.iTl.iY,
+		     aRect.iBr.iX, aRect.iBr.iY);
+	iRootWidget = MainWidget::NewL(*this, rect);
 	IssueRequest();
 }
 

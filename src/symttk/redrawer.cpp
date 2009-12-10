@@ -48,7 +48,10 @@ void CSymTtkRedrawer::RunL()
 	if (window) {
 		iWsEnv.Gc().Activate(window->Window());
 		window->Window().BeginRedraw();
-		window->Widget().handle_redraw_event(event.Rect());
+		const TRect& sym_rect = event.Rect();
+		TtkRect rect(sym_rect.iTl.iX, sym_rect.iTl.iY,
+			     sym_rect.iBr.iX, sym_rect.iBr.iY);
+		window->Widget().handle_redraw_event(rect);
 		window->Window().EndRedraw();
 		iWsEnv.Gc().Deactivate();
 	}

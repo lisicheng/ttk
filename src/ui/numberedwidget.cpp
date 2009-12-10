@@ -15,7 +15,7 @@ NumberedWidget::~NumberedWidget()
 {
 }
 
-NumberedWidget* NumberedWidget::NewL(CSymTtkWsEnv& ws_env, const TRect& rect,
+NumberedWidget* NumberedWidget::NewL(CSymTtkWsEnv& ws_env, const TtkRect& rect,
 				       int num, CSymTtkWindow* window)
 {
 	NumberedWidget* self = NumberedWidget::NewLC(ws_env, rect, num,
@@ -24,7 +24,7 @@ NumberedWidget* NumberedWidget::NewL(CSymTtkWsEnv& ws_env, const TRect& rect,
 	return self;
 }
 
-NumberedWidget* NumberedWidget::NewLC(CSymTtkWsEnv& ws_env, const TRect& rect,
+NumberedWidget* NumberedWidget::NewLC(CSymTtkWsEnv& ws_env, const TtkRect& rect,
 					int num, CSymTtkWindow* window)
 {
 	NumberedWidget* self = new(ELeave) NumberedWidget(ws_env, rect,
@@ -38,16 +38,20 @@ NumberedWidget* NumberedWidget::NewLC(CSymTtkWsEnv& ws_env, const TRect& rect,
  * Redraws the contents of NumberedWidget within a given
  * rectangle. NumberedWidget displays a number in the window.
  */
-void NumberedWidget::handle_redraw_event(const TRect& rect)
+void NumberedWidget::handle_redraw_event(const TtkRect& rect)
 {
 	CWindowGc& gc = ws_env().Gc();
-	gc.SetClippingRect(rect);
-	gc.Clear(rect);
+	TRect sym_rect(rect.tl_.x_, rect.tl_.y_,
+		       rect.br_.x_, rect.br_.y_);
+	gc.SetClippingRect(sym_rect);
+	gc.Clear(sym_rect);
  	gc.SetPenColor(KRgbBlack);
-	gc.DrawLine(this->rect().iTl, this->rect().iBr);
+	TPoint tl(this->rect().tl_.x_, this->rect().tl_.y_);
+	TPoint br(this->rect().br_.x_, this->rect().br_.y_);
+	gc.DrawLine(tl, br);
 }
 
-NumberedWidget::NumberedWidget(CSymTtkWsEnv& ws_env, const TRect& rect,
+NumberedWidget::NumberedWidget(CSymTtkWsEnv& ws_env, const TtkRect& rect,
 				 int num)
 		: TtkWidget(ws_env, rect), num_(num)
 {

@@ -9,14 +9,14 @@ MainWidget::~MainWidget()
 	delete component_;
 }
 
-MainWidget* MainWidget::NewL(CSymTtkWsEnv& ws_env, const TRect& rect)
+MainWidget* MainWidget::NewL(CSymTtkWsEnv& ws_env, const TtkRect& rect)
 {
 	MainWidget* self = MainWidget::NewLC(ws_env, rect);
 	CleanupStack::Pop(self);
 	return self;
 }
 
-MainWidget* MainWidget::NewLC(CSymTtkWsEnv& ws_env, const TRect& rect)
+MainWidget* MainWidget::NewLC(CSymTtkWsEnv& ws_env, const TtkRect& rect)
 {
 	MainWidget* self = new(ELeave) MainWidget(ws_env, rect);
 	self->ConstructL();
@@ -24,7 +24,7 @@ MainWidget* MainWidget::NewLC(CSymTtkWsEnv& ws_env, const TRect& rect)
 	return self;
 }
 
-MainWidget::MainWidget(CSymTtkWsEnv& ws_env, const TRect& rect)
+MainWidget::MainWidget(CSymTtkWsEnv& ws_env, const TtkRect& rect)
 		: TtkWidget(ws_env, rect)
 {
 }
@@ -32,35 +32,40 @@ MainWidget::MainWidget(CSymTtkWsEnv& ws_env, const TRect& rect)
 void MainWidget::ConstructL()
 {
 	TtkWidget::ConstructL(NULL);
-	TRect rect(rect());
-	rect.Resize(-100, -100);
-	rect.Move(50, 50);
+	TtkRect rect(rect());
+	rect.resize(-100, -100);
+	rect.move(50, 50);
 	component_ = NumberedWidget::NewL(ws_env(), rect, 3, &window());
 }
 
 void MainWidget::handle_key_event(TKeyEvent& key_event)
 {
-	TRect rect(component_->rect());
+	TtkRect rect(component_->rect());
+	TRect sym_rect;
 	switch (key_event.iCode) {
 	case EKeyUpArrow:
-		rect.Move(0, -10);
+		rect.move(0, -10);
 		component_->set_rect(rect);
-		rect.Resize(0, 10);
-		window().Window().Invalidate(rect);
+		rect.resize(0, 10);
+		sym_rect = TRect(rect.tl_.x_, rect.tl_.y_,
+				 rect.br_.x_, rect.br_.y_);
+		window().Window().Invalidate(sym_rect);
 		break;
 	case EKeyDownArrow:
-		rect.Move(0, 10);
+		rect.move(0, 10);
 		component_->set_rect(rect);
-		rect.Move(0, -10);
-		rect.Resize(0, 10);
-		window().Window().Invalidate(rect);
+		rect.move(0, -10);
+		rect.resize(0, 10);
+		sym_rect = TRect(rect.tl_.x_, rect.tl_.y_,
+				 rect.br_.x_, rect.br_.y_);
+		window().Window().Invalidate(sym_rect);
 		break;
 	default:
 		break;
 	}
 }
 
-void MainWidget::handle_redraw_event(const TRect& rect)
+void MainWidget::handle_redraw_event(const TtkRect& rect)
 {
 	TtkWidget::handle_redraw_event(rect);
 	component_->handle_redraw_event(rect);
