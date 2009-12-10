@@ -17,7 +17,7 @@ NumberedWidget::~NumberedWidget()
 {
 }
 
-NumberedWidget* NumberedWidget::NewL(CSymTtkWsEnv& ws_env, const TtkRect& rect,
+NumberedWidget* NumberedWidget::NewL(TtkWsEnvInterface& ws_env, const TtkRect& rect,
 				       int num, TtkWindowInterface* window)
 {
 	NumberedWidget* self = NumberedWidget::NewLC(ws_env, rect, num,
@@ -26,7 +26,7 @@ NumberedWidget* NumberedWidget::NewL(CSymTtkWsEnv& ws_env, const TtkRect& rect,
 	return self;
 }
 
-NumberedWidget* NumberedWidget::NewLC(CSymTtkWsEnv& ws_env, const TtkRect& rect,
+NumberedWidget* NumberedWidget::NewLC(TtkWsEnvInterface& ws_env, const TtkRect& rect,
 					int num, TtkWindowInterface* window)
 {
 	NumberedWidget* self = new(ELeave) NumberedWidget(ws_env, rect,
@@ -42,14 +42,14 @@ NumberedWidget* NumberedWidget::NewLC(CSymTtkWsEnv& ws_env, const TtkRect& rect,
  */
 void NumberedWidget::handle_redraw_event(const TtkRect& rect)
 {
-	TtkGcInterface& gc = ws_env().Gc();
+	TtkGcInterface& gc = ws_env().gc();
 	gc.set_clipping_rect(rect);
 	gc.clear(rect);
  	gc.set_pen_color(kTtkColorBlack);
 	gc.draw_line(this->rect().tl_, this->rect().br_);
 }
 
-NumberedWidget::NumberedWidget(CSymTtkWsEnv& ws_env, const TtkRect& rect,
+NumberedWidget::NumberedWidget(TtkWsEnvInterface& ws_env, const TtkRect& rect,
 				 int num)
 		: TtkWidget(ws_env, rect), num_(num)
 {

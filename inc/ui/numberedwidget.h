@@ -3,20 +3,22 @@
 
 #include "ttk/widget.h" // TtkWidget
 
+class TtkWsEnvInterface;
+
 class NumberedWidget : public TtkWidget
 {
 public:
 	virtual ~NumberedWidget();
-	static NumberedWidget* NewL(CSymTtkWsEnv& ws_env,
+	static NumberedWidget* NewL(TtkWsEnvInterface& ws_env,
 				     const TtkRect& rect, int num,
 				     TtkWindowInterface* window);
-	static NumberedWidget* NewLC(CSymTtkWsEnv& ws_env,
+	static NumberedWidget* NewLC(TtkWsEnvInterface& ws_env,
 				      const TtkRect& rect, int num,
 				      TtkWindowInterface* parent);
 public: /* from TtkWidget */
 	void handle_redraw_event(const TtkRect& pect);
 private:
-	NumberedWidget(CSymTtkWsEnv& ws_env, const TtkRect& rect, int num);
+	NumberedWidget(TtkWsEnvInterface& ws_env, const TtkRect& rect, int num);
 private:
 	int num_;
 };

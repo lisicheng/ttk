@@ -46,8 +46,9 @@ CSymTtkWindow::CSymTtkWindow(TtkWidget& aWidget) : iWidget(aWidget)
 
 void CSymTtkWindow::ConstructL(const TRgb& aColor)
 {
-	iWindow = RWindow(iWidget.ws_env().Ws());
-	User::LeaveIfError(iWindow.Construct(iWidget.ws_env().Group(),
+	CSymTtkWsEnv* ws_env = static_cast<CSymTtkWsEnv*>(&iWidget.ws_env());
+	iWindow = RWindow(ws_env->Ws());
+	User::LeaveIfError(iWindow.Construct(ws_env->Group(),
 					     reinterpret_cast<TUint32>(this)));
 	const TtkRect& rect = iWidget.rect();
 	TPoint tl(rect.tl_.x_, rect.tl_.y_);

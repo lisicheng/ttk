@@ -10,14 +10,14 @@ TtkWidget::~TtkWidget()
 		delete window_;
 }
 
-TtkWidget* TtkWidget::NewL(CSymTtkWsEnv& ws_env, const TtkRect& rect, TtkWindowInterface* window)
+TtkWidget* TtkWidget::NewL(TtkWsEnvInterface& ws_env, const TtkRect& rect, TtkWindowInterface* window)
 {
 	TtkWidget* self = TtkWidget::NewLC(ws_env, rect, window);
 	CleanupStack::Pop(self);
 	return self;
 }
 
-TtkWidget* TtkWidget::NewLC(CSymTtkWsEnv& ws_env, const TtkRect& rect, TtkWindowInterface* window)
+TtkWidget* TtkWidget::NewLC(TtkWsEnvInterface& ws_env, const TtkRect& rect, TtkWindowInterface* window)
 {
 	TtkWidget* self = new(ELeave) TtkWidget(ws_env, rect);
 	CleanupStack::PushL(self);
@@ -35,11 +35,11 @@ void TtkWidget::handle_pointer_event(TtkPointerEvent& pointer_event)
 
 void TtkWidget::handle_redraw_event(const TtkRect& rect)
 {
-	TtkGcInterface& gc = ws_env().Gc();
+	TtkGcInterface& gc = ws_env().gc();
 	gc.clear(rect);
 }
 
-CSymTtkWsEnv& TtkWidget::ws_env()
+TtkWsEnvInterface& TtkWidget::ws_env()
 {
 	return ws_env_;
 }
@@ -54,7 +54,7 @@ void TtkWidget::set_rect(const TtkRect& rect)
 	rect_ = rect;
 }
 
-TtkWidget::TtkWidget(CSymTtkWsEnv& ws_env, const TtkRect& rect)
+TtkWidget::TtkWidget(TtkWsEnvInterface& ws_env, const TtkRect& rect)
 		: ws_env_(ws_env), rect_(rect)
 {
 }

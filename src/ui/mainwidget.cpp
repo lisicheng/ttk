@@ -10,14 +10,14 @@ MainWidget::~MainWidget()
 	delete component_;
 }
 
-MainWidget* MainWidget::NewL(CSymTtkWsEnv& ws_env, const TtkRect& rect)
+MainWidget* MainWidget::NewL(TtkWsEnvInterface& ws_env, const TtkRect& rect)
 {
 	MainWidget* self = MainWidget::NewLC(ws_env, rect);
 	CleanupStack::Pop(self);
 	return self;
 }
 
-MainWidget* MainWidget::NewLC(CSymTtkWsEnv& ws_env, const TtkRect& rect)
+MainWidget* MainWidget::NewLC(TtkWsEnvInterface& ws_env, const TtkRect& rect)
 {
 	MainWidget* self = new(ELeave) MainWidget(ws_env, rect);
 	self->ConstructL();
@@ -25,7 +25,7 @@ MainWidget* MainWidget::NewLC(CSymTtkWsEnv& ws_env, const TtkRect& rect)
 	return self;
 }
 
-MainWidget::MainWidget(CSymTtkWsEnv& ws_env, const TtkRect& rect)
+MainWidget::MainWidget(TtkWsEnvInterface& ws_env, const TtkRect& rect)
 		: TtkWidget(ws_env, rect)
 {
 }
