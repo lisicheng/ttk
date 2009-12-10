@@ -7,16 +7,16 @@ RSSTARGET = \
 	dist/$(PROJECT).rsc
 
 SRCFILES = \
-	framework/main.cpp \
 	framework/application.cpp \
-	framework/document.cpp \
 	framework/appui.cpp \
+	framework/document.cpp \
+	framework/main.cpp \
+	symttk/redrawer.cpp \
 	symttk/window.cpp \
 	symttk/wsenv.cpp \
-	symttk/redrawer.cpp \
-	ttk/widget.cpp \
 	ttk/common/point.cpp \
 	ttk/common/rect.cpp \
+	ttk/widget.cpp \
 	ui/mainwidget.cpp \
 	ui/numberedwidget.cpp
 
