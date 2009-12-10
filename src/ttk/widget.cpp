@@ -14,9 +14,7 @@ TtkWidget::~TtkWidget()
 TtkWidget* TtkWidget::NewL(TtkWsEnvInterface& ws_env, const TtkRect& rect, TtkWindowInterface* window)
 {
 	TtkWidget* self = new TtkWidget(ws_env, rect);
-	CleanupStack::PushL(self);
 	self->ConstructL(window);
-	CleanupStack::Pop(self);
 	return self;
 }
 

@@ -21,9 +21,7 @@ NumberedWidget* NumberedWidget::NewL(TtkWsEnvInterface& ws_env, const TtkRect& r
 				       int num, TtkWindowInterface* window)
 {
 	NumberedWidget* self = new NumberedWidget(ws_env, rect, num);
-	CleanupStack::PushL(self);
 	self->ConstructL(window);
-	CleanupStack::Pop(self);
 	return self;
 }
 
