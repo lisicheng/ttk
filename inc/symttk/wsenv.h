@@ -1,4 +1,4 @@
-#ifndef SYMTTK_WSENV_H 
+#ifndef SYMTTK_WSENV_H
 #define SYMTTK_WSENV_H
 
 #include <e32base.h> // CActive

@@ -17,7 +17,7 @@ void CAppUi::ConstructL()
 void CAppUi::HandleCommandL(TInt aCommand)
 {
 	switch (aCommand) {
-	case EEikCmdExit: 
+	case EEikCmdExit:
 		Exit();
 		break;
 	}
