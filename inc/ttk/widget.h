@@ -14,9 +14,9 @@ class TtkWidget : public CBase
 {
 public:
 	virtual ~TtkWidget();
-	static TtkWidget* NewL(CSymTtkWsEnv& ws_client, const TtkRect& rect,
+	static TtkWidget* NewL(CSymTtkWsEnv& ws_env, const TtkRect& rect,
 			     TtkWindowInterface* window);
-	static TtkWidget* NewLC(CSymTtkWsEnv& ws_client, const TtkRect& rect,
+	static TtkWidget* NewLC(CSymTtkWsEnv& ws_env, const TtkRect& rect,
 			      TtkWindowInterface* window);
 public:
 	virtual void handle_key_event(TtkKeyEvent& key_event);
