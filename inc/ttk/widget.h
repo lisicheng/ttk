@@ -1,12 +1,12 @@
 #ifndef TTK_WIDGET_H
 #define TTK_WIDGET_H
 
-#include "ttk/common/rect.h" // TtkRect
 #include "ttk/common/keyevent.h" // TtkKeyEvent
+#include "ttk/common/rect.h" // TtkRect
 
-class TtkWsEnvInterface;
 class TtkPointerEvent;
 class TtkWindowInterface;
+class TtkWsEnvInterface;
 
 class TtkWidget
 {
