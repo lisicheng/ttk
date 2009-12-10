@@ -9,10 +9,10 @@ public:
 	virtual ~CNumberedWidget();
 	static CNumberedWidget* NewL(CWsClient& aWsEnv,
 				     const TRect& aRect, TInt aNum,
-				     const CWindow* aParent);
+				     CWindow* aParent);
 	static CNumberedWidget* NewLC(CWsClient& aWsEnv,
 				      const TRect& aRect, TInt aNum,
-				      const CWindow* aParent);
+				      CWindow* aParent);
 public: /* from CWidget */
 	void Draw(const TRect& aRect);
 private:

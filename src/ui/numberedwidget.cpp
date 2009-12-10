@@ -14,7 +14,7 @@ CNumberedWidget::~CNumberedWidget()
 }
 
 CNumberedWidget* CNumberedWidget::NewL(CWsClient& aWsEnv, const TRect& aRect,
-				       TInt aNum, const CWindow* aParent)
+				       TInt aNum, CWindow* aParent)
 {
 	CNumberedWidget* self = CNumberedWidget::NewLC(aWsEnv, aRect, aNum,
 						       aParent);
@@ -23,7 +23,7 @@ CNumberedWidget* CNumberedWidget::NewL(CWsClient& aWsEnv, const TRect& aRect,
 }
 
 CNumberedWidget* CNumberedWidget::NewLC(CWsClient& aWsEnv, const TRect& aRect,
-					TInt aNum, const CWindow* aParent)
+					TInt aNum, CWindow* aParent)
 {
 	CNumberedWidget* self = new(ELeave) CNumberedWidget(aWsEnv, aRect,
 							    aNum);
