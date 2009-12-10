@@ -38,16 +38,10 @@ CNumberedWidget* CNumberedWidget::NewLC(CSymTtkWsEnv& aWsEnv, const TRect& aRect
  */
 void CNumberedWidget::Draw(const TRect& aRect)
 {
-	LOG("num:draw");
-	LOGNUM(Rect().iTl.iX);
-	LOGNUM(Rect().iTl.iY);
-	LOGNUM(Rect().iBr.iX);
-	LOGNUM(Rect().iBr.iY);
 	CWindowGc& gc = WsEnv().Gc();
 	gc.SetClippingRect(aRect);
 	gc.Clear(aRect);
 
-	LOG("num:draw:1");
 	_LIT(KFontName, "Swiss");
 	const TInt KFontHeight = 200;
 	TFontSpec fontSpec(KFontName, KFontHeight);
@@ -58,23 +52,15 @@ void CNumberedWidget::Draw(const TRect& aRect)
 	TInt descent = font->DescentInPixels();
 	// vertical text offset
 	TInt offset = (Rect().Size().iHeight + ascent - descent) / 2;
-	LOG("num:draw:2");
 
 	const TBufC<1> strings[5] = {*&KString0, *&KString1, *&KString2, *&KString3, *&KString4};
-
  	gc.SetPenColor(KRgbBlack);
-	LOG("num:draw:3");
 	gc.UseFont(font);
-	LOG("num:draw:4");
 	gc.DrawText(strings[iNum], Rect(), offset, CGraphicsContext::ECenter);
-	LOG("num:draw:5");
 	gc.DrawLine(Rect().iTl, Rect().iBr);
-	LOG("num:draw:6");
 	gc.DiscardFont();
-	LOG("num:draw:7");
 
 	WsEnv().Screen().ReleaseFont(font);
-	LOG("num:draw:8");
 }
 
 CNumberedWidget::CNumberedWidget(CSymTtkWsEnv& aWsEnv, const TRect& aRect,

@@ -43,7 +43,6 @@ void CMainWidget::HandleKeyEventL(TKeyEvent& aKeyEvent)
 	TRect rect(iComponent->Rect());
 	switch (aKeyEvent.iCode) {
 	case EKeyUpArrow:
-		LOG("up");
 		rect.Move(0, -10);
 		iComponent->SetRect(rect);
 		rect.Resize(0, 10);
@@ -59,12 +58,10 @@ void CMainWidget::HandleKeyEventL(TKeyEvent& aKeyEvent)
 	default:
 		break;
 	}
-	LOG("end:handleKeyevent");
 }
 
 void CMainWidget::Draw(const TRect& aRect)
 {
-	LOG("draw");
 	TtkWidget::Draw(aRect);
 	iComponent->Draw(aRect);
 }
