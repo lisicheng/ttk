@@ -16,7 +16,7 @@ public:
 public:
 	TtkWidget& Widget();
 	RWindow& Window();
-protected:
+private:
 	CSymTtkWindow(TtkWidget& aWidget);
 	void ConstructL(const TRgb& aColor);
 private:
