@@ -1,0 +1,13 @@
+#include <appinfo.rh>
+#include "ttk_loc.rsg"
+
+UID2 KUidAppRegistrationResourceFile
+UID3 0xa1986131
+
+RESOURCE APP_REGISTRATION_INFO {
+	app_file = "ttk_a1986131";
+	localisable_resource_file = "\\resource\\apps\\ttk_loc_a1986131";
+	localisable_resource_id = R_TTK_LOCALISABLE_APP_INFO;
+	embeddability = KAppNotEmbeddable;
+	newfile = KAppDoesNotSupportNewFile;
+}

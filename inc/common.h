@@ -3,7 +3,11 @@
 
 #include "flogger.h"
 
+#ifdef EKA2
+const TUid KApplicationUid = { 0xa1986131 };
+#else
 const TUid KApplicationUid = { 0x100098e6 };
+#endif
 
 #define LOG(MSG) do {							\
 	RFileLogger logger;						\

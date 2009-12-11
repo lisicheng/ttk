@@ -1,0 +1,23 @@
+;
+&ZH
+
+#{"TTK"}, (0xa1986131), 1, 0, 0
+
+%{"随手互动"}
+
+:"troodon"
+
+[0x101f7961], 0, 0, 0, {"Series60ProductID"}
+
+"dist/ttk_a1986131.rsc"
+-"!:\resource\apps\ttk_a1986131.rsc"
+
+"dist/ttk_loc_a1986131.rsc"
+-"!:\resource\apps\ttk_loc_a1986131.rsc"
+
+"dist/ttk_reg_a1986131.rsc"
+-"!:\private\10003a3f\import\apps\ttk_reg_a1986131.rsc"
+
+"dist/ttk_a1986131.exe"
+-"!:\sys\bin\ttk_a1986131.exe"
+
