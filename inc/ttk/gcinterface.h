@@ -1,7 +1,7 @@
 #ifndef TTK_GCINTERFACE_H
 #define TTK_GCINTERFACE_H
 
-#include "ttk/common/color.h" // TtkColor
+#include "ttk/common/color.h" /* TtkColor */
 
 class TtkRect;
 class TtkPoint;
@@ -16,4 +16,4 @@ public:
 	virtual void set_pen_color(TtkColor color) = 0;
 };
 
-#endif // TTK_GCINTERFACE_H
+#endif /* TTK_GCINTERFACE_H */

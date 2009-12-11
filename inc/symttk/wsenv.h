@@ -1,9 +1,9 @@
 #ifndef SYMTTK_WSENV_H
 #define SYMTTK_WSENV_H
 
-#include <e32base.h> // CActive
-#include <w32std.h> // RWsSession
-#include "ttk/wsenvinterface.h" // TtkWsEnvInterface
+#include <e32base.h> /* CActive */
+#include <w32std.h> /* RWsSession */
+#include "ttk/wsenvinterface.h" /* TtkWsEnvInterface */
 
 class CSymTtkGc;
 class CSymTtkRedrawer;
@@ -40,4 +40,4 @@ private:
 	TtkWidget* iRootWidget;
 };
 
-#endif // SYMTTK_WSENV_H
+#endif /* SYMTTK_WSENV_H */

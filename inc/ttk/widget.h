@@ -1,8 +1,8 @@
 #ifndef TTK_WIDGET_H
 #define TTK_WIDGET_H
 
-#include "ttk/common/keyevent.h" // TtkKeyEvent
-#include "ttk/common/rect.h" // TtkRect
+#include "ttk/common/keyevent.h" /* TtkKeyEvent */
+#include "ttk/common/rect.h" /* TtkRect */
 
 class TtkPointerEvent;
 class TtkWindowInterface;
@@ -31,4 +31,4 @@ private:
 	bool own_window_;
 };
 
-#endif // TTK_WIDGET_H
+#endif /* TTK_WIDGET_H */

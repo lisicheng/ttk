@@ -1,11 +1,11 @@
 #ifndef SYMTTK_WINDOW_H
 #define SYMTTK_WINDOW_H
 
-#include <e32base.h> // CBase
-#include <gdi.h> // TRgb
-#include <w32std.h> // RWindow
-#include "ttk/windowinterface.h" // TtkWindowInterface
+#include <e32base.h> /* CBase */
+#include <w32std.h> /* RWindow */
+#include "ttk/windowinterface.h" /* TtkWindowInterface */
 
+class TRgb;
 class TtkWidget;
 
 class CSymTtkWindow : public CBase, public TtkWindowInterface
@@ -27,4 +27,4 @@ private:
 	RWindow iWindow;
 };
 
-#endif // SYMTTK_WINDOW_H
+#endif /* SYMTTK_WINDOW_H */

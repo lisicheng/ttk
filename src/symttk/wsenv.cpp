@@ -72,7 +72,7 @@ void CSymTtkWsEnv::ConstructL(const TRect& aRect)
 	CActiveScheduler::Add(this);
 	User::LeaveIfError(iWs.Connect());
 	iGroup = RWindowGroup(iWs);
-	TInt dummy = 2; // meaningless
+	TInt dummy = 2; /* meaningless */
 	User::LeaveIfError(iGroup.Construct(dummy, ETrue));
 	iScreen = new(ELeave) CWsScreenDevice(iWs);
 	User::LeaveIfError(iScreen->Construct());
@@ -111,7 +111,7 @@ void CSymTtkWsEnv::RunL()
 		iRootWidget->handle_key_event(key_event);
 		break;
 	case EEventPointer:
-		// TODO: pointer_event;
+		/* TODO: pointer_event */
 		reinterpret_cast<CSymTtkWindow*>(event.Handle())->
 			Widget().handle_pointer_event(pointer_event);
 		break;

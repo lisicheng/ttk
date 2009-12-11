@@ -9,4 +9,4 @@ enum TtkKeyEvent {
 	kTtkKeyUnknown
 };
 
-#endif // TTK_KEYEVENT_H
+#endif /* TTK_KEYEVENT_H */

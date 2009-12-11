@@ -1,7 +1,7 @@
 #ifndef TTK_WSENVINTERFACE_H
 #define TTK_WSENVINTERFACE_H
 
-#include "ttk/common/color.h" // TtkColor
+#include "ttk/common/color.h" /* TtkColor */
 
 class TtkGcInterface;
 class TtkWidget;
@@ -16,4 +16,4 @@ public:
 	virtual TtkGcInterface& gc() const = 0;
 };
 
-#endif // TTK_WSENVINTERFACE_H
+#endif /* TTK_WSENVINTERFACE_H */

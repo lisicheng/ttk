@@ -1,7 +1,7 @@
 #ifndef DOCUMENT_H
 #define DOCUMENT_H
 
-#include <eikdoc.h> // CEikDocument
+#include <eikdoc.h> /* CEikDocument */
 
 class CDocument : public CEikDocument
 {
@@ -14,4 +14,4 @@ private: /* from CEikDocument */
 	CEikAppUi* CreateAppUiL();
 };
 
-#endif // DOCUMENT_H
+#endif /* DOCUMENT_H */

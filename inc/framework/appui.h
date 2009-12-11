@@ -1,7 +1,7 @@
 #ifndef APPUI_H
 #define APPUI_H
 
-#include <eikappui.h> // CEikAppUi
+#include <eikappui.h> /* CEikAppUi */
 
 class CSymTtkWsEnv;
 class TtkWidget;
@@ -18,4 +18,4 @@ private:
 	CSymTtkWsEnv* iWsEnv;
 };
 
-#endif // APPUI_H
+#endif /* APPUI_H */

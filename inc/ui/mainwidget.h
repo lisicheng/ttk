@@ -1,7 +1,7 @@
 #ifndef MAINWIDGET_H
 #define MAINWIDGET_H
 
-#include "ttk/widget.h" // TtkWidget
+#include "ttk/widget.h" /* TtkWidget */
 
 class NumberedWidget;
 
@@ -17,4 +17,4 @@ private:
 	NumberedWidget* component_;
 };
 
-#endif // MAINWIDGET_H
+#endif /* MAINWIDGET_H */

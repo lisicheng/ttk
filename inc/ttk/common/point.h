@@ -9,4 +9,4 @@ public:
 	int y_;
 };
 
-#endif // TTK_POINT_H
+#endif /* TTK_POINT_H */

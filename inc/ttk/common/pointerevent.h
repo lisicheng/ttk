@@ -2,7 +2,7 @@
 #define TTK_POINTEREVENT_H
 
 class TtkPointerEvent {
-	// TODO: TtkPointerEvent
+	/* TODO: TtkPointerEvent */
 };
 
-#endif // TTK_POINTEREVENT_H
+#endif /* TTK_POINTEREVENT_H */

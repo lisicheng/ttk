@@ -1,7 +1,7 @@
 #ifndef TTK_RECT_H
 #define TTK_RECT_H
 
-#include "ttk/common/point.h" // TtkPoint
+#include "ttk/common/point.h" /* TtkPoint */
 
 class TtkRect {
 public:
@@ -28,4 +28,4 @@ public:
 	TtkPoint br_;
 };
 
-#endif // RECT_H
+#endif /* TTK_RECT_H */

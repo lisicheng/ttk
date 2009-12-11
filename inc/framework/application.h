@@ -1,7 +1,7 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
-#include <eikapp.h> // CEikApplication
+#include <eikapp.h> /* CEikApplication */
 
 class CApplication : public CEikApplication
 {
@@ -10,4 +10,4 @@ private: /* from CEikApplication */
 	CApaDocument* CreateDocumentL();
 };
 
-#endif // APPLICATION_H
+#endif /* APPLICATION_H */

@@ -3,4 +3,4 @@
 
 #define NULL 0
 
-#endif // TTK_COMMON_H
+#endif /* TTK_COMMON_H */

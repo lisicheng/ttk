@@ -1,8 +1,8 @@
 #ifndef SYMTTK_GC_H
 #define SYMTTK_GC_H
 
-#include <w32std.h> // CWindowGc
-#include "ttk/gcinterface.h" // TtkGcInterface
+#include <w32std.h> /* CWindowGc */
+#include "ttk/gcinterface.h" /* TtkGcInterface */
 
 class CWsScreenDevice;
 
@@ -24,5 +24,5 @@ private:
 	CWindowGc* iGc;
 };
 
-#endif // SYMTTK_GC_H
+#endif /* SYMTTK_GC_H */
 

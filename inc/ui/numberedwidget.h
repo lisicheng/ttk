@@ -1,7 +1,7 @@
 #ifndef NUMBEREDWIDGET_H
 #define NUMBEREDWIDGET_H
 
-#include "ttk/widget.h" // TtkWidget
+#include "ttk/widget.h" /* TtkWidget */
 
 class TtkWsEnvInterface;
 
@@ -17,4 +17,4 @@ private:
 	int num_;
 };
 
-#endif // NUMBEREDWIDGET_H
+#endif /* NUMBEREDWIDGET_H */

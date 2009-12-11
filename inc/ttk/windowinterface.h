@@ -10,4 +10,4 @@ public:
 	virtual void redraw(const TtkRect& rect) = 0;
 };
 
-#endif // TTK_WINDOWINTERFACE_H
+#endif /* TTK_WINDOWINTERFACE_H */

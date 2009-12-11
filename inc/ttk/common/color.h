@@ -10,4 +10,4 @@ enum TtkColor {
 	kTtkColorWhite		= 0xffffffff
 };
 
-#endif // TTK_COLOR_H
+#endif /* TTK_COLOR_H */

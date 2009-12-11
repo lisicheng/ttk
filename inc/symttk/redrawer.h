@@ -1,7 +1,7 @@
 #ifndef SYMTTK_REDRAWER_H
 #define SYMTTK_REDRAWER_H
 
-#include <e32base.h> // CActive
+#include <e32base.h> /* CActive */
 
 class CSymTtkWsEnv;
 
@@ -23,4 +23,4 @@ private:
 	CSymTtkWsEnv& iWsEnv;
 };
 
-#endif // SYMTTK_REDRAWER_H
+#endif /* SYMTTK_REDRAWER_H */
