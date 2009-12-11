@@ -13,10 +13,9 @@ MainWidget::~MainWidget()
 MainWidget::MainWidget(TtkWsEnvInterface& ws_env, const TtkRect& rect)
 		: TtkWidget(ws_env, rect, NULL)
 {
-	TtkRect component_rect(rect);
-	component_rect.resize(-100, -100);
-	component_rect.move(50, 50);
-	component_ = new NumberedWidget(ws_env, rect, 3, &window());
+	TtkRect component_rect(rect.tl_.x_ + 50, rect.tl_.y_ + 50,
+			       rect.br_.x_ - 50, rect.br_.y_ - 50);
+	component_ = new NumberedWidget(ws_env, component_rect, 3, &window());
 }
 
 void MainWidget::handle_key_event(TtkKeyEvent& key_event)

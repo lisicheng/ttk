@@ -1,0 +1,7 @@
+#include "ttk.loc"
+#include <apcaptionfile.rh>
+
+RESOURCE CAPTION_DATA {
+	caption = qtn_caption;
+	shortcaption = qtn_short_caption;
+}

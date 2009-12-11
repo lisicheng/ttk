@@ -4,6 +4,7 @@ UID2 = 100039ce
 UID3 = 100098e6
 
 RSSTARGET = \
+	dist/$(PROJECT)_caption.rsc \
 	dist/$(PROJECT).rsc
 
 SRCFILES = \
