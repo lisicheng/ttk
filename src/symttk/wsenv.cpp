@@ -34,7 +34,8 @@ CSymTtkWsEnv* CSymTtkWsEnv::NewLC(const TRect& aRect)
 TtkWindowInterface* CSymTtkWsEnv::new_window(TtkWidget& widget,
 					     TtkColor color) const
 {
-	TRgb rgb(color);
+	TRgb rgb;
+	rgb.SetInternal(color);
 	return CSymTtkWindow::NewL(widget, rgb);
 }
 
