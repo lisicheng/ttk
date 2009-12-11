@@ -36,6 +36,13 @@ void CSymTtkGc::draw_line(const TtkPoint& p1, const TtkPoint& p2)
 	iGc->DrawLine(sym_p1, sym_p2);
 }
 
+void CSymTtkGc::draw_rect(const TtkRect& rect)
+{
+	const TRect sym_rect(rect.tl_.x_, rect.tl_.y_,
+			     rect.br_.x_, rect.br_.y_);
+	iGc->DrawRect(sym_rect);
+}
+
 void CSymTtkGc::set_clipping_rect(const TtkRect& rect)
 {
 	const TRect sym_rect(rect.tl_.x_, rect.tl_.y_,
@@ -54,6 +61,7 @@ void CSymTtkGc::set_brush_color(TtkColor color)
 {
 	TRgb rgb;
 	rgb.SetInternal(color);
+	iGc->SetBrushStyle(CGraphicsContext::ESolidBrush);
 	iGc->SetBrushColor(rgb);
 }
 

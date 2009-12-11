@@ -7,7 +7,10 @@ enum TtkColor {
 	kTtkColorRawBlue	= 0x000000ff,
 	kTtkColorRawAlpha	= 0xff000000,
 	kTtkColorBlack		= 0xff000000,
-	kTtkColorWhite		= 0xffffffff
+	kTtkColorWhite		= 0xffffffff,
+	kTtkColorRed		= 0xffff0000,
+	kTtkColorGreen		= 0xff00ff00,
+	kTtkColorBlue		= 0xff0000ff
 };
 
 #endif /* TTK_COLOR_H */

@@ -14,6 +14,7 @@ public:
 public: /* from TtkGcInterface */
 	void clear(const TtkRect& rect);
 	void draw_line(const TtkPoint& p1, const TtkPoint& p2);
+	void draw_rect(const TtkRect& rect);
 	void set_clipping_rect(const TtkRect& rect);
 	void set_pen_color(TtkColor color);
 	void set_brush_color(TtkColor color);

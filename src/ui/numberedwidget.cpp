@@ -24,5 +24,7 @@ void NumberedWidget::handle_redraw_event(const TtkRect& rect)
 	gc.set_clipping_rect(rect);
 	gc.clear(rect);
  	gc.set_pen_color(kTtkColorBlack);
+ 	gc.set_brush_color(kTtkColorGreen);
+	gc.draw_rect(this->rect());
 	gc.draw_line(this->rect().tl_, this->rect().br_);
 }
