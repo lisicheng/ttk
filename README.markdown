@@ -1,6 +1,6 @@
 <!--
 	本文档为Markdown格式，可以使用以下命令生成HTML格式文档。
-	markdown README > README.html
+	markdown README.markdown > README.html
 
 	参见： http://daringfireball.net/projects/markdown/syntax
 -->
@@ -12,7 +12,7 @@
 * `.gitignore`: git忽略的文件列表
 * `Makefile_2nd`: 适用S60第二版的Makefile
 * `config_2nd.mk`: 适用于S60第二版的配置文件
-* `README`: Markdown格式说明文件
+* `README.markdown`: Markdown格式说明文件
 * `README.html`: HTML格式的说明文件
 * `inc`: 头文件	
 	* `framework`: S60 GUI框架类
