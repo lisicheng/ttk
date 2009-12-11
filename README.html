@@ -1,0 +1,61 @@
+<!--
+    本文档为Markdown格式，可以使用以下命令生成HTML格式文档。
+    markdown README > README.html
+
+参见： http://daringfireball.net/projects/markdown/syntax
+-->
+
+<h1>Troodon ToolKit</h1>
+<p>代码地址：<code>git://github.com/yuanyelele/ttk.git</code></p>
+<h2>目录结构</h2>
+<ul>
+<li><code>.gitignore</code>: git忽略的文件列表</li>
+<li><code>Makefile_2nd</code>: 适用S60第二版的Makefile</li>
+<li><code>config_2nd.mk</code>: 适用于S60第二版的配置文件</li>
+<li><code>README</code>: Markdown格式说明文件</li>
+<li><code>README.html</code>: HTML格式的说明文件</li>
+<li><code>inc</code>: 头文件  <br />
+<ul>
+<li><code>framework</code>: S60 GUI框架类</li>
+<li><code>symttk</code>: Symbian平台相关TTK类</li>
+<li><code>ttk</code>: 平台无关TTK类<ul>
+<li><code>common</code>: 平台无关通用类，如颜色、矩形等</li>
+</ul>
+</li>
+<li><code>ui</code>: TTK控件样例</li>
+</ul>
+</li>
+<li><code>rss</code>: S60资源文件</li>
+<li><code>sis</code>: S60打包配置</li>
+<li><code>src</code>: 源文件，子目录结构同<code>inc</code></li>
+<li><code>ttk.doxygen</code>: Doxygen配置，用于自动生成API文档</li>
+</ul>
+<h2>代码规范</h2>
+<p>除了以下的若干条，一律采用<a href="http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml">Google C++ 代码风格</a>。</p>
+<h3>注释</h3>
+<p>注释一律采用<code>/*...*/</code>风格，不使用<code>//...</code>风格。必要时使用Doxygen风格（<code>/**..*/</code>）注释函数参数等，以便于生成文档。</p>
+<h3>缩进</h3>
+<p>无论是平台相关，还是平台无关的代码，缩进一律采取<a href="http://www2.research.att.com/~bs/bs_faq2.html#layout-style">Stroustrup风格</a>。用长度等于8个空格的Tab键缩进，但是不要用空格替换Tab。</p>
+<h3>全局标示符</h3>
+<p>所有平台无关的TTK全局标示符（如类名、枚举名等）均以<code>Ttk</code>开头，全局常量以<code>kTtk</code>开头。</p>
+<h3>文件名</h3>
+<p>文件名中不要包含类前缀<code>Ttk</code>。</p>
+<h3>Symbian平台相关代码</h3>
+<p>Symbian平台相关代码遵循<a href="http://www.forum.nokia.com/info/sw.nokia.com/id/70984bb2-4880-4dcc-a078-21f24224c5fb/Symbian_OS_Coding_Conventions_v1_0_en.pdf.html">Symbian代码规范</a>，除了以下几点：</p>
+<ul>
+<li>
+<p>在类型标识字母（<code>C/T/R/M</code>）后，类名以<code>SymTtk</code>开头，如<code>CSymTtkGc</code>。</p>
+</li>
+<li>
+<p>当Symbian相关类继承了TTK接口时，继承函数的声明和定义头均使用接口中的风格。</p>
+</li>
+<li>
+<p>文件名为去除了类型标识字母和<code>SymTtk</code>的类名，但改为小写。例如文件<code>gc.h</code>的内容为：</p>
+<pre><code>#ifndef SYMTTK_GC_H
+#define SYMTTK_GC_H
+class CSymTtkGc {
+};
+#endif /* SYMTTK_GC_H */
+</code></pre>
+</li>
+</ul>
