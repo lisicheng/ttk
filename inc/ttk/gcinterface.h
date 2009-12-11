@@ -14,6 +14,7 @@ public:
 	virtual void draw_line(const TtkPoint& p1, const TtkPoint& p2) = 0;
 	virtual void set_clipping_rect(const TtkRect& rect) = 0;
 	virtual void set_pen_color(TtkColor color) = 0;
+	virtual void set_brush_color(TtkColor color) = 0;
 };
 
 #endif /* TTK_GCINTERFACE_H */

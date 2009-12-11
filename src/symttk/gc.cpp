@@ -50,6 +50,13 @@ void CSymTtkGc::set_pen_color(TtkColor color)
 	iGc->SetPenColor(rgb);
 }
 
+void CSymTtkGc::set_brush_color(TtkColor color)
+{
+	TRgb rgb;
+	rgb.SetInternal(color);
+	iGc->SetBrushColor(rgb);
+}
+
 CWindowGc& CSymTtkGc::Gc() const
 {
 	return *iGc;
