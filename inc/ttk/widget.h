@@ -18,7 +18,10 @@ public:
 	virtual void handle_key_event(TtkKeyEvent& key_event);
 	virtual void handle_pointer_event(TtkPointerEvent& pointer_event);
 	virtual void handle_redraw_event(const TtkRect& rect);
+	virtual bool focusable() const;
 public:
+	bool has_focus() const;
+	void set_focus(bool has_focus);
 	TtkWsEnvInterface& ws_env();
 	const TtkRect& rect() const;
 	void set_rect(const TtkRect& rect);
@@ -29,6 +32,7 @@ private:
 	TtkRect rect_;
 	TtkWindowInterface* window_;
 	bool own_window_;
+	bool has_focus_;
 };
 
 #endif /* TTK_WIDGET_H */

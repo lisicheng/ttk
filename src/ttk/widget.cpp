@@ -14,7 +14,7 @@ TtkWidget::~TtkWidget()
 TtkWidget::TtkWidget(TtkWsEnvInterface& ws_env, const TtkRect& rect,
 		     TtkWindowInterface* window)
 		: ws_env_(ws_env), rect_(rect), window_(NULL),
-		  own_window_(false)
+		  own_window_(false), has_focus_(false)
 {
 	if (window) {
 		window_ = window;
@@ -37,6 +37,21 @@ void TtkWidget::handle_redraw_event(const TtkRect& rect)
 {
 	TtkGcInterface& gc = ws_env().gc();
 	gc.clear(rect);
+}
+
+bool TtkWidget::focusable() const
+{
+	return false;
+}
+
+bool TtkWidget::has_focus() const
+{
+	return has_focus_;
+}
+
+void TtkWidget::set_focus(bool has_focus)
+{
+	has_focus_ = has_focus;
 }
 
 TtkWsEnvInterface& TtkWidget::ws_env()
