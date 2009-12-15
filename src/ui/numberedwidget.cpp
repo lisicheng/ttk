@@ -22,7 +22,7 @@ void NumberedWidget::handle_redraw_event(const TtkRect& rect)
 {
 	TtkGcInterface& gc = ws_env().gc();
 	gc.set_clipping_rect(rect);
-	gc.clear(rect);
+	gc.clear(this->rect());
  	gc.set_pen_color(kTtkColorBlack);
  	gc.set_brush_color(kTtkColorGreen);
 	gc.draw_rect(this->rect());

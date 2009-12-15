@@ -26,13 +26,13 @@ void TtkLabel::handle_redraw_event(const TtkRect& rect)
 {
 	TtkGcInterface& gc = ws_env().gc();
 	gc.set_clipping_rect(rect);
-	gc.clear(rect);
+	gc.clear(this->rect());
 	if (action_) {
 		gc.set_pen_color(kTtkColorBlue);
-		gc.draw_text(text_, rect, true);
+		gc.draw_text(text_, this->rect(), true);
 	} else {
 		gc.set_pen_color(kTtkColorBlack);
-		gc.draw_text(text_, rect, false);
+		gc.draw_text(text_, this->rect(), false);
 	}
 }
 

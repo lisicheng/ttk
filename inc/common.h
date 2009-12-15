@@ -27,4 +27,13 @@ const TUid KApplicationUid = { 0x100098e6 };
 	logger.Close();							\
 } while(0);
 
+#define LOGDES(MSG) do {						\
+	RFileLogger logger;						\
+	logger.Connect();						\
+	logger.CreateLog(_L("log"), _L("log"), EFileLoggingModeAppend);	\
+	logger.Write(MSG);						\
+	logger.CloseLog();						\
+	logger.Close();							\
+} while(0);
+
 #endif /* COMMON_H */
