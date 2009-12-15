@@ -4,6 +4,6 @@
 class TtkButton : public TtkWidget {
 public:
 	virtual ~TtkButton();
-}
+};
 
 #endif // TTK_BUTTON_H

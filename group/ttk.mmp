@@ -8,7 +8,7 @@
 */
 
 
-TARGET		ttk.exe
+TARGET		ttk_a1986131.exe
 TARGETTYPE	exe
 UID		0x100039ce 0xa1986131
 
@@ -32,15 +32,22 @@ SOURCEPATH	..\src\ttk
 SOURCE		widget.cpp
 
 SOURCEPATH	..\src\ui
+SOURCE		button.cpp
+SOURCE		expander.cpp
+SOURCE		image.cpp
+SOURCE		label.cpp
+SOURCE		list.cpp
 SOURCE		mainwidget.cpp
+SOURCE		mainwidget2.cpp
 SOURCE		numberedwidget.cpp
+SOURCE		scrollbar.cpp
 
 SOURCEPATH	..\rss
 
 START RESOURCE ttk.rss
 HEADER
 TARGET ttk_a1986131.rsc
-TRAGETPATH resource\apps
+TARGETPATH resource\apps
 END
 
 START RESOURCE ttk_loc.rss
@@ -61,6 +68,7 @@ SYSTEMINCLUDE	\epoc32\include
 
 LIBRARY		euser.lib
 LIBRARY		apparc.lib
+LIBRARY		charconv.lib
 LIBRARY		cone.lib
 LIBRARY		eikcore.lib
 LIBRARY		flogger.lib
