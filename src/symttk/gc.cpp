@@ -75,15 +75,23 @@ void CSymTtkGc::set_clipping_rect(const TtkRect& rect)
 
 void CSymTtkGc::set_pen_color(TtkColor color)
 {
+#ifdef EKA2
 	TRgb rgb;
 	rgb.SetInternal(color);
+#else
+	TRgb rgb(color);
+#endif
 	iGc->SetPenColor(rgb);
 }
 
 void CSymTtkGc::set_brush_color(TtkColor color)
 {
+#ifdef EKA2
 	TRgb rgb;
 	rgb.SetInternal(color);
+#else
+	TRgb rgb(color);
+#endif
 	iGc->SetBrushStyle(CGraphicsContext::ESolidBrush);
 	iGc->SetBrushColor(rgb);
 }
@@ -100,8 +108,11 @@ CSymTtkGc::CSymTtkGc(CWsScreenDevice& aScreen) : iScreen(aScreen)
 void CSymTtkGc::ConstructL()
 {
 	User::LeaveIfError(iScreen.CreateContext(iGc));
-//	_LIT(KFontName, "Swiss");
+#ifdef EKA2
 	_LIT(KFontName, "Sans MT 936_S60");
+#else
+	_LIT(KFontName, "CombinedChinesePlain12");
+#endif
 	const TInt KFontHeight = 200;
 	TFontSpec fontSpec(KFontName, KFontHeight);
 	User::LeaveIfError(iScreen.GetNearestFontInTwips(iFont, fontSpec));

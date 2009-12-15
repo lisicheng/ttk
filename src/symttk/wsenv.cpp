@@ -34,8 +34,12 @@ CSymTtkWsEnv* CSymTtkWsEnv::NewLC(const TRect& aRect)
 TtkWindowInterface* CSymTtkWsEnv::new_window(TtkWidget& widget,
 					     TtkColor color) const
 {
+#ifdef EKA2
 	TRgb rgb;
 	rgb.SetInternal(color);
+#else
+	TRgb rgb(color);
+#endif
 	return CSymTtkWindow::NewL(widget, rgb);
 }
 
