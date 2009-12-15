@@ -31,6 +31,7 @@ SRCFILES = \
 LIBRARY = \
 	euser.lib \
 	apparc.lib \
+	charconv.lib \
 	cone.lib \
 	eikcore.lib \
 	flogger.lib \
