@@ -14,7 +14,8 @@ private: /* from TtkWidget */
 	void handle_key_event(TtkKeyEvent& key_event);
 	void handle_redraw_event(const TtkRect& rect);
 private:
-	NumberedWidget* component_;
+	TtkWidget* component_;
+	TtkWidget* text_;
 };
 
 #endif /* MAINWIDGET_H */

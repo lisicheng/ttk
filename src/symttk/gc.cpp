@@ -45,10 +45,10 @@ void CSymTtkGc::draw_rect(const TtkRect& rect)
 	iGc->DrawRect(sym_rect);
 }
 
-void CSymTtkGc::draw_text(const unsigned char* text, const TtkRect& rect,
+void CSymTtkGc::draw_text(const char* text, const TtkRect& rect,
 			  bool underline)
 {
-	TPtrC8 ptr(text);
+	TPtrC8 ptr(reinterpret_cast<const unsigned char*>(text));
 	HBufC* buffer = CnvUtfConverter::ConvertToUnicodeFromUtf8L(ptr);
 	CleanupStack::PushL(buffer);
 	const TRect sym_rect(rect.tl_.x_, rect.tl_.y_,
