@@ -1,7 +1,6 @@
 #include "symttk/gc.h"
 
 #include <utf.h>
-#include "common.h"
 #include "ttk/common/rect.h"
 
 CSymTtkGc::~CSymTtkGc()
@@ -62,7 +61,6 @@ void CSymTtkGc::draw_text(const char* text, const TtkRect& rect,
 	else
 		iGc->SetUnderlineStyle(EUnderlineOff);
 	iGc->UseFont(iFont);
-	LOGDES(*buffer);
 	iGc->DrawText(*buffer, sym_rect, offset);
 	iGc->DiscardFont();
 	CleanupStack::PopAndDestroy(buffer);
