@@ -2,6 +2,11 @@
 *.o
 /dist
 /doc
+/.cproject
+/.project
+/.settings
+*~
+/group/ABLD.BAT
 /inc/*.rsg
 /sis/*.sis
 /sis/*.sisx
