@@ -53,14 +53,14 @@ void CSymTtkGc::draw_text(const char* text, const TtkRect& rect,
 	CleanupStack::PushL(buffer);
 	const TRect sym_rect(rect.tl_.x_, rect.tl_.y_,
 			     rect.br_.x_, rect.br_.y_);
-	iGc->UseFont(iFont);
 	TInt ascent = iFont->AscentInPixels();
 	TInt descent = iFont->DescentInPixels();
 	TInt offset = (rect.height() + (ascent - descent)) / 2;
 	if (underline)
 		iGc->SetUnderlineStyle(EUnderlineOn);
 	else
-		iGc->SetUnderlineStyle(EUnderlineOn);
+		iGc->SetUnderlineStyle(EUnderlineOff);
+	iGc->UseFont(iFont);
 	iGc->DrawText(*buffer, sym_rect, offset);
 	iGc->DiscardFont();
 	CleanupStack::PopAndDestroy(buffer);
@@ -100,7 +100,8 @@ CSymTtkGc::CSymTtkGc(CWsScreenDevice& aScreen) : iScreen(aScreen)
 void CSymTtkGc::ConstructL()
 {
 	User::LeaveIfError(iScreen.CreateContext(iGc));
-	_LIT(KFontName, "Swiss");
+//	_LIT(KFontName, "Swiss");
+	_LIT(KFontName, "Sans MT 936_S60");
 	const TInt KFontHeight = 200;
 	TFontSpec fontSpec(KFontName, KFontHeight);
 	User::LeaveIfError(iScreen.GetNearestFontInTwips(iFont, fontSpec));
