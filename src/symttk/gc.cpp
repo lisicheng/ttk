@@ -66,6 +66,11 @@ void CSymTtkGc::draw_text(const char* text, const TtkRect& rect,
 	CleanupStack::PopAndDestroy(buffer);
 }
 
+void CSymTtkGc::draw_bitmap(const TtkBitmapInterface& bitmap,
+			    const TtkRect& rect)
+{
+}
+
 void CSymTtkGc::set_clipping_rect(const TtkRect& rect)
 {
 	const TRect sym_rect(rect.tl_.x_, rect.tl_.y_,

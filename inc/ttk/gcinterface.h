@@ -15,6 +15,8 @@ public:
 	virtual void draw_rect(const TtkRect& rect) = 0;
 	virtual void draw_text(const char* text, const TtkRect& rect,
 			       bool underline) = 0;
+	virtual void draw_bitmap(const TtkBitmapInterface& bitmap,
+				 const TtkRect& rect) = 0;
 	virtual void set_clipping_rect(const TtkRect& rect) = 0;
 	virtual void set_pen_color(TtkColor color) = 0;
 	virtual void set_brush_color(TtkColor color) = 0;

@@ -17,6 +17,8 @@ public: /* from TtkGcInterface */
 	void draw_rect(const TtkRect& rect);
 	void draw_text(const char* text, const TtkRect& rect,
 		       bool underline);
+	void draw_bitmap(const TtkBitmapInterface& bitmap,
+			 const TtkRect& rect);
 	void set_clipping_rect(const TtkRect& rect);
 	void set_pen_color(TtkColor color);
 	void set_brush_color(TtkColor color);
