@@ -52,7 +52,6 @@ void CSymTtkGc::draw_text(const unsigned char* text, const TtkRect& rect)
 	CleanupStack::PushL(buffer);
 	const TRect sym_rect(rect.tl_.x_, rect.tl_.y_,
 			     rect.br_.x_, rect.br_.y_);
-	iGc->SetPenColor(KRgbBlack);
 	iGc->UseFont(iFont);
 	TInt ascent = iFont->AscentInPixels();
 	TInt descent = iFont->DescentInPixels();
