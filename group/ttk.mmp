@@ -1,0 +1,75 @@
+/*
+====================================================================================
+ Name		: ttk.mmp
+ Author		: Sicheng Li
+ Copyright	:
+ Description	: This is the project specification file for ttk
+====================================================================================
+*/
+
+
+TARGET		ttk.exe
+TARGETTYPE	exe
+UID		0x100039ce 0xa1986131
+
+SOURCEPATH	..\src\framework
+SOURCE		application.cpp
+SOURCE		appui.cpp
+SOURCE		document.cpp
+SOURCE		main.cpp
+
+SOURCEPATH	..\src\symttk
+SOURCE		gc.cpp
+SOURCE		redrawer.cpp
+SOURCE		window.cpp
+SOURCE		wsenv.cpp
+
+SOURCEPATH	..\src\ttk\common
+SOURCE		point.cpp
+SOURCE		rect.cpp
+
+SOURCEPATH	..\src\ttk
+SOURCE		widget.cpp
+
+SOURCEPATH	..\src\ui
+SOURCE		mainwidget.cpp
+SOURCE		numberedwidget.cpp
+
+SOURCEPATH	..\rss
+
+START RESOURCE ttk.rss
+HEADER
+TARGET ttk_a1986131.rsc
+TRAGETPATH resource\apps
+END
+
+START RESOURCE ttk_loc.rss
+HEADER
+TARGET ttk_loc_a1986131.rsc
+TARGETPATH resource\apps
+END
+
+START RESOURCE ttk_reg.rss
+HEADER
+TARGET ttk_reg_a1986131.rsc
+TARGETPATH \private\10003a3f\apps
+END
+
+USERINCLUDE	..\inc
+
+SYSTEMINCLUDE	\epoc32\include
+
+LIBRARY		euser.lib
+LIBRARY		apparc.lib
+LIBRARY		cone.lib
+LIBRARY		eikcore.lib
+LIBRARY		flogger.lib
+LIBRARY		gdi.lib
+LIBRARY		ws32.lib
+
+LANG SC
+
+VENDORID	0
+SECUREID	0xa1986131
+CAPABILITY	NONE
+EPOCSTACKSIZE	0x5000
