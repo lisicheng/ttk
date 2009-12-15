@@ -45,7 +45,8 @@ void CSymTtkGc::draw_rect(const TtkRect& rect)
 	iGc->DrawRect(sym_rect);
 }
 
-void CSymTtkGc::draw_text(const unsigned char* text, const TtkRect& rect)
+void CSymTtkGc::draw_text(const unsigned char* text, const TtkRect& rect,
+			  bool underline)
 {
 	TPtrC8 ptr(text);
 	HBufC* buffer = CnvUtfConverter::ConvertToUnicodeFromUtf8L(ptr);
@@ -56,6 +57,10 @@ void CSymTtkGc::draw_text(const unsigned char* text, const TtkRect& rect)
 	TInt ascent = iFont->AscentInPixels();
 	TInt descent = iFont->DescentInPixels();
 	TInt offset = (rect.height() + (ascent - descent)) / 2;
+	if (underline)
+		iGc->SetUnderlineStyle(EUnderlineOn);
+	else
+		iGc->SetUnderlineStyle(EUnderlineOn);
 	iGc->DrawText(*buffer, sym_rect, offset);
 	iGc->DiscardFont();
 	CleanupStack::PopAndDestroy(buffer);
