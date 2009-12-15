@@ -4,6 +4,7 @@
 #include "symttk/window.h"
 #include "symttk/gc.h"
 #include "ui/mainwidget.h"
+#include "ui/mainwidget2.h"
 #include "ttk/common/pointerevent.h"
 
 CSymTtkWsEnv::~CSymTtkWsEnv()
@@ -81,7 +82,8 @@ void CSymTtkWsEnv::ConstructL(const TRect& aRect)
 	iRedrawer = CSymTtkRedrawer::NewL(*this);
 	TtkRect rect(aRect.iTl.iX, aRect.iTl.iY,
 		     aRect.iBr.iX, aRect.iBr.iY);
-	iRootWidget = new MainWidget(*this, rect);
+	//iRootWidget = new MainWidget(*this, rect);
+	iRootWidget = new MainWidget2(*this, rect);
 	IssueRequest();
 }
 

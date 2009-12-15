@@ -4,6 +4,6 @@
 class TtkImage : public TtkWidget {
 public:
 	virtual ~TtkImage();
-}
+};
 
 #endif // TTK_IMAGE_H
