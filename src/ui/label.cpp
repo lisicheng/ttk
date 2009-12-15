@@ -1,6 +1,9 @@
 #include "ui/label.h"
 
-~TtkLabel::TtkLabel()
+#include "ttk/gcinterface.h"
+#include "ttk/wsenvinterface.h"
+
+TtkLabel::~TtkLabel()
 {
 }
 
@@ -21,6 +24,16 @@ void TtkLabel::handle_key_event(TtkKeyEvent& key_event)
 
 void TtkLabel::handle_redraw_event(const TtkRect& rect)
 {
+	TtkGcInterface& gc = ws_env().gc();
+	gc.set_clipping_rect(rect);
+	gc.clear(rect);
+	if (action_) {
+		gc.set_pen_color(kTtkColorBlue);
+		gc.draw_text(text_, rect, true);
+	} else {
+		gc.set_pen_color(kTtkColorBlack);
+		gc.draw_text(text_, rect, false);
+	}
 }
 
 bool TtkLabel::focusable() const

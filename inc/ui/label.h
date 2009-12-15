@@ -1,6 +1,8 @@
 #ifndef TTK_LABEL_H
 #define TTK_LABEL_H
 
+#include "ttk/widget.h" /* TtkWidget */
+
 class TtkLabel : public TtkWidget {
 public:
 	virtual ~TtkLabel();
@@ -14,6 +16,6 @@ public: /* from TtkWidget */
 private:
 	const char* text_;
 	void (*action_)();
-}
+};
 
-#endif // TTK_LABEL_H
+#endif /* TTK_LABEL_H */

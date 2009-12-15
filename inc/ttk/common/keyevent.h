@@ -6,6 +6,7 @@ enum TtkKeyEvent {
 	kTtkKeyDown,
 	kTtkKeyLeft,
 	kTtkKeyRight,
+	kTtkKeyOk,
 	kTtkKeyUnknown
 };
 
