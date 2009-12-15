@@ -1,9 +1,11 @@
 #include "symttk/gc.h"
 
+#include <utf.h>
 #include "ttk/common/rect.h"
 
 CSymTtkGc::~CSymTtkGc()
 {
+	iScreen.ReleaseFont(iFont);
 	delete iGc;
 }
 
@@ -16,9 +18,9 @@ CSymTtkGc* CSymTtkGc::NewL(CWsScreenDevice& aScreen)
 
 CSymTtkGc* CSymTtkGc::NewLC(CWsScreenDevice& aScreen)
 {
-	CSymTtkGc* self = new(ELeave) CSymTtkGc();
+	CSymTtkGc* self = new(ELeave) CSymTtkGc(aScreen);
 	CleanupStack::PushL(self);
-	self->ConstructL(aScreen);
+	self->ConstructL();
 	return self;
 }
 
@@ -41,6 +43,23 @@ void CSymTtkGc::draw_rect(const TtkRect& rect)
 	const TRect sym_rect(rect.tl_.x_, rect.tl_.y_,
 			     rect.br_.x_, rect.br_.y_);
 	iGc->DrawRect(sym_rect);
+}
+
+void CSymTtkGc::draw_text(const unsigned char* text, const TtkRect& rect)
+{
+	TPtrC8 ptr(text);
+	HBufC* buffer = CnvUtfConverter::ConvertToUnicodeFromUtf8L(ptr);
+	CleanupStack::PushL(buffer);
+	const TRect sym_rect(rect.tl_.x_, rect.tl_.y_,
+			     rect.br_.x_, rect.br_.y_);
+	iGc->SetPenColor(KRgbBlack);
+	iGc->UseFont(iFont);
+	TInt ascent = iFont->AscentInPixels();
+	TInt descent = iFont->DescentInPixels();
+	TInt offset = (rect.height() + (ascent - descent)) / 2;
+	iGc->DrawText(*buffer, sym_rect, offset);
+	iGc->DiscardFont();
+	CleanupStack::PopAndDestroy(buffer);
 }
 
 void CSymTtkGc::set_clipping_rect(const TtkRect& rect)
@@ -70,7 +89,15 @@ CWindowGc& CSymTtkGc::Gc() const
 	return *iGc;
 }
 
-void CSymTtkGc::ConstructL(CWsScreenDevice& aScreen)
+CSymTtkGc::CSymTtkGc(CWsScreenDevice& aScreen) : iScreen(aScreen)
 {
-	User::LeaveIfError(aScreen.CreateContext(iGc));
+}
+
+void CSymTtkGc::ConstructL()
+{
+	User::LeaveIfError(iScreen.CreateContext(iGc));
+	_LIT(KFontName, "Swiss");
+	const TInt KFontHeight = 200;
+	TFontSpec fontSpec(KFontName, KFontHeight);
+	User::LeaveIfError(iScreen.GetNearestFontInTwips(iFont, fontSpec));
 }
