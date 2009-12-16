@@ -9,17 +9,19 @@
 代码地址：`git://github.com/yuanyelele/ttk.git`
 
 ## 目录结构
-* `.gitignore`: git忽略的文件列表
-* `Makefile_2nd`: 适用S60第二版的Makefile
+* `config.mk`: 适用于S60第三版的配置文件
 * `config_2nd.mk`: 适用于S60第二版的配置文件
-* `README.markdown`: Markdown格式说明文件
-* `README.html`: HTML格式的说明文件
+* `.gitignore`: git忽略的文件列表
+* `group`: S60项目定义文件
 * `inc`: 头文件	
 	* `framework`: S60 GUI框架类
 	* `symttk`: Symbian平台相关TTK类
 	* `ttk`: 平台无关TTK类
 		* `common`: 平台无关通用类，如颜色、矩形等
 	* `ui`: TTK控件样例
+* `Makefile`: 适用于S60第三版的Makefile
+* `Makefile_2nd`: 适用S60第二版的Makefile
+* `README.markdown`: Markdown格式的说明文件
 * `rss`: S60资源文件
 * `sis`: S60打包配置
 * `src`: 源文件，子目录结构同`inc`
