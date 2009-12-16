@@ -93,7 +93,7 @@ bin: check dist/$(PROJECT)_$(UID3).$(TARGETTYPE)
 $(RSSTARGET): dist/%_$(UID3).rsc : rss/%.rss
 	epocrc.pl -Iinc -I- -I$(SYSINCPATH) \
 		-D$(LANG_MACRO) -u -v \
-		$< -o$@ -hinc/$(basename $(notdir $<)).rsg
+		$< -o$@ -hinc/$(basename $(notdir $<))_$(UID3).rsg
 
 resource: check $(RSSTARGET)
 

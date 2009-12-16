@@ -19,11 +19,13 @@ SRCFILES = \
 	ttk/common/point.cpp \
 	ttk/common/rect.cpp \
 	ttk/widget.cpp \
+	ui/label.cpp \
 	ui/mainwidget.cpp \
 	ui/numberedwidget.cpp
 
 LIBRARY = \
 	apparc.lib \
+	charconv.lib \
 	cone.lib \
 	eikcore.lib \
 	euser.lib \
