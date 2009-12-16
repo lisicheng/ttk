@@ -73,3 +73,7 @@ TtkWindowInterface& TtkWidget::window() const
 {
 	return *window_;
 }
+
+void TtkWidget::refresh_rect(const TtkRect& rect1, const TtkRect& rect2)
+{
+}

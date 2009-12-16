@@ -15,8 +15,14 @@ public:/*from TtkWidget*/
 	void handle_redraw_event(const TtkRect& rect);
 	
 public:
+	void set_totalLength(int length);
+	void set_scrollbarLength(int sLength);
+	void set_startPoint(int sPoint);
 	
 private:/*data*/
+	int totalLength;
+	int scrollbarLength;
+	int startPoint;
 };
 
 #endif // TTK_SCROLLBAR_H
