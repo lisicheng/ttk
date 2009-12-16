@@ -23,11 +23,12 @@ TtkExpander::TtkExpander(TtkWsEnvInterface& ws_env, const TtkRect& rect,
 void TtkExpander::handle_redraw_event(const TtkRect& rect)
 {
 	TtkGcInterface& gc = ws_env().gc();
+	gc.set_clipping_rect(rect);
 	if(has_focus())
 		gc.set_brush_color(kTtkColorRed);
 	else
 		gc.set_brush_color(kTtkColorGreen);
-	gc.clear(rect);
+	gc.clear(this->rect());
 	if(iLabel)
 		iLabel->handle_redraw_event(iLabel->rect());
 }

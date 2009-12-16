@@ -24,7 +24,7 @@ TtkList::TtkList(TtkWsEnvInterface& ws_env, const TtkRect& rect,
 
 void TtkList::handle_redraw_event(const TtkRect& rect)
 {
-	TtkWidget::handle_redraw_event(rect);
+	TtkWidget::handle_redraw_event(this->rect());
 	if(iExpandersNum > 0){
 		if(iExpanders[iExpandersNum-1]->rect().br_.y_-iExpanders[0]->rect().tl_.y_ >
 			this->rect().height()){
@@ -164,7 +164,7 @@ void TtkList::handle_key_event(TtkKeyEvent& key_event)
 			iExpanders[iFocusedNum]->handle_key_event(key_event);//wrap or unwrap, reset rect
 			if(iFocusedNum < iExpandersNum -1){
 				int moveY = iExpanders[iFocusedNum]->rect().br_.y_ - iExpanders[iFocusedNum+1]->rect().tl_.y_;
-				for(int i = iFocusedNum+1; i < iFocusedNum; ++i){
+				for(int i = iFocusedNum+1; i < iExpandersNum; ++i){
 					TtkRect rect_1_1 = iExpanders[i]->rect();
 					TtkRect rect_1_2 = rect_1_1;
 					rect_1_2.move(0, moveY);					
@@ -173,8 +173,8 @@ void TtkList::handle_key_event(TtkKeyEvent& key_event)
 				}
 			}
 			if(iExpanders[iFocusedNum]->rect().br_.y_ > rect().br_.y_){
-				int moveY1 = iExpanders[iFocusedNum+1]->rect().tl_.y_-rect().tl_.y_;
-				int moveY2 = iExpanders[iFocusedNum+1]->rect().br_.y_-rect().br_.y_;
+				int moveY1 = iExpanders[iFocusedNum]->rect().tl_.y_-rect().tl_.y_;
+				int moveY2 = iExpanders[iFocusedNum]->rect().br_.y_-rect().br_.y_;
 				int moveY3 = (moveY1 < moveY2)? moveY1 : moveY2;
 				for (int i = 0; i < iExpandersNum; ++i){
 					TtkRect rect_1_1 = iExpanders[i]->rect();
@@ -183,15 +183,8 @@ void TtkList::handle_key_event(TtkKeyEvent& key_event)
 					iExpanders[i]->set_rect(rect_1_2);
 					iExpanders[i]->refresh_rect(rect_1_1, iExpanders[i]->rect());
 				}
-				set_focus(false);
-				++iFocusedNum;
-				set_focus(true);
-				window().redraw(rect());
 			}
-			else {
-				TtkRect rect(iExpanders[iFocusedNum]->rect().tl_, this->rect().br_);
-				window().redraw(rect);
-			}
+			window().redraw(rect());
 			break;
 		default:
 			break;

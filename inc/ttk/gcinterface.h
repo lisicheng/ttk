@@ -5,6 +5,7 @@
 
 class TtkRect;
 class TtkPoint;
+class TtkBitmapInterface;
 
 class TtkGcInterface {
 public:

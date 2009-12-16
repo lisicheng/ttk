@@ -18,9 +18,9 @@ TtkScrollbar::TtkScrollbar(TtkWsEnvInterface& ws_env, const TtkRect& rect,
 
 void TtkScrollbar::handle_redraw_event(const TtkRect& rect)
 {
-	TtkWidget::handle_redraw_event(rect);
 	TtkGcInterface& gc = ws_env().gc();
 	gc.set_clipping_rect(rect);
+	gc.set_brush_color(kTtkColorWhite);
 	gc.clear(rect);
 	
 	if(totalLength > 0){
