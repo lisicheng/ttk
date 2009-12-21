@@ -1,23 +1,15 @@
 &EN
 
-; standard SIS file header
-#{"ttk"},(0xa1986131),1,0,0
+#{"ttk_a1986131"},(0xa1986131),1,0,0
 
-;Localised Vendor name
 %{"Vendor-EN"}
 
-;Unique Vendor name
 :"Vendor"
 
-;Supports Series 60 v 3.0
 [0x101F7961], 0, 0, 0, {"Series60ProductID"}
 
-;Files to install
-;You should change the source paths to match that of your environment
-;<source> <destination>
 "$(EPOCROOT)Epoc32\release\$(PLATFORM)\$(TARGET)\ttk_a1986131.exe"		-"!:\sys\bin\ttk_a1986131.exe"
 "$(EPOCROOT)Epoc32\data\z\resource\apps\ttk_a1986131.rsc"		-"!:\resource\apps\ttk_a1986131.rsc"
-"$(EPOCROOT)Epoc32\data\z\private\10003a3f\apps\ttk_a1986131_reg.rsc"	-"!:\private\10003a3f\import\apps\ttk_a1986131_reg.rsc"
+"$(EPOCROOT)Epoc32\data\z\private\10003a3f\apps\ttk_reg_a1986131.rsc"	-"!:\private\10003a3f\import\apps\ttk_reg_a1986131.rsc"
 
-;required for application to be covered by backup/restore facility 
 "..\sis\backup_registration.xml"		-"!:\private\a1986131\backup_registration.xml"
