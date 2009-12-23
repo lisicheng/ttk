@@ -9,6 +9,9 @@ class CSymTtkGc;
 class CSymTtkRedrawer;
 class TtkWidget;
 
+/**
+ * \brief Symbian窗口管理器环境
+ */
 class CSymTtkWsEnv : public CActive, public TtkWsEnvInterface
 {
 public:

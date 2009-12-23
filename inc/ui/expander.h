@@ -6,6 +6,12 @@
 class TtkWsEnvInterface;
 class TtkWindowInterface;
 
+/**
+ * \brief 折叠页
+ *
+ * 折叠页可以打开或关闭，包含一个标题栏和一个可隐藏的客户区。标题栏中包含一个说明
+ * 标签\ref TtkLabel和一个标示当前折叠状态的图片\ref TtkImage。
+ */
 class TtkExpander : public TtkWidget {
 public:
 	virtual ~TtkExpander();

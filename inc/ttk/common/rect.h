@@ -1,8 +1,18 @@
+/**
+ * \file
+ * \brief TtkRect类声明
+ * \author 袁野 <yuanyelele@gmail.com>
+ * \author 李思诚 <lisicheng2008@gmail.com>
+ * \warning 2009 (c) 北京随手互动信息技术有限公司
+ */
 #ifndef TTK_RECT_H
 #define TTK_RECT_H
 
 #include "ttk/common/point.h" /* TtkPoint */
 
+/**
+ * \brief 平面上的矩形区域
+ */
 class TtkRect {
 public:
 	TtkRect(int x1, int y1, int x2, int y2);

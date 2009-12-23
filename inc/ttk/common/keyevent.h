@@ -1,6 +1,16 @@
+/**
+ * \file
+ * \brief TtkKeyEvent枚举定义
+ * \author 袁野 <yuanyelele@gmail.com>
+ * \author 李思诚 <lisicheng2008@gmail.com>
+ * \warning 2009 (c) 北京随手互动信息技术有限公司
+ */
 #ifndef TTK_KEYEVENT_H
 #define TTK_KEYEVENT_H
 
+/**
+ * \breif 按键事件
+ */
 enum TtkKeyEvent {
 	kTtkKeyUp,
 	kTtkKeyDown,

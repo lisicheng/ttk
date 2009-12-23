@@ -6,6 +6,9 @@
 class TtkWsEnvInterface;
 class TtkWindowInterface;
 
+/**
+ * \brief 滚动条
+ */
 class TtkScrollbar : public TtkWidget {
 public:
 	virtual ~TtkScrollbar();

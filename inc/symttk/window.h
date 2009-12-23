@@ -8,6 +8,9 @@
 class TRgb;
 class TtkWidget;
 
+/**
+ * \brief Symbian窗口
+ */
 class CSymTtkWindow : public CBase, public TtkWindowInterface
 {
 public:

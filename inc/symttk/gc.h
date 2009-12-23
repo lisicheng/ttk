@@ -6,6 +6,9 @@
 
 class CWsScreenDevice;
 
+/**
+ * \brief Symbian图形上下文
+ */
 class CSymTtkGc : public CBase, public TtkGcInterface {
 public:
 	virtual ~CSymTtkGc();
