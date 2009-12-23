@@ -8,10 +8,10 @@ VENDORID = 0
 EPOCSTACKSIZE = 0x5000
 CAPABILITY = NONE
 
-RSSTARGET = \
-	dist/$(PROJECT)_loc_$(UID3).rsc \
-	dist/$(PROJECT)_reg_$(UID3).rsc \
-	dist/$(PROJECT)_$(UID3).rsc
+RSSFILES = \
+	$(PROJECT)_loc.rss \
+	$(PROJECT)_reg.rss \
+	$(PROJECT).rss
 
 SRCFILES = \
 	framework/application.cpp \

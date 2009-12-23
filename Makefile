@@ -1,3 +1,4 @@
+#   Makefile for Symbian Project
 #
 #   Copyright 2009, Harry Li <harry.li AT pagefreedom.org>
 #   Copyright 2009, Yuan Ye <yuanyelele@gmail.com>
@@ -23,14 +24,16 @@ VARIANT = $(SYSINCPATH)/variant
 OS_HRH = $(VARIANT)/symbian_os_v9.1.hrh
 CERT = ~/cert_dev.cer
 KEY = ~/cert_dev.key
-LANG_MACRO = LANGUAGE_SC
+LANG = LANGUAGE_SC
 
 include config.mk
 
+.PHONY: check clean resource bin build pack doc install
+
 check:
-	@echo 'EPOCROOT is' $(EPOCROOT)
-	@echo 'GCCPATH is ' $(GCCPATH)
-	@echo 'PATH is ' $(PATH)
+	@echo 'EPOCROOT:' $(EPOCROOT)
+	@echo ' GCCPATH:' $(GCCPATH)
+	@echo '    PATH:' $(PATH)
 	@echo '==============================================================='
 
 CXX = arm-none-symbianelf-g++ # GNU project C and C++ compiler
@@ -40,7 +43,7 @@ ARMV5URELPATH = $(EPOCROOT)/epoc32/release/armv5/urel
 ARMV5LIBPATH = $(EPOCROOT)/epoc32/release/armv5/lib
 
 CXXFLAGS += -fexceptions -march=armv5t -mapcs -pipe -nostdinc -c -msoft-float \
-	-MD -include $(EPOCROOT)/epoc32/include/gcce/gcce.h \
+	-include $(EPOCROOT)/epoc32/include/gcce/gcce.h \
 	-D__SYMBIAN32__ -D__EPOC32__ -D__SERIES60_30__ -D__SERIES60_3X__ \
 	-D__GCCE__ -D__MARM__ -D__MARM_ARMV5__ -D__EABI__ \
 	-D__SUPPORT_CPP_EXCEPTIONS__ -D__EXE__ -DNDEBUG -D_UNICODE \
@@ -62,44 +65,69 @@ LDFLAGS = \
 	$(ARMV5LIBPATH)/drtaeabi.dso $(ARMV5LIBPATH)/drtrvct2_2.dso \
 	$(ARMV5LIBPATH)/scppnwdl.dso
 
-OBJS = $(patsubst %.cpp,src/%.o,$(SRCFILES))
+OBJTARGET = $(patsubst %.cpp,src/%.o,$(SRCFILES))
+RSSTARGET = $(patsubst %.rss,dist/%_$(UID3).rsc,$(RSSFILES))
+BINTARGET = dist/$(PROJECT)_$(UID3).$(TARGETTYPE)
+SISX = sis/$(PROJECT).sisx
 
 clean: check
-	rm -rfv dist/*
-	rm -fv $(OBJS)
-	rm -fv $(patsubst %.o,%.d,$(OBJS))
-	rm -fv inc/$(PROJECT)help.hrh
-	rm -fv inc/$(PROJECT).mbg
-	rm -fv inc/*.rsg
+	rm -rf dist/*
+	rm -rf doc/*
+	rm -f $(OBJTARGET)
+	rm -f $(patsubst %.cpp,%.d,$(SRCFILES))
+	rm -f $(patsubst %.rss,%.d,$(RSSFILES))
+	rm -f inc/*.rsg
 
-$(OBJS): src/%.o : src/%.cpp
-	$(CXX) $(CXXFLAGS) -o $@ $<
+include $(patsubst %.cpp,src/%.d,$(SRCFILES))
+include $(patsubst %.rss,rss/%.d,$(RSSFILES))
 
-dist/$(PROJECT).elf: $(OBJS)
+src/%.d: src/%.cpp
+	$(CXX) -M -MT $@ -MT src/$*.o $(CXXFLAGS) $< > $@
+
+rss/%.d: rss/%.rss
+	$(CXX) -M -MT $@ -MT dist/$*_$(UID3).rsc $(CXXFLAGS) $< > $@
+
+dist/$(PROJECT).elf: $(OBJTARGET)
 	$(LD) $^ $(LDFLAGS) \
 		$(addprefix $(ARMV5URELPATH)/,$(STATICLIBRARY)) \
 		$(patsubst %.lib,$(ARMV5LIBPATH)/%.dso,$(LIBRARY))
 
-dist/$(PROJECT)_$(UID3).$(TARGETTYPE): dist/$(PROJECT).elf
-	elf2e32 --elfinput $^ --output $@ --targettype $(TARGETTYPE) \
+$(BINTARGET): dist/$(PROJECT).elf
+	elf2e32 --elfinput $< --output $@ --targettype $(TARGETTYPE) \
 		--linkas $(PROJECT){000a0000}[$(UID3)].$(TARGETTYPE) \
 		--uid1 0x1000007a --uid2 0x$(UID2) --uid3 0x$(UID3) \
 		--sid 0x$(SECUREID) --vid 0x$(VENDORID) --stack $(EPOCSTACKSIZE) \
 		--capability $(subst $(NULL) $(NULL),+,$(CAPABILITY)) \
 		--libpath $(ARMV5LIBPATH) --fpu=softvfp
 
-bin: check dist/$(PROJECT)_$(UID3).$(TARGETTYPE)
+dist/%_$(UID3).rsc inc/%_$(UID3).rsg: rss/%.rss
+	epocrc.pl -Iinc -I$(SYSINCPATH) -D$(LANG) -u -v \
+		$< -odist/$*_$(UID3).rsc -hinc/$*_$(UID3).rsg
 
-$(RSSTARGET): dist/%_$(UID3).rsc : rss/%.rss
-	epocrc.pl -Iinc -I- -I$(SYSINCPATH) \
-		-D$(LANG_MACRO) -u -v \
-		$< -o$@ -hinc/$(basename $(notdir $<))_$(UID3).rsg
+%.o : %.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $<
+
+%.sis: %.pkg $(RSSTARGET) $(BINTARGET)
+	makesis -v $< $@
+
+%.sisx: %.sis $(CERT) $(KEY)
+	signsis -v $< $@ $(CERT) $(KEY)
+
+doc/index.html: $(PROJECT).doxygen troodon.jpg footer.html
+	mkdir -p doc/
+	cp troodon.jpg doc/
+	doxygen ttk.doxygen
 
 resource: check $(RSSTARGET)
 
-build: check resource bin
+bin: check $(BINTARGET)
 
-pack: build sis/$(PROJECT).pkg $(CERT) $(KEY)
-	makesis -v sis/$(PROJECT).pkg sis/$(PROJECT).sis
-	signsis -v sis/$(PROJECT).sis sis/$(PROJECT).sisx $(CERT) $(KEY)
+build: resource bin
+
+pack: $(SISX)
+
+doc: doc/index.html
+
+install: $(SISX)
+	bluetooth-sendto sis/$(PROJECT).sisx
 
