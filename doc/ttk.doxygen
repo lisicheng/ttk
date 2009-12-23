@@ -3,8 +3,8 @@
 #---------------------------------------------------------------------------
 
 DOXYFILE_ENCODING      = UTF-8
-PROJECT_NAME           = "TTK (Troodon ToolKit)"
-PROJECT_NUMBER         = 1.0
+PROJECT_NAME           = "Troodon ToolKit"
+PROJECT_NUMBER         = 
 OUTPUT_DIRECTORY       = doc
 CREATE_SUBDIRS         = NO
 OUTPUT_LANGUAGE        = English
@@ -144,24 +144,8 @@ ALIASES                =
 # of all members will be omitted, etc.
 
 OPTIMIZE_OUTPUT_FOR_C  = NO
-
-# Set the OPTIMIZE_OUTPUT_JAVA tag to YES if your project consists of Java 
-# sources only. Doxygen will then generate output that is more tailored for 
-# Java. For instance, namespaces will be presented as packages, qualified 
-# scopes will look different, etc.
-
 OPTIMIZE_OUTPUT_JAVA   = NO
-
-# Set the OPTIMIZE_FOR_FORTRAN tag to YES if your project consists of Fortran 
-# sources only. Doxygen will then generate output that is more tailored for 
-# Fortran.
-
 OPTIMIZE_FOR_FORTRAN   = NO
-
-# Set the OPTIMIZE_OUTPUT_VHDL tag to YES if your project consists of VHDL 
-# sources. Doxygen will then generate output that is tailored for 
-# VHDL.
-
 OPTIMIZE_OUTPUT_VHDL   = NO
 
 # Doxygen selects the parser to use depending on the extension of the files it parses. 
@@ -528,7 +512,7 @@ WARN_LOGFILE           =
 
 INPUT                  = 
 INPUT_ENCODING         = UTF-8
-FILE_PATTERNS          = *.cpp *.h *.rsg
+FILE_PATTERNS          = *.cpp *.h *.rsg *.doc
 RECURSIVE              = YES
 
 # The EXCLUDE tag can be used to specify files and/or directories that should 
@@ -583,7 +567,7 @@ EXAMPLE_RECURSIVE      = NO
 # directories that contain image that are included in the documentation (see 
 # the \image command).
 
-IMAGE_PATH             = 
+IMAGE_PATH             = doc
 
 # The INPUT_FILTER tag can be used to specify a program that doxygen should 
 # invoke to filter for each input file. Doxygen will invoke the filter program 

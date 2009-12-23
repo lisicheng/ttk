@@ -1,0 +1,99 @@
+/**
+\mainpage Troodon ToolKit 1.0版文档
+\section sec_overview 项目说明
+Troodon ToolKit是一个适用于手机设备的、C++实现的、跨平台的GUI库。它提供一系列标准控件，以及处理重绘、按键和点击等事件的机制，并支持自定义皮肤。用户可以利用这个GUI库实现程序的用户界面。
+
+\section sec_file 目录结构
+	- \c config.mk: 适用于S60第三版的工程配置
+	- \c config_2nd.mk: 适用于S60第二版的工程配置
+	- \c Makefile: 适用于S60第三版的Makefile
+	- \c Makefile_2nd: 适用S60第二版的Makefile
+	- \c .gitignore: git忽略的文件列表
+	- \c README.markdown: Markdown格式的项目说明
+	- \c group/: S60项目定义文件
+	- \c inc: 头文件
+		- \c framework: S60框架类
+		- \c symttk: Symbian平台相关类
+		- \c ttk: 平台无关类
+			- \c common: 平台无关通用类，如颜色、矩形等
+		- \c ui: 各种控件
+		- \c example: 示例
+	- \c src/: 源文件，子目录结构同\c inc/
+	- \c rss/: S60资源文件
+	- \c sis/: S60打包配置
+	- \c doc/: Doxygen文档
+
+\section sec_base 基本概念
+下面是Troodon ToolKit中的几个关键的概念，有必要先对它们做简单的了解，再阅读下面专门的章节。
+
+\subsection subsec_base_widget 控件
+具有特定交互模式的GUI单元，如滚动条、按钮等。所有控件从\ref TtkWidget类派生。每个可见控件都附着在一个窗口中，占据该窗口的一个矩形区域。不同控件之间按照可见区域的包含关系可以构成一个树形结构，例如一个列表控件可能包含一个滚动条控件和六个折叠页控件，在\ref sec_example中描述了一个完整的例子。参见\ref sec_widget中对各种控件的详细说明。
+
+\subsection subsec_base_window 窗口
+屏幕上的一块矩形区域，绘制操作由\ref subsec_base_gc在窗口中完成。窗口由接口\ref TtkWindowInterface抽象。在图形界面中，每个窗口均绑定一棵控件树，窗口由根控件拥有。窗口和控件之间的关系图示如下：\image html troodon.jpg 窗口与控件
+
+\subsection subsec_base_gc 图形上下文
+定义当前上下文中的绘制属性，例如在哪个窗口中绘制，使用的字体、颜色等。图形上下文由接口\ref TtkGcInterface抽象。图形上下文类中实现了绘制矩形、椭圆、位图等绘制操作。
+
+\subsection subsec_base_event 事件
+事件是需要控件响应的消息，在Troodon ToolKit中定义了三种事件，分别是重绘、按键和点击，三种控件均由窗口管理器发出。对事件响应流程的具体说明参见\ref sec_event。
+
+\section sec_arch 平台无关
+Troodon ToolKit的一大特点是平台无关性。所有平台无关类的类名均以\c Ttk 开头，所有平台相关的类名均以\c \<Arch\>Ttk 开头，例如在Symbian实现中，Symbian中的C类以\c CSymTtk 开头，并放在目录\c symttk 中。在底层的Symbian相关代码中可以使用清除栈、描述符、\c CBase 类等机制，而上层的平台无关代码使用标准的C++语言，例如对字符串使用\c char* ，对整数使用\c int 等。
+
+Troodon ToolKit实现平台无关性的主要手段是利用C++的接口机制。例如，\ref CSymTtkGc继承了接口\ref TtkGcInterface，其中中包含一个Symbian本地类\c CWindowGc 的成员变量\ref CSymTtkGc::iGc "iGc"，从而利用\c iGc 的\c DrawLine() 函数实现了接口中定义的\ref TtkGcInterface::draw_line "draw_line()"方法。
+
+下图中描述了Troodon ToolKit中平台相关类（接口）和平台无关类（Symbian实现）之间的继承关系，以及二者的分界线。
+
+\image html troodon.jpg 平台无关性
+
+\section sec_event 事件响应
+Troodon ToolKit中包含以下三种事件。
+
+\subsection subsec_event_redraw 重绘
+重绘事件由窗口管理器发出。例如，当窗口被覆盖的部分重新显现时，窗口管理器会将相应的窗口，和需要重绘的区域作为参数传递给消息接受者。在Symbian实现中，这一角色由\ref CSymTtkRedrawer 扮演。在接收到重绘消息后，\ref CSymTtkRedrawer会执行以下操作：
+	- 解析出需要重绘的窗口（\ref CSymTtkWindow）和其中的区域（\ref TtkRect）
+	- 设置图形上下文（CSymTtkGc）当前的绘制目标窗口
+	- 将重绘消息传递给窗口对应的根控件
+	- 结束重绘并等待窗口管理器发出下一次重绘指令
+
+重绘事件由控件响应。负责响应重绘事件的函数为\ref TtkWidget::handle_redraw_event()。需要重绘的窗口的根控件接收到重绘命令，并在上述函数中完成响应绘制操作（通过图形上下文），需要的话将重绘事件向下传递给子控件，即调用子控件的上述函数。在该函数中，一般首先需要执行图形上下文的\ref TtkGcInterface::set_clipping_rect "set_clipping_rect()"函数，以保证绘制不会超出窗口管理器指定的区域。
+
+此外，窗口可以主动请求窗口管理器重绘自己，通过\ref TtkWindowInterface::redraw "redraw()"函数。在Symbian实现中，接口中定义的这一函数通过invalidate窗口的指定区域完成。
+
+\subsection subsec_event_key 按键
+按键事件由窗口管理器发出。当用户按下某个键盘按键后，窗口管理器将按键的一系列参数通知事件接收者，在Symbian实现中为\ref CSymTtkWsEnv。按键事件是全局事件，即不与任何特定的窗口关联。因此，接收按键事件后，\ref CSymTtkWsEnv通过解析按键的编码，构造出Troodon ToolKit中定义的按键事件类\ref TtkKeyEvent，并传递给全局的根控件。
+
+\todo 按键事件应传递给当前最前端窗口的根控件
+
+按键事件由控件响应，响应函数为\ref TtkWidget::handle_key_event()。如果需要，控件可以将该事件传递给子控件。
+
+\subsection subsec_event_pointer 点击
+点击事件由窗口管理器发出，由\ref CSymTtkWsEnv接受，由点击事件所在窗口的根控件负责响应。
+
+\section sec_widget 控件
+\image html troodon.jpg 控件及继承关系
+本章描述Troodon ToolKit中定义的几种不同的控件。在控件的设计上，时刻考虑手机应用的特殊需求，尽可能做到简洁、紧凑和易用。
+
+\subsection subsec_widget_expander 折叠页
+折叠页由类\ref TtkExpander抽象。折叠页包含上下两部分，标题和容器。容器部分可以隐藏或者显示，为一个任意类型的子控件。标题中包含一个标签和一个用于标示折叠还是展开的图片。
+
+
+\subsection subsec_widget_list 列表
+列表由类\ref TtkList抽象。列表包含竖向的若干个子控件，并根据需要在右方显示一个滚动条\ref TtkScrollbar，每次滚动距离为列表中的一个控件的高度。
+
+\subsection subsec_widget_label 标签
+标签由类\ref TtkLabel抽象。标签的内容为一段单行文字。标签可以关联动作，如关联了动作，则可以获取焦点。可获取焦点的标签在文字下方有下划线，获取焦点时有虚线框，且按下确认键后执行绑定的动作。
+
+\subsection subsec_widget_button 按钮
+
+\subsection subsec_widget_image 图片
+
+\subsection subsec_widget_menuitem 菜单项
+
+\section sec_example 示例
+本章描述了Troodon ToolKit的一个应用示例，作为对手游助手软件的界面设计。这部分代码位于\c inc/ 和\c src/ 的\c example/ 目录下。
+\image html troodon.jpg 使用示例：手游助手
+
+*/
+
