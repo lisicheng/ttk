@@ -72,7 +72,7 @@ SISX = sis/$(PROJECT).sisx
 
 clean: check
 	rm -rf dist/*
-	rm -rf doc/*
+	rm -rf doc/html
 	rm -f $(OBJTARGET)
 	rm -f $(patsubst %.cpp,%.d,$(SRCFILES))
 	rm -f $(patsubst %.rss,%.d,$(RSSFILES))
@@ -122,10 +122,9 @@ build: resource bin
 pack: $(SISX)
 
 doc:
-	rm -rf doc
-	mkdir -p doc/
-	cp troodon.jpg doc/
-	doxygen ttk.doxygen
+	rm -rf doc/html
+	doxygen doc/ttk.doxygen
+	cp doc/troodon.jpg doc/html/
 
 install: $(SISX)
 	bluetooth-sendto @<
