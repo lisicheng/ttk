@@ -23,10 +23,12 @@ LANG_MACRO = LANGUAGE_SC
 
 include config_2nd.mk
 
+.PHONY: check clean resource bin build pack doc install
+
 check:
-	@echo 'EPOCROOT is' $(EPOCROOT)
-	@echo 'GCCPATH is ' $(GCCPATH)
-	@echo 'PATH is ' $(PATH)
+	@echo 'EPOCROOT:' $(EPOCROOT)
+	@echo ' GCCPATH:' $(GCCPATH)
+	@echo '    PATH:' $(PATH)
 	@echo '==============================================================='
 
 CXX     = arm-epoc-pe-gcc     # GNU project C and C++ compiler
@@ -44,68 +46,88 @@ CXXFLAGS = -fomit-frame-pointer -O \
 	-D__SYMBIAN32__ -D__GCC32__ -D__EPOC32__ -D__MARM__ -D__MARM_ARMI__ \
 	-D__DLL__ -Iinc -I$(SYSINCPATH)
 
-OBJS = $(patsubst %.cpp,src/%.o,$(SRCFILES))
+OBJTARGET = $(patsubst %.cpp,src/%.o,$(SRCFILES))
+RSSTARGET = $(patsubst %.rss,dist/%.rsc,$(RSSFILES))
+BINTARGET = dist/$(PROJECT).$(TARGETTYPE)
+SIS = sis/$(PROJECT)_2nd.sis
 
 clean: check
-	rm -rfv dist/*
-	rm -fv $(OBJS)
-	rm -fv $(patsubst %.o,%.d,$(OBJS))
-	rm -fv inc/$(PROJECT)help.hrh
-	rm -fv inc/$(PROJECT).mbg
-	rm -fv inc/*.rsg
+	rm -rf dist/*
+	rm -rf doc/*
+	rm -f $(OBJTARGET)
+	rm -f $(patsubst %.cpp,%.d,$(SRCFILES))
+	rm -f $(patsubst %.rss,%.d,$(RSSFILES))
+	rm -f inc/*.rsg
 
-$(OBJS): src/%.o : src/%.cpp inc/%.h inc/*.h
-	$(CXX) $(CXXFLAGS) -o $@ $<
+include $(patsubst %.cpp,src/%.d,$(SRCFILES))
+include $(patsubst %.rss,rss/%.d,$(RSSFILES))
 
-dist/$(PROJECT).in: $(OBJS)
+src/%.d: src/%.cpp
+	$(CXX) -M -MT $@ -MT src/$*.o $(CXXFLAGS) $< > $@
+
+rss/%.d: rss/%.rss
+	$(CXX) -M -MT $@ -MT dist/$*.rsc $(CXXFLAGS) $< > $@
+
+dist/$(PROJECT).in: $(OBJTARGET)
 	$(AR) cr $@ $^
 
-dist/$(PROJECT).inf: dist/$(PROJECT).in
+%.inf: %.in
 	$(DLLTOOL) --output-def $@ --as $(AS) --machine arm_interwork \
-		$^ $(addprefix $(ARMIURELPATH)/,$(STATICLIBRARY))
+		$< $(addprefix $(ARMIURELPATH)/,$(STATICLIBRARY))
 
-dist/$(PROJECT).def: dist/$(PROJECT).inf
-	makedef.pl -Deffile $^ -1 NewApplication__Fv $@
+%.def: %.inf
+	makedef.pl -Deffile $< -1 NewApplication__Fv $@
 
-dist/$(PROJECT).exp.old: dist/$(PROJECT).def
-	$(DLLTOOL) --input-def $^ --output-exp $@ --as $(AS) \
+%.exp.old: %.def
+	$(DLLTOOL) --input-def $< --output-exp $@ --as $(AS) \
 		--dllname $(PROJECT)[$(UID3)].app --machine arm_interwork
 
-dist/$(PROJECT).bas: dist/$(PROJECT).exp.old dist/$(PROJECT).in
-	$(LD) --entry _E32Dll --output dist/$(PROJECT).pe.old --strip-all \
+%.bas: %.exp.old %.in
+	$(LD) --entry _E32Dll --output $*.pe.old --strip-all \
 		--undefined _E32Dll --base-file $@ --dll \
-		--whole-archive dist/$(PROJECT).in --no-whole-archive \
-		dist/$(PROJECT).exp.old \
+		--whole-archive $*.in --no-whole-archive $*.exp.old \
 		$(addprefix $(ARMIURELPATH)/,edll.lib edllstub.lib) \
 		$(addprefix $(ARMIURELPATH)/,egcc.lib $(STATICLIBRARY) $(LIBRARY))
 
-dist/$(PROJECT).exp: dist/$(PROJECT).def dist/$(PROJECT).bas
-	$(DLLTOOL) --input-def dist/$(PROJECT).def --base-file dist/$(PROJECT).bas \
+%.exp: %.def %.bas
+	$(DLLTOOL) --input-def $*.def --base-file $*.bas \
 		--output-exp $@ --as $(AS) --dllname $(PROJECT)[$(UID3)].app \
 		--machine arm_interwork
 
-dist/$(PROJECT).pe: dist/$(PROJECT).exp dist/$(PROJECT).in
+%.pe: %.exp %.in
 	$(LD) --entry _E32Dll --output $@ --strip-all \
 		--undefined _E32Dll --dll \
-		--whole-archive dist/$(PROJECT).in --no-whole-archive \
-		dist/$(PROJECT).exp \
+		--whole-archive $*.in --no-whole-archive $*.exp \
 		$(addprefix $(ARMIURELPATH)/,edll.lib edllstub.lib egcc.lib) \
 		$(addprefix $(ARMIURELPATH)/,$(STATICLIBRARY) $(LIBRARY))
 
-dist/$(PROJECT).$(TARGETTYPE): dist/$(PROJECT).pe
-	petran -nocall -uid1 0x10000079 -uid2 0x$(UID2) -uid3 0x$(UID3) $^ $@
+$(BINTARGET): dist/$(PROJECT).pe
+	petran -nocall -uid1 0x10000079 -uid2 0x$(UID2) -uid3 0x$(UID3) $< $@
 
-bin: check dist/$(PROJECT).$(TARGETTYPE)
+dist/%.rsc inc/%.rsg: rss/%.rss
+	epocrc.pl -Iinc -I$(SYSINCPATH) -D$(LANG_MACRO) -u -v \
+		$< -odist/$*.rsc -hinc/$*.rsg
 
-$(RSSTARGET): dist/%.rsc : rss/%.rss
-	epocrc.pl -Iinc -I- -I$(SYSINCPATH) \
-		-D$(LANG_MACRO) -u -v \
-		$< -o$@ -hinc/$(basename $(notdir $@)).rsg
+%.o : %.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $<
+
+%.sis: %.pkg $(RSSTARGET) $(BINTARGET)
+	makesis -v $< $@
 
 resource: check $(RSSTARGET)
 
-build: check resource bin
+bin: check $(BINTARGET)
 
-pack: build sis/$(PROJECT)_2nd.pkg
-	makesis -v sis/$(PROJECT)_2nd.pkg sis/$(PROJECT)_2nd.sis
+build: resource bin
+
+pack: $(SIS)
+
+doc:
+	rm -rf doc
+	mkdir -p doc/
+	cp troodon.jpg doc/
+	doxygen ttk.doxygen
+
+install: $(SIS)
+	bluetooth-sendto @<
 

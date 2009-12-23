@@ -113,11 +113,6 @@ dist/%_$(UID3).rsc inc/%_$(UID3).rsg: rss/%.rss
 %.sisx: %.sis $(CERT) $(KEY)
 	signsis -v $< $@ $(CERT) $(KEY)
 
-doc/index.html: $(PROJECT).doxygen troodon.jpg footer.html
-	mkdir -p doc/
-	cp troodon.jpg doc/
-	doxygen ttk.doxygen
-
 resource: check $(RSSTARGET)
 
 bin: check $(BINTARGET)
@@ -126,8 +121,12 @@ build: resource bin
 
 pack: $(SISX)
 
-doc: doc/index.html
+doc:
+	rm -rf doc
+	mkdir -p doc/
+	cp troodon.jpg doc/
+	doxygen ttk.doxygen
 
 install: $(SISX)
-	bluetooth-sendto sis/$(PROJECT).sisx
+	bluetooth-sendto @<
 
