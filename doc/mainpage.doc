@@ -30,7 +30,7 @@ Troodon ToolKit是一个适用于手机设备的、C++实现的、跨平台的GU
 具有特定交互模式的GUI单元，如滚动条、按钮等。所有控件从\ref TtkWidget类派生。每个可见控件都附着在一个窗口中，占据该窗口的一个矩形区域。不同控件之间按照可见区域的包含关系可以构成一个树形结构，例如一个列表控件可能包含一个滚动条控件和六个折叠页控件，在\ref sec_example中描述了一个完整的例子。参见\ref sec_widget中对各种控件的详细说明。
 
 \subsection subsec_base_window 窗口
-屏幕上的一块矩形区域，绘制操作由\ref subsec_base_gc在窗口中完成。窗口由接口\ref TtkWindowInterface抽象。在图形界面中，每个窗口均绑定一棵控件树，窗口由根控件拥有。窗口和控件之间的关系图示如下：\image html troodon.jpg 窗口与控件
+屏幕上的一块矩形区域，绘制操作由\ref subsec_base_gc在窗口中完成。窗口由接口\ref TtkWindowInterface抽象。在图形界面中，每个窗口均绑定一棵控件树，窗口由根控件拥有。窗口和控件之间的关系图示如下：\image html window.png 窗口与控件
 
 \subsection subsec_base_gc 图形上下文
 定义当前上下文中的绘制属性，例如在哪个窗口中绘制，使用的字体、颜色等。图形上下文由接口\ref TtkGcInterface抽象。图形上下文类中实现了绘制矩形、椭圆、位图等绘制操作。
@@ -45,7 +45,7 @@ Troodon ToolKit实现平台无关性的主要手段是利用C++的接口机制�
 
 下图中描述了Troodon ToolKit中平台相关类（接口）和平台无关类（Symbian实现）之间的继承关系，以及二者的分界线。
 
-\image html troodon.jpg 平台无关性
+\image html interface.png 平台无关性
 
 \section sec_event 事件响应
 Troodon ToolKit中包含以下三种事件。
@@ -72,7 +72,7 @@ Troodon ToolKit中包含以下三种事件。
 点击事件由窗口管理器发出，由\ref CSymTtkWsEnv接受，由点击事件所在窗口的根控件负责响应。
 
 \section sec_widget 控件
-\image html troodon.jpg 控件及继承关系
+\image html control.png 控件及继承关系
 本章描述Troodon ToolKit中定义的几种不同的控件。在控件的设计上，时刻考虑手机应用的特殊需求，尽可能做到简洁、紧凑和易用。
 
 \subsection subsec_widget_expander 折叠页
@@ -93,7 +93,7 @@ Troodon ToolKit中包含以下三种事件。
 
 \section sec_example 示例
 本章描述了Troodon ToolKit的一个应用示例，作为对手游助手软件的界面设计。这部分代码位于\c inc/ 和\c src/ 的\c example/ 目录下。
-\image html troodon.jpg 使用示例：手游助手
+\image html example.png 使用示例：手游助手
 
 */
 
