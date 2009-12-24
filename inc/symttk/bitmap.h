@@ -11,6 +11,8 @@
 #include <e32base.h> /* CBase */
 #include "ttk/bitmapinterface.h" /* TtkBitmapInterface */
 
+class CFbsBitmap;
+
 /**
  * \brief Symbian位图
  */
@@ -19,6 +21,10 @@ public:
 	virtual ~CSymTtkBitmap();
 	static CSymTtkGc* NewL();
 	static CSymTtkGc* NewLC();
+public:
+	const CFbsBitmap& Bitmap() const;
+private:
+	CFbsBitmap* iBitmap;
 };
 
 #endif /* SYMTTK_BITMAP_H */
