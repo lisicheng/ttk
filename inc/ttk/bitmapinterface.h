@@ -10,9 +10,15 @@
 
 /**
  * \brief 位图接口
+ *
+ * 可由图形上下文直接绘制在屏幕上的位图
  */
 class TtkBitmapInterface {
-	virtual ~TtkBitmapInterface();
+public:
+	virtual ~TtkBitmapInterface() {}
+public:
+	virtual int width() = 0;
+	virtual int height() = 0;
 };
 
 #endif /* TTK_BITMAPINTERFACE_H */

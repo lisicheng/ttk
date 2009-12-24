@@ -17,6 +17,9 @@ class TtkImageDecoderInterface;
 
 /**
  * \brief 窗口管理器环境接口
+ *
+ * 窗口管理器环境类，提供若干和窗口管理器相关的通用功能，例如创建新窗口、获得图
+ * 形上下文等。
  */
 class TtkWsEnvInterface {
 public:

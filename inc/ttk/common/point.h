@@ -10,6 +10,8 @@
 
 /**
  * \brief 平面上的点
+ *
+ * 由整型的x坐标和y坐标定义的二维平面上的点。
  */
 class TtkPoint {
 public:

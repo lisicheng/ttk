@@ -10,6 +10,8 @@
 
 /**
  * \brief 颜色
+ *
+ * RGBA格式定义的颜色。每个颜色32-bit，其中红色、绿色、蓝色和Alpha通道各8-bit。
  */
 enum TtkColor {
 	kTtkColorRawRed		= 0x00ff0000,

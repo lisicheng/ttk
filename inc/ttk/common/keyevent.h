@@ -10,6 +10,8 @@
 
 /**
  * \breif 按键事件
+ *
+ * 按键事件枚举定义，每个枚举值定义键盘上的一个按键。
  */
 enum TtkKeyEvent {
 	kTtkKeyUp,
