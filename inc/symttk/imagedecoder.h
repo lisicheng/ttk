@@ -4,6 +4,9 @@
 #include <e32base.h> /* CBase */
 #include "ttk/imagedeocderinterface.h" /* TtkImageDecoderInterface */
 
+/**
+ * \brief Symbian图片解码器
+ */
 class CSymTtkImageDecoder : public CBase, public TtkImageDecoderInterface {
 public:
 	virtual ~CSymTtkImageDecoder();
