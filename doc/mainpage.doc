@@ -86,10 +86,13 @@ Troodon ToolKit中包含以下三种事件。
 标签由类\ref TtkLabel抽象。标签的内容为一段单行文字。标签可以关联动作，如关联了动作，则可以获取焦点。可获取焦点的标签在文字下方有下划线，获取焦点时有虚线框，且按下确认键后执行绑定的动作。
 
 \subsection subsec_widget_button 按钮
+参见\ref TtkButton类
 
 \subsection subsec_widget_image 图片
+参见\ref TtkImage类
 
 \subsection subsec_widget_menuitem 菜单项
+参见\ref TtkMenuItem类
 
 \section sec_example 示例
 本章描述了Troodon ToolKit的一个应用示例，作为对手游助手软件的界面设计。这部分代码位于\c inc/ 和\c src/ 的\c example/ 目录下。
