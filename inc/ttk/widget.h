@@ -1,3 +1,10 @@
+/**
+ * \file
+ * \brief TtkWidget类声明
+ * \author 袁野 <yuanyelele@gmail.com>
+ * \author 李思诚 <lisicheng2008@gmail.com>
+ * \warning 2009 (c) 北京随手互动信息技术有限公司
+ */
 #ifndef TTK_WIDGET_H
 #define TTK_WIDGET_H
 
@@ -8,6 +15,12 @@ class TtkPointerEvent;
 class TtkWindowInterface;
 class TtkWsEnvInterface;
 
+/**
+ * \brief 控件
+ *
+ * 此类为所有控件的父类，其中主要定义了处理三种事件的响应函数。构造控件时，传入绑
+ * 定的窗口，如果为空，则创建一个新的窗口。此类包含基本的焦点功能。
+ */
 class TtkWidget
 {
 public:

@@ -9,6 +9,12 @@ class TtkWindowInterface;
 
 #define K_EXPANDERS_NUM 100
 
+/**
+ * \brief 列表
+ *
+ * 列表包含竖向的若干列表项并在需要时显示滚动条\ref TtkScrollbar。每次滚动的距离
+ * 由相应列表项的高度决定，以保证每次按键滚动一个列表项。
+ */
 class TtkList : public TtkWidget {
 public:
 	virtual ~TtkList();

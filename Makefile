@@ -72,7 +72,7 @@ SISX = sis/$(PROJECT).sisx
 
 clean: check
 	rm -rf dist/*
-	rm -rf doc/*
+	rm -rf doc/html
 	rm -f $(OBJTARGET)
 	rm -f $(patsubst %.cpp,%.d,$(SRCFILES))
 	rm -f $(patsubst %.rss,%.d,$(RSSFILES))
@@ -113,11 +113,6 @@ dist/%_$(UID3).rsc inc/%_$(UID3).rsg: rss/%.rss
 %.sisx: %.sis $(CERT) $(KEY)
 	signsis -v $< $@ $(CERT) $(KEY)
 
-doc/index.html: $(PROJECT).doxygen troodon.jpg footer.html
-	mkdir -p doc/
-	cp troodon.jpg doc/
-	doxygen ttk.doxygen
-
 resource: check $(RSSTARGET)
 
 bin: check $(BINTARGET)
@@ -126,8 +121,11 @@ build: resource bin
 
 pack: $(SISX)
 
-doc: doc/index.html
+doc:
+	rm -rf doc/html
+	doxygen doc/ttk.doxygen
+	cp doc/troodon.jpg doc/html/
 
 install: $(SISX)
-	bluetooth-sendto sis/$(PROJECT).sisx
+	bluetooth-sendto @<
 

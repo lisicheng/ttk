@@ -5,7 +5,7 @@
 /.project
 /.settings
 /dist
-/doc
+/doc/html
 /group/ABLD.BAT
 /inc/*.rsg
 /sis/*.sis
