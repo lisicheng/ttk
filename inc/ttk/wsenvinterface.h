@@ -6,6 +6,7 @@
 class TtkGcInterface;
 class TtkWidget;
 class TtkWindowInterface;
+class TtkImageDecoderInterface;
 
 class TtkWsEnvInterface {
 public:
@@ -14,6 +15,7 @@ public:
 	virtual TtkWindowInterface* new_window(TtkWidget& widget,
 					       TtkColor color) const = 0;
 	virtual TtkGcInterface& gc() const = 0;
+	virtual TtkImageDecoderInterface& image_decoder() const = 0;
 };
 
 #endif /* TTK_WSENVINTERFACE_H */

@@ -3,6 +3,7 @@
 #include "symttk/redrawer.h"
 #include "symttk/window.h"
 #include "symttk/gc.h"
+#include "symttk/imagedecoder.h"
 #include "ui/mainwidget.h"
 #include "ui/mainwidget2.h"
 #include "ttk/common/pointerevent.h"
@@ -11,6 +12,7 @@ CSymTtkWsEnv::~CSymTtkWsEnv()
 {
 	delete iRootWidget;
 	delete iRedrawer;
+	delete iImageDecoder;
 	delete iGc;
 	delete iScreen;
 	iGroup.Close();
@@ -49,6 +51,11 @@ TtkGcInterface& CSymTtkWsEnv::gc() const
 	return *iGc;
 }
 
+TtkImageDecoderInterface& CSymTtkWsEnv::image_decoder() const
+{
+	return *iImageDecoder;
+}
+
 RWsSession& CSymTtkWsEnv::Ws()
 {
 	return iWs;
@@ -83,6 +90,7 @@ void CSymTtkWsEnv::ConstructL(const TRect& aRect)
 	iScreen = new(ELeave) CWsScreenDevice(iWs);
 	User::LeaveIfError(iScreen->Construct());
 	iGc = CSymTtkGc::NewL(*iScreen);
+	iImageDecoder = CSymTtkImageDecoder::NewL();
 	iRedrawer = CSymTtkRedrawer::NewL(*this);
 	TtkRect rect(aRect.iTl.iX, aRect.iTl.iY,
 		     aRect.iBr.iX, aRect.iBr.iY);

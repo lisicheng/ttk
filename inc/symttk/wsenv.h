@@ -18,6 +18,7 @@ public:
 public: /* from WsEnvInterface */
 	TtkWindowInterface* new_window(TtkWidget& widget, TtkColor color) const;
 	TtkGcInterface& gc() const;
+	TtkImageDecoderInterface& image_decoder() const;
 public:
 	RWsSession& Ws();
 	const RWindowGroup& Group() const;
