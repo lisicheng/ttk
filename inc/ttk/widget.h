@@ -35,7 +35,7 @@ public:
 	virtual void refresh_rect(const TtkRect& rect1, const TtkRect& rect2);
 public:
 	bool has_focus() const;
-	void set_focus(bool has_focus);
+	virtual void set_focus(bool has_focus);
 	TtkWsEnvInterface& ws_env();
 	const TtkRect& rect() const;
 	void set_rect(const TtkRect& rect);

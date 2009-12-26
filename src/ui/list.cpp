@@ -101,6 +101,7 @@ void TtkList::set_focus(bool has_focus)
 	TtkWidget::set_focus(has_focus);
 	items_[focus_index_]->set_focus(has_focus);
 }
+
 void TtkList::handle_key_event(TtkKeyEvent& key_event)
 {
 	switch(key_event) {
