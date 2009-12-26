@@ -17,6 +17,7 @@
 MainWidget2::~MainWidget2()
 {
 	delete iList;
+	iList = NULL;
 }
 
 MainWidget2::MainWidget2(TtkWsEnvInterface& ws_env, const TtkRect& rect)
@@ -34,29 +35,22 @@ MainWidget2::MainWidget2(TtkWsEnvInterface& ws_env, const TtkRect& rect)
 		}
 	list->set_iExpanders((TtkWidget**)expanders);
 	list->set_iExpandersNum(5);
+	list->set_iFocusedNum(0);
+	list->set_focus(true);
 	iList = list;
 }
 
 void MainWidget2::handle_key_event(TtkKeyEvent& key_event)
 {
-	/*TtkRect rect(component_->rect());
-	switch (key_event) {
+	switch(key_event){
 	case kTtkKeyUp:
-		rect.move(0, -10);
-		component_->set_rect(rect);
-		rect.resize(0, 10);
-		window().redraw(rect);
-		break;
 	case kTtkKeyDown:
-		rect.move(0, 10);
-		component_->set_rect(rect);
-		rect.move(0, -10);
-		rect.resize(0, 10);
-		window().redraw(rect);
+	case kTtkKeyOk:
+		iList->handle_key_event(key_event);
 		break;
 	default:
 		break;
-	}*/
+	}
 }
 
 void MainWidget2::handle_redraw_event(const TtkRect& rect)

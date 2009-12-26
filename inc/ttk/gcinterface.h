@@ -12,6 +12,7 @@
 
 class TtkRect;
 class TtkPoint;
+class TtkBitmapInterface;
 
 /**
  * \brief 图形上下文接口

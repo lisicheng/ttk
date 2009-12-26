@@ -2,10 +2,31 @@ NAME MEAD
 
 #include <eikon.rh>
 #include <eikcore.rsg>
+#include <avkon.rsg>
+
+#include "ttk.hrh"
 
 RESOURCE RSS_SIGNATURE { }
 
 RESOURCE TBUF { }
 
-RESOURCE EIK_APP_INFO { }
+RESOURCE EIK_APP_INFO {
+	menubar = r_menubar;
+	cba = R_AVKON_SOFTKEYS_OPTIONS_EXIT;
+}
 
+RESOURCE MENU_BAR r_menubar {
+	titles = {
+			MENU_TITLE {menu_pane = r_menu;}
+	};
+}
+
+RESOURCE MENU_PANE r_menu {
+	items = {
+			MENU_ITEM
+				{
+				command = UnWrap;
+				txt = "Wrap/UnWrap";
+				}
+	};
+}

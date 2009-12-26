@@ -4,6 +4,10 @@ TtkRect::TtkRect(int x1, int y1, int x2, int y2) : tl_(x1, y1), br_(x2, y2)
 {
 }
 
+TtkRect::TtkRect(const TtkPoint& tl, const TtkPoint& br) : tl_(tl), br_(br)
+{
+}
+
 void TtkRect::move(int dx, int dy)
 {
 	tl_.x_ += dx;

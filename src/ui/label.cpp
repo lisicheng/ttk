@@ -33,7 +33,7 @@ void TtkLabel::handle_redraw_event(const TtkRect& rect)
 			  label_rect.br_.x_ - 1,
 			  label_rect.br_.y_ - 1);
 	gc.clear(label_rect);
-	if (action_) {
+	if (action_ || !action_) {	//for test
 		gc.set_pen_color(kTtkColorBlue);
 		if (has_focus())
 			gc.draw_rect(label_rect);
@@ -50,4 +50,9 @@ bool TtkLabel::focusable() const
 		return true;
 	else
 		return false;
+}
+
+void TtkLabel::set_focus(bool has_focus)
+{
+	TtkWidget::set_focus(has_focus);
 }

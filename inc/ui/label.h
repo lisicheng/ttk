@@ -19,6 +19,7 @@ public:
 public: /* from TtkWidget */
 	void handle_key_event(TtkKeyEvent& key_event);
 	void handle_redraw_event(const TtkRect& rect);
+	void set_focus(bool has_focus);
 	bool focusable() const;
 private:
 	const char* text_;
