@@ -21,7 +21,7 @@ public:
 	TtkList(TtkWsEnvInterface& ws_env, const TtkRect& rect, 
 			TtkWindowInterface* window);
 	
-public:/*from TtkWidget*/
+public: /*from TtkWidget*/
 	void handle_redraw_event(const TtkRect& rect);
 	void handle_key_event(TtkKeyEvent& key_event);
 	void set_focus(bool has_focus);
@@ -29,20 +29,20 @@ public:/*from TtkWidget*/
 	void refresh_rect(const TtkRect& rect1, const TtkRect& rect2);
 	
 public:
-	void set_iExpandersNum(TInt num);
-	TInt get_iExpandersNum() const;
+	void set_iExpandersNum(int num);
+	int get_iExpandersNum() const;
 	
 	void set_iExpanders(TtkWidget** expanders);
 	
-	void set_iFocusedNum(TInt num);
-	TInt get_iFocusedNum() const;
+	void set_iFocusedNum(int num);
+	int get_iFocusedNum() const;
 	
 private:
-	TInt iExpandersNum;
-	TtkWidget** iExpanders;
-	TInt iFocusedNum;
+	int num_items_;
+	TtkWidget** items_;
+	int focus_index_;
 	
-	TtkWidget* iScrollbar;
+	TtkWidget* scrollbar_;
 };
 
 #endif // TTK_LIST_H
