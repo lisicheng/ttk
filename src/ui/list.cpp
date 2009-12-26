@@ -22,20 +22,20 @@ TtkList::TtkList(TtkWsEnvInterface& ws_env, const TtkRect& rect,
 {
 }
 
-void TtkList::handle_redraw_event(const TtkRect& rect)
+void TtkList::handle_redraw_event(const TtkRect& redraw_rect)
 {
-	TtkWidget::handle_redraw_event(this->rect());
+	TtkWidget::handle_redraw_event(rect());
 	if (num_items <= 0)
 		return;
 	if (items_[num_items_-1]->rect().br_.y_ - items_[0]->rect().tl_.y_ >
-	    this->rect().height()) {
+	    rect().height()) {
 		if (!scrollbar_) {
-			TtkRect scrollRect(this->rect().width()-10, this->rect().tl_.y_, this->rect().width(), this->rect().br_.y_);
+			TtkRect scrollRect(rect().width()-10, rect().tl_.y_, rect().width(), rect().br_.y_);
 			scrollbar_ = new TtkScrollbar(ws_env(), scrollRect, &window());
 		}
 		int totalLength = items_[num_items_-1]->rect().br_.y_-items_[0]->rect().tl_.y_;
-		int scrollbarLength = this->rect().height();
-		int startPoint = this->rect().tl_.y_ - items_[0]->rect().tl_.y_;
+		int scrollbarLength = rect().height();
+		int startPoint = rect().tl_.y_ - items_[0]->rect().tl_.y_;
 		TtkScrollbar* scrollbar = (TtkScrollbar*)scrollbar_;
 		scrollbar->set_totalLength(totalLength);
 		scrollbar->set_scrollbarLength(scrollbarLength);
@@ -43,7 +43,7 @@ void TtkList::handle_redraw_event(const TtkRect& rect)
 			
 		//change items_' rect
 		for (int i = 0; i < num_items_; ++i) {
-			if (items_[i]->rect().width() == this->rect().width()) {
+			if (items_[i]->rect().width() == rect().width()) {
 				TtkRect rect_1_1 = items_[i]->rect();
 				TtkRect rect_1_2 = rect_1_1;
 				rect_1_2.resize(-10, 0);
@@ -58,7 +58,7 @@ void TtkList::handle_redraw_event(const TtkRect& rect)
 		scrollbar_->handle_redraw_event(scrollbar_->rect());
 	} else {
 		for (int i = 0; i < num_items_; ++i) {
-			if (items_[i]->rect().width() < this->rect().width()) {
+			if (items_[i]->rect().width() < rect().width()) {
 				TtkRect rect_1_1 = items_[i]->rect();
 				TtkRect rect_1_2 = rect_1_1;
 				rect_1_2.resize(10, 0);

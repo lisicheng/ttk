@@ -20,12 +20,12 @@ void TtkImage::handle_key_event(TtkKeyEvent& key_event)
 	}
 }
 
-void TtkImage::handle_redraw_event(const TtkRect& rect)
+void TtkImage::handle_redraw_event(const TtkRect& redraw_rect)
 {
 	TtkGcInterface& gc = ws_env().gc();
-	gc.set_clipping_rect(rect);
+	gc.set_clipping_rect(redraw_rect);
 
-	TtkRect image_rect(this->rect());
+	TtkRect image_rect(rect());
 	TtkRect bitmap_rect(image_rect.tl_.x_ + 1,
 			    image_rect.tl_.y_ + 1,
 			    image_rect.br_.x_ - 1,

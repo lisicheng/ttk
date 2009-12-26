@@ -53,8 +53,8 @@ void MainWidget2::handle_key_event(TtkKeyEvent& key_event)
 	}
 }
 
-void MainWidget2::handle_redraw_event(const TtkRect& rect)
+void MainWidget2::handle_redraw_event(const TtkRect& redraw_rect)
 {
-	TtkWidget::handle_redraw_event(rect);
-	iList->handle_redraw_event(rect);
+	TtkWidget::handle_redraw_event(redraw_rect);
+	iList->handle_redraw_event(redraw_rect);
 }

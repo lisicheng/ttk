@@ -19,7 +19,7 @@ public:
 		 void (*action)());
 public: /* from TtkWidget */
 	void handle_key_event(TtkKeyEvent& key_event);
-	void handle_redraw_event(const TtkRect& rect);
+	void handle_redraw_event(const TtkRect& redraw_rect);
 	bool focusable() const;
 public:
 	void decode();

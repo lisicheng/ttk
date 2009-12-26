@@ -15,7 +15,7 @@ public:
 	TtkScrollbar(TtkWsEnvInterface& ws_env, const TtkRect& rect, TtkWindowInterface* window);
 	
 public:/*from TtkWidget*/
-	void handle_redraw_event(const TtkRect& rect);
+	void handle_redraw_event(const TtkRect& redraw_rect);
 	
 public:
 	void set_totalLength(int length);

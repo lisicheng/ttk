@@ -30,7 +30,7 @@ public:
 public:
 	virtual void handle_key_event(TtkKeyEvent& key_event);
 	virtual void handle_pointer_event(TtkPointerEvent& pointer_event);
-	virtual void handle_redraw_event(const TtkRect& rect);
+	virtual void handle_redraw_event(const TtkRect& redraw_rect);
 	virtual bool focusable() const;
 	virtual void refresh_rect(const TtkRect& rect1, const TtkRect& rect2);
 public:

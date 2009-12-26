@@ -18,13 +18,13 @@ NumberedWidget::NumberedWidget(TtkWsEnvInterface& ws_env, const TtkRect& rect,
  * Redraws the contents of NumberedWidget within a given
  * rectangle. NumberedWidget displays a number in the window.
  */
-void NumberedWidget::handle_redraw_event(const TtkRect& rect)
+void NumberedWidget::handle_redraw_event(const TtkRect& redraw_rect)
 {
 	TtkGcInterface& gc = ws_env().gc();
-	gc.set_clipping_rect(rect);
-	gc.clear(this->rect());
+	gc.set_clipping_rect(redraw_rect);
+	gc.clear(rect());
  	gc.set_pen_color(kTtkColorBlack);
  	gc.set_brush_color(kTtkColorGreen);
-	gc.draw_rect(this->rect());
-	gc.draw_line(this->rect().tl_, this->rect().br_);
+	gc.draw_rect(rect());
+	gc.draw_line(rect().tl_, rect().br_);
 }

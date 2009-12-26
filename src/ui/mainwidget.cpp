@@ -43,9 +43,9 @@ void MainWidget::handle_key_event(TtkKeyEvent& key_event)
 	}
 }
 
-void MainWidget::handle_redraw_event(const TtkRect& rect)
+void MainWidget::handle_redraw_event(const TtkRect& redraw_rect)
 {
-	TtkWidget::handle_redraw_event(rect);
-	component_->handle_redraw_event(rect);
-	text_->handle_redraw_event(rect);
+	TtkWidget::handle_redraw_event(redraw_rect);
+	component_->handle_redraw_event(redraw_rect);
+	text_->handle_redraw_event(redraw_rect);
 }

@@ -33,10 +33,10 @@ void TtkWidget::handle_pointer_event(TtkPointerEvent& pointer_event)
 {
 }
 
-void TtkWidget::handle_redraw_event(const TtkRect& rect)
+void TtkWidget::handle_redraw_event(const TtkRect& redraw_rect)
 {
 	TtkGcInterface& gc = ws_env().gc();
-	gc.clear(rect);
+	gc.clear(redraw_rect);
 }
 
 bool TtkWidget::focusable() const
