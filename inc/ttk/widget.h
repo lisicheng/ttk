@@ -27,17 +27,17 @@ public:
 	virtual ~TtkWidget();
 	TtkWidget(TtkWsEnvInterface& ws_env, const TtkRect& rect,
 		  TtkWindowInterface* window);
-public:
+public: /* virtual functions */
 	virtual void handle_key_event(TtkKeyEvent& key_event);
 	virtual void handle_pointer_event(TtkPointerEvent& pointer_event);
 	virtual void handle_redraw_event(const TtkRect& redraw_rect);
 	virtual bool focusable() const;
-public:
-	bool has_focus() const;
 	virtual void set_focus(bool has_focus);
+	virtual void set_rect(const TtkRect& new_rect);
+public: /* non-virtual functions */
+	bool has_focus() const;
 	TtkWsEnvInterface& ws_env();
 	const TtkRect& rect() const;
-	virtual void set_rect(const TtkRect& new_rect);
 protected:
 	TtkWindowInterface& window() const;
 private:

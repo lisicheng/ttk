@@ -19,30 +19,27 @@ class TtkList : public TtkWidget {
 public:
 	virtual ~TtkList();
 	TtkList(TtkWsEnvInterface& ws_env, const TtkRect& rect, 
-			TtkWindowInterface* window);
-	
-public: /*from TtkWidget*/
-	void handle_redraw_event(const TtkRect& redraw_rect);
+		TtkWindowInterface* window);
+
+public: /* from TtkWidget */
 	void handle_key_event(TtkKeyEvent& key_event);
-	void set_focus(bool has_focus);
+	void handle_redraw_event(const TtkRect& redraw_rect);
 	bool focusable() const;
+	void set_focus(bool has_focus);
 	void set_rect(const TtkRect& new_rect);
+
+public: /* new functions */
+	void set_num_items(int num);
+	int num_items() const;
+	void set_items(TtkWidget** items);
+	void set_focus_index(int index);
+	int focus_index() const;
 	
-public:
-	void set_iExpandersNum(int num);
-	int get_iExpandersNum() const;
-	
-	void set_iExpanders(TtkWidget** expanders);
-	
-	void set_iFocusedNum(int num);
-	int get_iFocusedNum() const;
-	
-private:
+private: /* date members */
 	int num_items_;
 	TtkWidget** items_;
 	int focus_index_;
-	
 	TtkWidget* scrollbar_;
 };
 
-#endif // TTK_LIST_H
+#endif /* TTK_LIST_H */
