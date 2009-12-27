@@ -32,13 +32,12 @@ public:
 	virtual void handle_pointer_event(TtkPointerEvent& pointer_event);
 	virtual void handle_redraw_event(const TtkRect& redraw_rect);
 	virtual bool focusable() const;
-	virtual void refresh_rect(const TtkRect& rect1, const TtkRect& rect2);
 public:
 	bool has_focus() const;
 	virtual void set_focus(bool has_focus);
 	TtkWsEnvInterface& ws_env();
 	const TtkRect& rect() const;
-	void set_rect(const TtkRect& rect);
+	virtual void set_rect(const TtkRect& new_rect);
 protected:
 	TtkWindowInterface& window() const;
 private:

@@ -45,10 +45,8 @@ void TtkList::handle_redraw_event(const TtkRect& redraw_rect)
 		for (int i = 0; i < num_items_; ++i) {
 			if (items_[i]->rect().width() == rect().width()) {
 				TtkRect rect_1_1 = items_[i]->rect();
-				TtkRect rect_1_2 = rect_1_1;
-				rect_1_2.resize(-10, 0);
-				items_[i]->set_rect(rect_1_2);
-				items_[i]->refresh_rect(rect_1_1, items_[i]->rect());
+				rect_1_1.resize(-10, 0);
+				items_[i]->set_rect(rect_1_1);
 			}
 		}
 			
@@ -60,10 +58,8 @@ void TtkList::handle_redraw_event(const TtkRect& redraw_rect)
 		for (int i = 0; i < num_items_; ++i) {
 			if (items_[i]->rect().width() < rect().width()) {
 				TtkRect rect_1_1 = items_[i]->rect();
-				TtkRect rect_1_2 = rect_1_1;
-				rect_1_2.resize(10, 0);
-				items_[i]->set_rect(rect_1_2);
-				items_[i]->refresh_rect(rect_1_1, items_[i]->rect());
+				rect_1_1.resize(10, 0);
+				items_[i]->set_rect(rect_1_1);
 			}
 		}
 		
@@ -112,10 +108,8 @@ void TtkList::handle_key_event(TtkKeyEvent& key_event)
 				int moveY = items_[focus_index_-1]->rect().tl_.y_ - rect().tl_.y_;
 				for (int i = 0; i < num_items_; ++i) {
 					TtkRect rect_1_1 = items_[i]->rect();
-					TtkRect rect_1_2 = rect_1_1;
-					rect_1_2.move(0, -moveY);
-					items_[i]->set_rect(rect_1_2);
-					items_[i]->refresh_rect(rect_1_1, items_[i]->rect());
+					rect_1_1.move(0, -moveY);
+					items_[i]->set_rect(rect_1_1);
 				}
 				set_focus(false);
 				--focus_index_;
@@ -138,10 +132,8 @@ void TtkList::handle_key_event(TtkKeyEvent& key_event)
 				int moveY3 = (moveY1 < moveY2)? moveY1 : moveY2;
 				for (int i = 0; i < num_items_; ++i) {
 					TtkRect rect_1_1 = items_[i]->rect();
-					TtkRect rect_1_2 = rect_1_1;
-					rect_1_2.move(0, -moveY3);
-					items_[i]->set_rect(rect_1_2);
-					items_[i]->refresh_rect(rect_1_1, items_[i]->rect());
+					rect_1_1.move(0, -moveY3);
+					items_[i]->set_rect(rect_1_1);
 				}
 				set_focus(false);
 				++focus_index_;
@@ -164,10 +156,8 @@ void TtkList::handle_key_event(TtkKeyEvent& key_event)
 			int moveY = items_[focus_index_]->rect().br_.y_ - items_[focus_index_+1]->rect().tl_.y_;
 			for (int i = focus_index_+1; i < num_items_; ++i) {
 				TtkRect rect_1_1 = items_[i]->rect();
-				TtkRect rect_1_2 = rect_1_1;
-				rect_1_2.move(0, moveY);					
-				items_[i]->set_rect(rect_1_2);
-				items_[i]->refresh_rect(rect_1_1, items_[i]->rect());
+				rect_1_1.move(0, moveY);					
+				items_[i]->set_rect(rect_1_1);
 			}
 		}
 		if (items_[focus_index_]->rect().br_.y_ > rect().br_.y_) {
@@ -176,10 +166,8 @@ void TtkList::handle_key_event(TtkKeyEvent& key_event)
 			int moveY3 = (moveY1 < moveY2)? moveY1 : moveY2;
 			for (int i = 0; i < num_items_; ++i) {
 				TtkRect rect_1_1 = items_[i]->rect();
-				TtkRect rect_1_2 = rect_1_1;
-				rect_1_2.move(0, -moveY3);
-				items_[i]->set_rect(rect_1_2);
-				items_[i]->refresh_rect(rect_1_1, items_[i]->rect());
+				rect_1_1.move(0, -moveY3);
+				items_[i]->set_rect(rect_1_1);
 			}
 		}
 		window().redraw(rect());
@@ -196,25 +184,21 @@ bool TtkList::focusable() const
 		return false;
 }
 
-void TtkList::refresh_rect(const TtkRect& rect1, const TtkRect& rect2)
+void TtkList::set_rect(const TtkRect& new_rect)
 {
-	int x = rect2.tl_.x_ - rect1.tl_.x_;
-	int y = rect2.tl_.y_ - rect1.tl_.y_;
-	int widthInc = rect2.width() - rect1.width();
+	int x = new_rect.tl_.x_ - rect().tl_.x_;
+	int y = new_rect.tl_.y_ - rect().tl_.y_;
+	int widthInc = new_rect.width() - rect().width();
 	for (int i = 0; i < num_items_; ++i) {
 		TtkRect rect_1_1 = items_[i]->rect();
-		TtkRect rect_1_2 = rect_1_1;
-		rect_1_2.move(x, y);
-		rect_1_2.resize(widthInc, 0);
-		items_[i]->set_rect(rect_1_2);
-		items_[i]->refresh_rect(rect_1_1, items_[i]->rect());
+		rect_1_1.move(x, y);
+		rect_1_1.resize(widthInc, 0);
+		items_[i]->set_rect(rect_1_1);
 		
 	}
 	if (scrollbar_) {
 		TtkRect rect_1_1 = scrollbar_->rect();
-		TtkRect rect_1_2 = rect_1_1;
-		rect_1_2.move(x, y);
-		scrollbar_->set_rect(rect_1_2);
-		scrollbar_->refresh_rect(rect_1_1, scrollbar_->rect());
+		rect_1_1.move(x, y);
+		scrollbar_->set_rect(rect_1_1);
 	}
 }

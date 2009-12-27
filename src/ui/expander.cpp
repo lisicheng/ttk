@@ -64,16 +64,14 @@ bool TtkExpander::focusable() const
 	return true;
 }
 
-void TtkExpander::refresh_rect(const TtkRect& rect1, const TtkRect& rect2)
+void TtkExpander::set_rect(const TtkRect& new_rect)
 {
-	int x = rect2.tl_.x_ - rect1.tl_.x_;
-	int y = rect2.tl_.y_ - rect1.tl_.y_;
+	int dx = new_rect.tl_.x_ - rect().tl_.x_;
+	int dy = new_rect.tl_.y_ - rect().tl_.y_;
 	
 	if (label_) {
-		TtkRect rect_1_1 = label_->rect();
-		TtkRect rect_1_2 = rect_1_1;
-		rect_1_2.move(x,y);
-		label_->set_rect(rect_1_2);
-		label_->refresh_rect(rect_1_1, label_->rect());
+		TtkRect label_rect = label_->rect();
+		label_rect.move(dx, dy);
+		label_->set_rect(label_rect);
 	}
 }

@@ -64,16 +64,12 @@ const TtkRect& TtkWidget::rect() const
 	return rect_;
 }
 
-void TtkWidget::set_rect(const TtkRect& rect)
+void TtkWidget::set_rect(const TtkRect& new_rect)
 {
-	rect_ = rect;
+	rect_ = new_rect;
 }
 
 TtkWindowInterface& TtkWidget::window() const
 {
 	return *window_;
-}
-
-void TtkWidget::refresh_rect(const TtkRect& rect1, const TtkRect& rect2)
-{
 }

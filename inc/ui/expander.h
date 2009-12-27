@@ -22,7 +22,7 @@ public: /*from TtkWidget*/
 	void handle_key_event(TtkKeyEvent& key_event);
 	void set_focus(bool has_focus);
 	bool focusable() const;	
-	void refresh_rect(const TtkRect& rect1, const TtkRect& rect2);
+	void set_rect(const TtkRect& new_rect);
 	
 public:
 	void set_iLabel(TtkWidget* label);
