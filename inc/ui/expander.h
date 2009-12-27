@@ -17,7 +17,7 @@ public:
 	virtual ~TtkExpander();
 	TtkExpander(TtkWsEnvInterface& ws_env, const TtkRect& rect, TtkWindowInterface* window);
 	
-public:/*from TtkWidget*/
+public: /*from TtkWidget*/
 	void handle_redraw_event(const TtkRect& redraw_rect);
 	void handle_key_event(TtkKeyEvent& key_event);
 	void set_focus(bool has_focus);
@@ -28,7 +28,7 @@ public:
 	void set_iLabel(TtkWidget* label);
 	
 private:
-	TtkWidget* iLabel;
+	TtkWidget* label_;
 };
 
 #endif // TTK_EXPANDER_H
