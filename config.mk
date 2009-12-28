@@ -23,6 +23,7 @@ SRCFILES = \
 	symttk/window.cpp \
 	symttk/wsenv.cpp \
 	symttk/bitmap.cpp \
+	symttk/imagedecoder.cpp \
 	ttk/common/point.cpp \
 	ttk/common/rect.cpp \
 	ttk/widget.cpp \

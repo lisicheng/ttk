@@ -1,4 +1,4 @@
-#include "symttk/imagedeocder.h"
+#include "symttk/imagedecoder.h"
 
 CSymTtkImageDecoder::~CSymTtkImageDecoder()
 {
@@ -12,6 +12,7 @@ CSymTtkImageDecoder* CSymTtkImageDecoder::NewLC()
 {
 }
 
-void CSymTtkImageDecoder::decode(const char* filename, TtkBitmapInterface*& bitmap, TtkImage& image)
+void CSymTtkImageDecoder::decode(const char* filename,
+				 TtkBitmapInterface*& bitmap, TtkImage& image)
 {
 }
