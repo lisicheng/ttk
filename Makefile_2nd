@@ -55,8 +55,8 @@ clean: check
 	rm -rf dist/*
 	rm -rf doc/html
 	rm -f $(OBJTARGET)
-	rm -f $(patsubst %.cpp,%.d,$(SRCFILES))
-	rm -f $(patsubst %.rss,%.d,$(RSSFILES))
+	rm -f $(patsubst %.cpp,src/%.d,$(SRCFILES))
+	rm -f $(patsubst %.rss,rss/%.d,$(RSSFILES))
 	rm -f inc/*.rsg
 
 include $(patsubst %.cpp,src/%.d,$(SRCFILES))
@@ -128,5 +128,5 @@ doc:
 	cp doc/troodon.jpg doc/html/
 
 install: $(SIS)
-	bluetooth-sendto @<
+	bluetooth-sendto $<
 

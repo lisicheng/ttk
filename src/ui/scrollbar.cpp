@@ -1,3 +1,10 @@
+/**
+ * \file
+ * \brief TtkScrollbar类定义
+ * \author 袁野 <yuanyelele@gmail.com>
+ * \author 李思诚 <lisicheng2008@gmail.com>
+ * \warning 2009 (c) 北京随手互动信息技术有限公司
+ */
 #include "ui/scrollbar.h"
 
 #include "ttk/common/color.h"

@@ -1,9 +1,9 @@
-#include "ui/mainwidget.h"
+#include "example/mainwidget.h"
 
 #include "ttk/common.h"
 #include "ttk/common/pointerevent.h"
 #include "ttk/windowinterface.h"
-#include "ui/numberedwidget.h"
+#include "example/numberedwidget.h"
 #include "ui/label.h"
 
 MainWidget::~MainWidget()

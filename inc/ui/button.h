@@ -12,4 +12,4 @@ public:
 	virtual ~TtkButton();
 };
 
-#endif // TTK_BUTTON_H
+#endif /* TTK_BUTTON_H */

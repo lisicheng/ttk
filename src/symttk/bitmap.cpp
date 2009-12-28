@@ -1,8 +1,10 @@
 #include "symttk/bitmap.h"
 
-CFbsBitmap::~CFbsBitmap()
+#include <fbs.h>
+
+CSymTtkBitmap::~CSymTtkBitmap()
 {
-	delte iBitmap;
+	delete iBitmap;
 }
 
 const CFbsBitmap& CSymTtkBitmap::Bitmap() const

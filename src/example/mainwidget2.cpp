@@ -5,7 +5,7 @@
  *      Author: u
  */
 
-#include "ui/mainwidget2.h"
+#include "example/mainwidget2.h"
 
 #include "ttk/common.h"
 #include "ttk/common/pointerevent.h"

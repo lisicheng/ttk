@@ -8,6 +8,7 @@
 class CSymTtkGc;
 class CSymTtkRedrawer;
 class TtkWidget;
+class CSymTtkImageDecoder;
 
 /**
  * \brief Symbian窗口管理器环境
@@ -42,6 +43,7 @@ private:
 	CSymTtkGc* iGc;
 	const CSymTtkRedrawer* iRedrawer;
 	TtkWidget* iRootWidget;
+	CSymTtkImageDecoder* iImageDecoder;
 };
 
 #endif /* SYMTTK_WSENV_H */

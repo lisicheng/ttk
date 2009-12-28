@@ -22,12 +22,17 @@ SRCFILES = \
 	symttk/redrawer.cpp \
 	symttk/window.cpp \
 	symttk/wsenv.cpp \
+	symttk/bitmap.cpp \
+	symttk/imagedecoder.cpp \
 	ttk/common/point.cpp \
 	ttk/common/rect.cpp \
 	ttk/widget.cpp \
 	ui/label.cpp \
-	ui/mainwidget.cpp \
-	ui/numberedwidget.cpp
+	ui/list.cpp \
+	ui/expander.cpp \
+	example/mainwidget.cpp \
+	example/mainwidget2.cpp \
+	example/numberedwidget.cpp
 
 LIBRARY = \
 	euser.lib \
