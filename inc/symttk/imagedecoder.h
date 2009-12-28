@@ -2,7 +2,7 @@
 #define SYMTTK_IMAGEDECODER_H
 
 #include <e32base.h> /* CBase */
-#include "ttk/imagedeocderinterface.h" /* TtkImageDecoderInterface */
+#include "ttk/imagedecoderinterface.h" /* TtkImageDecoderInterface */
 
 /**
  * \brief Symbian图片解码器
