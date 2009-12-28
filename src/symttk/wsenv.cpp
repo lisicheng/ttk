@@ -119,7 +119,7 @@ void CSymTtkWsEnv::RunL()
 		case EKeyDownArrow:
 			key_event = kTtkKeyDown;
 			break;
-		case EKeyLeftArrow:
+		case EKeyDevice3:
 			key_event = kTtkKeyOk;
 			break;
 		default:
