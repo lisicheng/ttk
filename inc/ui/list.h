@@ -33,4 +33,4 @@ private:
 	TtkWidget** iExpanders;
 };
 
-#endif // TTK_LIST_H
+#endif /* TTK_LIST_H */

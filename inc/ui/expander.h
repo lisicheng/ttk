@@ -28,4 +28,4 @@ private:
 	TtkWidget* iLabel;
 };
 
-#endif // TTK_EXPANDER_H
+#endif /* TTK_EXPANDER_H */
