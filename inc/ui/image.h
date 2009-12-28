@@ -3,6 +3,8 @@
 
 #include "ttk/widget.h" /* TtkWidget */
 
+class TtkBitmapInterface;
+
 /**
  * \brief 图片
  *

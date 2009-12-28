@@ -30,6 +30,9 @@ SRCFILES = \
 	ui/label.cpp \
 	ui/list.cpp \
 	ui/expander.cpp \
+	ui/image.cpp \
+	ui/label.cpp \
+	ui/scrollbar.cpp \
 	example/mainwidget.cpp \
 	example/mainwidget2.cpp \
 	example/numberedwidget.cpp

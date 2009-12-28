@@ -1,12 +1,18 @@
 #include "ui/image.h"
 
+#include "ttk/bitmapinterface.h"
+#include "ttk/gcinterface.h"
+#include "ttk/wsenvinterface.h"
+#include "ttk/imagedecoderinterface.h"
+
 TtkImage::~TtkImage()
 {
-	delete bitmap_
+	delete bitmap_;
 }
 
 TtkImage::TtkImage(TtkWsEnvInterface& ws_env, const TtkRect& rect,
-		   TtkWindowInterface* window, const char* filename)
+		   TtkWindowInterface* window, const char* filename,
+		   void (*action)())
 		: TtkWidget(ws_env, rect, window), filename_(filename),
 		  action_(action)
 {
@@ -49,5 +55,5 @@ bool TtkImage::focusable() const
 
 void TtkImage::decode()
 {
-	ws_env().image_decoder().decode(filename_, &bitmap_, *this);
+	ws_env().image_decoder().decode(filename_, bitmap_, *this);
 }

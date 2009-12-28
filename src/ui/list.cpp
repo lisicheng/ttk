@@ -22,12 +22,12 @@ TtkList::TtkList(TtkWsEnvInterface& ws_env, const TtkRect& rect,
 
 void TtkList::handle_key_event(TtkKeyEvent& key_event)
 {
+	int dy;
 	switch(key_event) {
 	case kTtkKeyUp:
 		if (focus_index_ <= 0)
 			break;
-		int dy = items_[focus_index_-1]->rect().tl_.y_ -
-			 rect().tl_.y_;
+		dy = items_[focus_index_-1]->rect().tl_.y_ - rect().tl_.y_;
 		if (dy < 0) {
 			for (int i = 0; i < num_items_; ++i) {
 				TtkRect new_rect = items_[i]->rect();
@@ -49,8 +49,7 @@ void TtkList::handle_key_event(TtkKeyEvent& key_event)
 	case kTtkKeyDown:
 		if (focus_index_ >= num_items_ -1)
 			break;
-		int dy = items_[focus_index_+1]->rect().br_.y_ -
-			 rect().br_.y_;
+		dy = items_[focus_index_+1]->rect().br_.y_ - rect().br_.y_;
 		if (dy > 0) {
 			int top_dy = items_[focus_index_+1]->rect().tl_.y_ -
 				     rect().tl_.y_;
@@ -109,7 +108,7 @@ void TtkList::handle_key_event(TtkKeyEvent& key_event)
 void TtkList::handle_redraw_event(const TtkRect& redraw_rect)
 {
 	TtkWidget::handle_redraw_event(rect());
-	if (num_items <= 0)
+	if (num_items_ <= 0)
 		return;
 	int total_length = items_[num_items_-1]->rect().br_.y_ -
 			   items_[0]->rect().tl_.y_;
@@ -123,7 +122,7 @@ void TtkList::handle_redraw_event(const TtkRect& redraw_rect)
 		int scrollbarLength = rect().height();
 		int startPoint = rect().tl_.y_ - items_[0]->rect().tl_.y_;
 		TtkScrollbar* scrollbar = (TtkScrollbar*)scrollbar_;
-		scrollbar->set_totalLength(totalLength);
+		scrollbar->set_totalLength(total_length);
 		scrollbar->set_scrollbarLength(scrollbarLength);
 		scrollbar->set_startPoint(startPoint);
 			

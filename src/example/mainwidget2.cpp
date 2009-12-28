@@ -33,9 +33,9 @@ MainWidget2::MainWidget2(TtkWsEnvInterface& ws_env, const TtkRect& rect)
 		expanders[i]->set_iLabel(label);
 		expander_rect.move(0, 50);
 		}
-	list->set_iExpanders((TtkWidget**)expanders);
-	list->set_iExpandersNum(5);
-	list->set_iFocusedNum(0);
+	list->set_items((TtkWidget**)expanders);
+	list->set_num_items(5);
+	list->set_focus_index(0);
 	list->set_focus(true);
 	iList = list;
 }
