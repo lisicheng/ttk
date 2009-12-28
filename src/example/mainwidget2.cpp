@@ -1,10 +1,3 @@
-/*
- * mainwidget2.cpp
- *
- *  Created on: 2009-12-15
- *      Author: u
- */
-
 #include "example/mainwidget2.h"
 
 #include "ttk/common.h"
@@ -16,28 +9,27 @@
 
 MainWidget2::~MainWidget2()
 {
-	delete iList;
-	iList = NULL;
+	delete list_;
 }
 
 MainWidget2::MainWidget2(TtkWsEnvInterface& ws_env, const TtkRect& rect)
-		: TtkWidget(ws_env, rect, NULL)
+	: TtkWidget(ws_env, rect, NULL)
 {
-	TtkList* list = new TtkList(ws_env, rect, &window());
-	TtkExpander** expanders = new TtkExpander*[5];
+	TtkList* list_ = new TtkList(ws_env, rect, &window());
+	TtkExpander** items = new TtkExpander*[5];
 	TtkRect expander_rect(rect.tl_.x_, rect.tl_.y_, rect.br_.x_, rect.tl_.y_+50);
 	for(TInt i = 0; i < 5; ++i)
 		{
-		expanders[i] = new TtkExpander(ws_env, expander_rect, &window());
+		items[i] = new TtkExpander(ws_env, expander_rect, &window());
 		TtkLabel* label = new TtkLabel(ws_env, expander_rect, &window(), "Label", NULL);
-		expanders[i]->set_iLabel(label);
+		items[i]->set_label(label);
 		expander_rect.move(0, 50);
 		}
-	list->set_items((TtkWidget**)expanders);
-	list->set_num_items(5);
-	list->set_focus_index(0);
-	list->set_focus(true);
-	iList = list;
+	TtkWidget* widget = dynamic_cast<TtkWidget*>(*items);
+	list_->set_items(&widget);
+	list_->set_num_items(5);
+	list_->set_focus_index(0);
+	list_->set_focus(true);
 }
 
 void MainWidget2::handle_key_event(TtkKeyEvent& key_event)
@@ -46,7 +38,7 @@ void MainWidget2::handle_key_event(TtkKeyEvent& key_event)
 	case kTtkKeyUp:
 	case kTtkKeyDown:
 	case kTtkKeyOk:
-		iList->handle_key_event(key_event);
+		list_->handle_key_event(key_event);
 		break;
 	default:
 		break;
@@ -56,5 +48,5 @@ void MainWidget2::handle_key_event(TtkKeyEvent& key_event)
 void MainWidget2::handle_redraw_event(const TtkRect& redraw_rect)
 {
 	TtkWidget::handle_redraw_event(redraw_rect);
-	iList->handle_redraw_event(redraw_rect);
+	list_->handle_redraw_event(redraw_rect);
 }

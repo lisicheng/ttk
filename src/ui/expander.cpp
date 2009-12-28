@@ -31,7 +31,7 @@ void TtkExpander::handle_redraw_event(const TtkRect& redraw_rect)
 		label_->handle_redraw_event(label_->rect());
 }
 
-void TtkExpander::set_iLabel(TtkWidget* label)
+void TtkExpander::set_label(TtkWidget* label)
 {
 	label_ = label;
 }

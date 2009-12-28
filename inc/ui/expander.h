@@ -25,7 +25,7 @@ public: /*from TtkWidget*/
 	void set_rect(const TtkRect& new_rect);
 	
 public:
-	void set_iLabel(TtkWidget* label);
+	void set_label(TtkWidget* label);
 	
 private:
 	TtkWidget* label_;
