@@ -10,12 +10,22 @@
 TtkExpander::~TtkExpander()
 {
 	delete label_;
+	delete icon_;
+	delete contents_;
 }
 
 TtkExpander::TtkExpander(TtkWsEnvInterface& ws_env, const TtkRect& rect,
-			 TtkWindowInterface* window)
-	: TtkWidget(ws_env, rect, window), label_(NULL)
+			 TtkWindowInterface* window, const char* text,
+			 TtkWidget* contents)
+	: TtkWidget(ws_env, rect, window), contents_(contents), expand_(false)
 {
+	label_ = new TtkLabel(ws_env, rect, window, text, NULL);
+	/* TODO: icon_ */
+	TtkRect contents_rect(rect.tl_.x_,
+			      rect.br_.y_,
+			      rect.br_.x_,
+			      rect.br_.y_+contents_->rect().height());
+	contents_->set_rect(contents_rect);
 }
 
 void TtkExpander::handle_redraw_event(const TtkRect& redraw_rect)
@@ -26,37 +36,38 @@ void TtkExpander::handle_redraw_event(const TtkRect& redraw_rect)
 		gc.set_brush_color(kTtkColorRed);
 	else
 		gc.set_brush_color(kTtkColorGreen);
-	gc.clear(rect());
+	gc.clear(redraw_rect);
 	if (label_)
-		label_->handle_redraw_event(label_->rect());
-}
-
-void TtkExpander::set_label(TtkWidget* label)
-{
-	label_ = label;
-}
-
-void TtkExpander::set_focus(bool has_focus)
-{
-	TtkWidget::set_focus(has_focus);
-	label_->set_focus(has_focus);
+		label_->handle_redraw_event(redraw_rect);
+	if (icon_)
+		icon_->handle_redraw_event(redraw_rect);
+	if (contents_ && expand_)
+		contents_->handle_redraw_event(redraw_rect);
 }
 
 void TtkExpander::handle_key_event(TtkKeyEvent& key_event)
 {
 	switch(key_event) {
 	case kTtkKeyOk:
-		if (rect().height() == label_->rect().height()) {
+		if (expand_) {
+			expand_ = false;
+			set_rect(label_->rect());
+		} else {
+			expand_ = true;
 			TtkRect rect_1_1 = rect();
 			rect_1_1.resize(0, 100);
 			set_rect(rect_1_1);
-		} else {
-			set_rect(label_->rect());
 		}
 		break;
 	default:
 		break;
 	}
+}
+
+void TtkExpander::set_focus(bool has_focus)
+{
+	TtkWidget::set_focus(has_focus);
+	label_->set_focus(has_focus);
 }
 
 bool TtkExpander::focusable() const
@@ -74,4 +85,10 @@ void TtkExpander::set_rect(const TtkRect& new_rect)
 		label_rect.move(dx, dy);
 		label_->set_rect(label_rect);
 	}
+	if (icon_) {
+		/* TODO: move icon_ */
+	}
+	if (expand_ && contents_) {
+	}
 }
+

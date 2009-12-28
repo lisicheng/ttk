@@ -15,20 +15,20 @@ class TtkWindowInterface;
 class TtkExpander : public TtkWidget {
 public:
 	virtual ~TtkExpander();
-	TtkExpander(TtkWsEnvInterface& ws_env, const TtkRect& rect, TtkWindowInterface* window);
-	
-public: /*from TtkWidget*/
+	TtkExpander(TtkWsEnvInterface& ws_env, const TtkRect& rect,
+		    TtkWindowInterface* window, const char* text,
+		    TtkWidget* contents);
+public: /* from TtkWidget */
 	void handle_redraw_event(const TtkRect& redraw_rect);
 	void handle_key_event(TtkKeyEvent& key_event);
 	void set_focus(bool has_focus);
 	bool focusable() const;	
 	void set_rect(const TtkRect& new_rect);
-	
-public:
-	void set_label(TtkWidget* label);
-	
 private:
-	TtkWidget* label_;
+	TtkLabel* label_;
+	TtkImage* icon_;
+	TtkWidget* contents_;
+	bool expand_;
 };
 
 #endif /* TTK_EXPANDER_H */
