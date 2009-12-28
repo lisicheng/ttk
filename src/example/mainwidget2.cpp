@@ -15,18 +15,16 @@ MainWidget2::~MainWidget2()
 MainWidget2::MainWidget2(TtkWsEnvInterface& ws_env, const TtkRect& rect)
 	: TtkWidget(ws_env, rect, NULL)
 {
-	TtkList* list_ = new TtkList(ws_env, rect, &window());
+	list_ = new TtkList(ws_env, rect, &window());
 	TtkExpander** items = new TtkExpander*[5];
 	TtkRect expander_rect(rect.tl_.x_, rect.tl_.y_, rect.br_.x_, rect.tl_.y_+50);
-	for(TInt i = 0; i < 5; ++i)
-		{
+	for(TInt i = 0; i < 5; ++i) {
 		items[i] = new TtkExpander(ws_env, expander_rect, &window());
 		TtkLabel* label = new TtkLabel(ws_env, expander_rect, &window(), "Label", NULL);
 		items[i]->set_label(label);
 		expander_rect.move(0, 50);
-		}
-	TtkWidget* widget = dynamic_cast<TtkWidget*>(*items);
-	list_->set_items(&widget);
+	}
+	list_->set_items((TtkWidget**)items);
 	list_->set_num_items(5);
 	list_->set_focus_index(0);
 	list_->set_focus(true);

@@ -21,7 +21,7 @@ private: /* from TtkWidget */
 	void handle_key_event(TtkKeyEvent& key_event);
 	void handle_redraw_event(const TtkRect& redraw_rect);
 private:
-	TtkWidget* list_;
+	TtkList* list_;
 };
 
 #endif /* MAINWIDGET2_H_ */
