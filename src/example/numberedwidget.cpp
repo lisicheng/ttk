@@ -1,4 +1,4 @@
-#include "ui/numberedwidget.h"
+#include "example/numberedwidget.h"
 
 #include "ttk/common/color.h"
 #include "ttk/gcinterface.h"

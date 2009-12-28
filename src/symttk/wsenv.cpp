@@ -4,8 +4,8 @@
 #include "symttk/window.h"
 #include "symttk/gc.h"
 #include "symttk/imagedecoder.h"
-#include "ui/mainwidget.h"
-#include "ui/mainwidget2.h"
+#include "example/mainwidget.h"
+#include "example/mainwidget2.h"
 #include "ttk/common/pointerevent.h"
 
 CSymTtkWsEnv::~CSymTtkWsEnv()
