@@ -127,5 +127,5 @@ doc:
 	cp doc/troodon.jpg doc/html/
 
 install: $(SISX)
-	bluetooth-sendto @<
+	bluetooth-sendto $<
 
