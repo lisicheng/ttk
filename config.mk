@@ -22,6 +22,7 @@ SRCFILES = \
 	symttk/redrawer.cpp \
 	symttk/window.cpp \
 	symttk/wsenv.cpp \
+	symttk/bitmap.cpp \
 	ttk/common/point.cpp \
 	ttk/common/rect.cpp \
 	ttk/widget.cpp \

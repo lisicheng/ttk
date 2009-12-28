@@ -2,6 +2,7 @@
 
 #include <utf.h>
 #include "ttk/common/rect.h"
+#include "symttk/bitmap.h"
 
 CSymTtkGc::~CSymTtkGc()
 {
@@ -72,7 +73,7 @@ void CSymTtkGc::draw_bitmap(const TtkBitmapInterface& bitmap,
 	const TRect sym_rect(rect.tl_.x_, rect.tl_.y_,
 			     rect.br_.x_, rect.br_.y_);
 	iGc->DrawBitmap(sym_rect,
-			dynamic_cast<CSymTtkBitmap>(&bitmap)->Bitmap());
+			&static_cast<const CSymTtkBitmap*>(&bitmap)->Bitmap());
 }
 
 void CSymTtkGc::set_clipping_rect(const TtkRect& rect)
