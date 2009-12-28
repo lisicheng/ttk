@@ -1,7 +1,14 @@
+/**
+ * \file
+ * \brief TtkScrollbar类声明
+ * \author 袁野 <yuanyelele@gmail.com>
+ * \author 李思诚 <lisicheng2008@gmail.com>
+ * \warning 2009 (c) 北京随手互动信息技术有限公司
+ */
 #ifndef TTK_SCROLLBAR_H
 #define TTK_SCROLLBAR_H
 
-#include "ttk/widget.h"
+#include "ttk/widget.h" /* TtkWidget */
 
 class TtkWsEnvInterface;
 class TtkWindowInterface;
@@ -12,14 +19,12 @@ class TtkWindowInterface;
 class TtkScrollbar : public TtkWidget {
 public:
 	virtual ~TtkScrollbar();
-	TtkScrollbar(TtkWsEnvInterface& ws_env, const TtkRect& rect, TtkWindowInterface* window);
+	TtkScrollbar(TtkWsEnvInterface& ws_env, const TtkRect& rect,
+		     TtkWindowInterface* window);
 	
-public:/*from TtkWidget*/
+public: /* from TtkWidget */
 	void handle_redraw_event(const TtkRect& rect);
-	
-public:
-	
-private:/*data*/
+
 };
 
-#endif // TTK_SCROLLBAR_H
+#endif /* TTK_SCROLLBAR_H */
