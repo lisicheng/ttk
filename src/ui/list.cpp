@@ -15,7 +15,7 @@ TtkList::~TtkList()
 }
 
 TtkList::TtkList(TtkWsEnvInterface& ws_env, const TtkRect& rect, 
-		TtkWindowInterface* window) : TtkWidget(ws_env, rect, window),
+		TtkWidget* parent) : TtkWidget(ws_env, rect, parent),
 		num_items_(0), items_(NULL), focus_index_(0), scrollbar_(NULL)
 {
 }
@@ -117,7 +117,7 @@ void TtkList::handle_redraw_event(const TtkRect& redraw_rect)
 			TtkRect scroll_rect(rect().br_.x_-10, rect().tl_.y_,
 					    rect().br_.x_, rect().br_.y_);
 			scrollbar_ = new TtkScrollbar(ws_env(), scroll_rect,
-					 &window());
+						      this);
 		}
 		int scrollbarLength = rect().height();
 		int startPoint = rect().tl_.y_ - items_[0]->rect().tl_.y_;

@@ -20,7 +20,7 @@ class TtkScrollbar : public TtkWidget {
 public:
 	virtual ~TtkScrollbar();
 	TtkScrollbar(TtkWsEnvInterface& ws_env, const TtkRect& rect,
-		     TtkWindowInterface* window);
+		     TtkWidget* parent);
 	
 public:/*from TtkWidget*/
 	void handle_redraw_event(const TtkRect& redraw_rect);

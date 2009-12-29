@@ -5,6 +5,9 @@
 
 class TtkWsEnvInterface;
 class TtkWindowInterface;
+class TtkLabel;
+class TtkImage;
+class TtkWidget;
 
 /**
  * \brief 折叠页
@@ -16,7 +19,7 @@ class TtkExpander : public TtkWidget {
 public:
 	virtual ~TtkExpander();
 	TtkExpander(TtkWsEnvInterface& ws_env, const TtkRect& rect,
-		    TtkWindowInterface* window, const char* text,
+		    TtkWidget* parent, const char* text,
 		    TtkWidget* contents);
 public: /* from TtkWidget */
 	void handle_redraw_event(const TtkRect& redraw_rect);

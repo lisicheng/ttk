@@ -6,6 +6,8 @@
 #include "ttk/gcinterface.h"
 #include "ttk/windowinterface.h"
 #include "ttk/wsenvinterface.h"
+#include "ui/label.h"
+#include "ui/image.h"
 
 TtkExpander::~TtkExpander()
 {
@@ -15,9 +17,9 @@ TtkExpander::~TtkExpander()
 }
 
 TtkExpander::TtkExpander(TtkWsEnvInterface& ws_env, const TtkRect& rect,
-			 TtkWindowInterface* window, const char* text,
+			 TtkWidget* parent, const char* text,
 			 TtkWidget* contents)
-	: TtkWidget(ws_env, rect, window), contents_(contents), expand_(false)
+	: TtkWidget(ws_env, rect, parent), contents_(contents), expand_(false)
 {
 	label_ = new TtkLabel(ws_env, rect, window, text, NULL);
 	/* TODO: icon_ */
@@ -51,7 +53,9 @@ void TtkExpander::handle_key_event(TtkKeyEvent& key_event)
 	case kTtkKeyOk:
 		if (expand_) {
 			expand_ = false;
+			TRect old_rect = rect();
 			set_rect(label_->rect());
+			window().redraw(old_rect);
 		} else {
 			expand_ = true;
 			TtkRect rect_1_1 = rect();

@@ -26,7 +26,7 @@ class TtkWidget
 public:
 	virtual ~TtkWidget();
 	TtkWidget(TtkWsEnvInterface& ws_env, const TtkRect& rect,
-		  TtkWindowInterface* window);
+		  TtkWidget* parent);
 public: /* virtual functions */
 	virtual void handle_key_event(TtkKeyEvent& key_event);
 	virtual void handle_pointer_event(TtkPointerEvent& pointer_event);

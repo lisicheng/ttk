@@ -19,7 +19,7 @@ class TtkList : public TtkWidget {
 public:
 	virtual ~TtkList();
 	TtkList(TtkWsEnvInterface& ws_env, const TtkRect& rect, 
-		TtkWindowInterface* window);
+		TtkWidget* parent);
 
 public: /* from TtkWidget */
 	void handle_key_event(TtkKeyEvent& key_event);

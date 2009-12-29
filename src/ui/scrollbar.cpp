@@ -18,7 +18,7 @@ TtkScrollbar::~TtkScrollbar()
 }
 
 TtkScrollbar::TtkScrollbar(TtkWsEnvInterface& ws_env, const TtkRect& rect,
-		TtkWindowInterface* window): TtkWidget(ws_env, rect, window), totalLength(0),
+		TtkWidget* parent): TtkWidget(ws_env, rect, parent), totalLength(0),
 		scrollbarLength(0), startPoint(0)
 {
 }

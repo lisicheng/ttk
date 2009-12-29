@@ -8,9 +8,9 @@ TtkLabel::~TtkLabel()
 }
 
 TtkLabel::TtkLabel(TtkWsEnvInterface& ws_env, const TtkRect& rect,
-		   TtkWindowInterface* window, const char* text,
+		   TtkWidget* parent, const char* text,
 		   void (*action)())
-		: TtkWidget(ws_env, rect, window), text_(text), action_(action)
+		: TtkWidget(ws_env, rect, parent), text_(text), action_(action)
 {
 }
 

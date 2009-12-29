@@ -11,9 +11,9 @@ TtkImage::~TtkImage()
 }
 
 TtkImage::TtkImage(TtkWsEnvInterface& ws_env, const TtkRect& rect,
-		   TtkWindowInterface* window, const char* filename,
+		   TtkWidget* parent, const char* filename,
 		   void (*action)())
-		: TtkWidget(ws_env, rect, window), filename_(filename),
+		: TtkWidget(ws_env, rect, parent), filename_(filename),
 		  action_(action)
 {
 }

@@ -12,12 +12,12 @@ TtkWidget::~TtkWidget()
 }
 
 TtkWidget::TtkWidget(TtkWsEnvInterface& ws_env, const TtkRect& rect,
-		     TtkWindowInterface* window)
+		     TtkWidget* parent)
 		: ws_env_(ws_env), rect_(rect), window_(NULL),
 		  own_window_(false), has_focus_(false)
 {
-	if (window) {
-		window_ = window;
+	if (parent) {
+		window_ = &parent->window();
 		own_window_ = false;
 	} else {
 		window_ = ws_env_.new_window(*this, kTtkColorWhite);

@@ -17,7 +17,7 @@ class TtkImage : public TtkWidget {
 public:
 	virtual ~TtkImage();
 	TtkImage(TtkWsEnvInterface& ws_env, const TtkRect& rect,
-		 TtkWindowInterface* window, const char* filename,
+		 TtkWidget* parent, const char* filename,
 		 void (*action)());
 public: /* from TtkWidget */
 	void handle_key_event(TtkKeyEvent& key_event);
