@@ -9,8 +9,8 @@ NumberedWidget::~NumberedWidget()
 }
 
 NumberedWidget::NumberedWidget(TtkWsEnvInterface& ws_env, const TtkRect& rect,
-			       int num, TtkWindowInterface* window)
-		: TtkWidget(ws_env, rect, window), num_(num)
+			       int num, TtkWidget* parent)
+		: TtkWidget(ws_env, rect, parent), num_(num)
 {
 }
 

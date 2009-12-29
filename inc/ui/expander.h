@@ -19,8 +19,8 @@ class TtkExpander : public TtkWidget {
 public:
 	virtual ~TtkExpander();
 	TtkExpander(TtkWsEnvInterface& ws_env, const TtkRect& rect,
-		    TtkWidget* parent, const char* text,
-		    TtkWidget* contents);
+		    TtkWidget* parent);
+	void construct(const char* text, TtkWidget* contents);
 public: /* from TtkWidget */
 	void handle_redraw_event(const TtkRect& redraw_rect);
 	void handle_key_event(TtkKeyEvent& key_event);

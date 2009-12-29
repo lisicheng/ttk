@@ -17,16 +17,24 @@ TtkExpander::~TtkExpander()
 }
 
 TtkExpander::TtkExpander(TtkWsEnvInterface& ws_env, const TtkRect& rect,
-			 TtkWidget* parent, const char* text,
-			 TtkWidget* contents)
-	: TtkWidget(ws_env, rect, parent), contents_(contents), expand_(false)
+			 TtkWidget* parent)
+	: TtkWidget(ws_env, rect, parent), label_(NULL), icon_(NULL),
+	  contents_(NULL), expand_(false)
 {
-	label_ = new TtkLabel(ws_env, rect, window, text, NULL);
+}
+
+void TtkExpander::construct(const char* text, TtkWidget* contents)
+{
+	label_ = new TtkLabel(ws_env(), rect(), this, text, NULL);
 	/* TODO: icon_ */
-	TtkRect contents_rect(rect.tl_.x_,
-			      rect.br_.y_,
-			      rect.br_.x_,
-			      rect.br_.y_+contents_->rect().height());
+	if (contents)
+		contents_ = contents;
+	else
+		contents_ = new TtkWidget(ws_env(), rect(), this);
+	TtkRect contents_rect(rect().tl_.x_,
+			      rect().br_.y_,
+			      rect().br_.x_,
+			      rect().br_.y_+contents_->rect().height());
 	contents_->set_rect(contents_rect);
 }
 
@@ -53,7 +61,7 @@ void TtkExpander::handle_key_event(TtkKeyEvent& key_event)
 	case kTtkKeyOk:
 		if (expand_) {
 			expand_ = false;
-			TRect old_rect = rect();
+			TtkRect old_rect = rect();
 			set_rect(label_->rect());
 			window().redraw(old_rect);
 		} else {

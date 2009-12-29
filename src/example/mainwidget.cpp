@@ -17,8 +17,8 @@ MainWidget::MainWidget(TtkWsEnvInterface& ws_env, const TtkRect& rect)
 {
 	TtkRect component_rect(rect.tl_.x_ + 50, rect.tl_.y_ + 50,
 			       rect.br_.x_ - 50, rect.br_.y_ - 50);
-	component_ = new NumberedWidget(ws_env, component_rect, 3, &window());
-	text_ = new TtkLabel(ws_env, TtkRect(10, 10, 100, 50), &window(), "abc好好", NULL);
+	component_ = new NumberedWidget(ws_env, component_rect, 3, this);
+	text_ = new TtkLabel(ws_env, TtkRect(10, 10, 100, 50), this, "abc好好", NULL);
 }
 
 void MainWidget::handle_key_event(TtkKeyEvent& key_event)
