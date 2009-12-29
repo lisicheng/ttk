@@ -40,6 +40,7 @@ SRCFILES = \
 LIBRARY = \
 	euser.lib \
 	apparc.lib \
+	avkon.lib \
 	charconv.lib \
 	cone.lib \
 	eikcore.lib \

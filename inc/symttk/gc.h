@@ -40,7 +40,6 @@ private:
 private:
 	CWindowGc* iGc;
 	CWsScreenDevice& iScreen;
-	CFont* iFont;
 };
 
 #endif /* SYMTTK_GC_H */
