@@ -29,14 +29,15 @@ void MainWidget2::construct()
 	list_ = new TtkList(ws_env(), rect(), this);
 	TtkExpander** items = new TtkExpander*[5];
 	TtkRect expander_rect(rect().tl_.x_, rect().tl_.y_,
-			      rect().br_.x_, rect().tl_.y_+50);
-	for(TInt i = 0; i < 5; ++i) {
+			      rect().br_.x_, rect().tl_.y_+30);
+	TtkRect contents_rect(0, 0, 100, 100);
+	for(int i = 0; i < 5; ++i) {
 		items[i] = new TtkExpander(ws_env(), expander_rect, this);
-		TtkLabel* label = new TtkLabel(ws_env(), expander_rect, this, "contents", NULL);
+		TtkLabel* label = new TtkLabel(ws_env(), contents_rect, this, "contents", NULL);
 		items[i]->construct("Label", label);
-		expander_rect.move(0, 50);
+		expander_rect.move(0, 30);
 	}
-	list_->set_items((TtkWidget**)items);
+	list_->set_items(reinterpret_cast<TtkWidget**>(items));
 	list_->set_num_items(5);
 	list_->set_focus_index(0);
 	list_->set_focus(true);
