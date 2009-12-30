@@ -94,8 +94,8 @@ void CSymTtkWsEnv::ConstructL(const TRect& aRect)
 	iRedrawer = CSymTtkRedrawer::NewL(*this);
 	TtkRect rect(aRect.iTl.iX, aRect.iTl.iY,
 		     aRect.iBr.iX, aRect.iBr.iY);
-	iRootWidget = new MainWidget(*this, rect);
-	//iRootWidget = MainWidget2::alloc(*this, rect);
+	//iRootWidget = new MainWidget(*this, rect);
+	iRootWidget = MainWidget2::alloc(*this, rect);
 	IssueRequest();
 }
 

@@ -31,6 +31,7 @@ private:
 	TtkLabel* label_;
 	TtkImage* icon_;
 	TtkWidget* contents_;
+	TtkWidget* parent_; /* not owned */
 	bool expand_;
 };
 
