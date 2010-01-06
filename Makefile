@@ -102,7 +102,7 @@ dist/$(PROJECT).elf: $(OBJTARGET)
 		$(patsubst %.lib,$(ARMV5LIBPATH)/%.dso,$(LIBRARY))
 
 ifeq ($(TARGETTYPE), dll)
-DSOTARGET = dist/$(PROJECT){000a0000}.dso
+DSOTARGET = dist/$(PROJECT)_$(UID3).dso
 DSO = --dso $(DSOTARGET)
 endif
 $(BINTARGET) $(DSOTARGET): dist/$(PROJECT).elf
