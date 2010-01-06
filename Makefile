@@ -24,16 +24,18 @@ VARIANT = $(SYSINCPATH)/variant
 OS_HRH = $(VARIANT)/symbian_os_v9.1.hrh
 CERT = ~/cert_dev.cer
 KEY = ~/cert_dev.key
-LANG = LANGUAGE_SC
+LANG = zh_CN.UTF-8
 
 include config.mk
 
 .PHONY: check clean resource bin build pack doc install
+.PHONY: ttk_$(UID3).rsg ttk_loc_$(UID3).rsg
 
 check:
 	@echo 'EPOCROOT:' $(EPOCROOT)
 	@echo ' GCCPATH:' $(GCCPATH)
 	@echo '    PATH:' $(PATH)
+	@echo 'CXXFLAGS:' $(CXXFLAGS)
 	@echo '==============================================================='
 
 CXX = arm-none-symbianelf-g++ # GNU project C and C++ compiler
@@ -82,10 +84,10 @@ include $(patsubst %.cpp,src/%.d,$(SRCFILES))
 include $(patsubst %.rss,rss/%.d,$(RSSFILES))
 
 src/%.d: src/%.cpp
-	$(CXX) -M -MT $@ -MT src/$*.o $(CXXFLAGS) $< > $@
+	$(CXX) -M -MG -MT $@ -MT src/$*.o $(CXXFLAGS) $< > $@
 
 rss/%.d: rss/%.rss
-	$(CXX) -M -MT $@ -MT dist/$*_$(UID3).rsc $(CXXFLAGS) $< > $@
+	$(CXX) -M -MG -MT $@ -MT dist/$*_$(UID3).rsc $(CXXFLAGS) $< > $@
 
 dist/$(PROJECT).elf: $(OBJTARGET)
 	$(LD) $^ $(LDFLAGS) \
