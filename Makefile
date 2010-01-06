@@ -29,7 +29,6 @@ LANG = zh_CN.UTF-8
 include config.mk
 
 .PHONY: check clean resource bin build pack doc install
-.PHONY: ttk_$(UID3).rsg ttk_loc_$(UID3).rsg
 
 check:
 	@echo 'EPOCROOT:' $(EPOCROOT)
@@ -84,10 +83,10 @@ include $(patsubst %.cpp,src/%.d,$(SRCFILES))
 include $(patsubst %.rss,rss/%.d,$(RSSFILES))
 
 src/%.d: src/%.cpp
-	$(CXX) -M -MG -MT $@ -MT src/$*.o $(CXXFLAGS) $< > $@
+	$(CXX) -M -MG -MP -MT $@ -MT src/$*.o $(CXXFLAGS) $< > $@
 
 rss/%.d: rss/%.rss
-	$(CXX) -M -MG -MT $@ -MT dist/$*_$(UID3).rsc $(CXXFLAGS) $< > $@
+	$(CXX) -M -MG -MP -MT $@ -MT dist/$*_$(UID3).rsc $(CXXFLAGS) $< > $@
 
 dist/$(PROJECT).elf: $(OBJTARGET)
 	$(LD) $^ $(LDFLAGS) \
