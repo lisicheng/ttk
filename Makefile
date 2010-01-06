@@ -97,7 +97,7 @@ dist/$(PROJECT).elf: $(OBJTARGET)
 $(BINTARGET): dist/$(PROJECT).elf
 	elf2e32 --elfinput $< --output $@ --targettype $(TARGETTYPE) \
 		--linkas $(PROJECT){000a0000}[$(UID3)].$(TARGETTYPE) \
-		--uid1 0x1000007a --uid3 0x$(UID3) \
+		--uid1 0x$(UID1) --uid2 0x$(UID2) --uid3 0x$(UID3) \
 		--sid 0x$(SECUREID) --vid 0x$(VENDORID) \
 		--capability $(subst $(NULL) $(NULL),+,$(CAPABILITY)) \
 		--libpath $(ARMV5LIBPATH) --fpu softvfp
