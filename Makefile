@@ -100,7 +100,7 @@ $(BINTARGET): dist/$(PROJECT).elf
 		--uid1 0x1000007a --uid2 0x$(UID2) --uid3 0x$(UID3) \
 		--sid 0x$(SECUREID) --vid 0x$(VENDORID) --stack $(EPOCSTACKSIZE) \
 		--capability $(subst $(NULL) $(NULL),+,$(CAPABILITY)) \
-		--libpath $(ARMV5LIBPATH) --fpu=softvfp
+		--libpath $(ARMV5LIBPATH) --fpu softvfp
 
 dist/%_$(UID3).rsc inc/%_$(UID3).rsg: rss/%.rss
 	epocrc.pl -Iinc -I$(SYSINCPATH) -D$(LANG) -u -v \
