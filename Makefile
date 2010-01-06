@@ -44,7 +44,7 @@ ARMV5URELPATH = $(EPOCROOT)/epoc32/release/armv5/urel
 ARMV5LIBPATH = $(EPOCROOT)/epoc32/release/armv5/lib
 
 CXXFLAGS += -fexceptions -march=armv5t -mapcs -pipe -nostdinc -c -msoft-float \
-	-include $(EPOCROOT)/epoc32/include/gcce/gcce.h \
+	-include $(SYSINCPATH)/gcce/gcce.h \
 	-D__SYMBIAN32__ -D__EPOC32__ -D__SERIES60_30__ -D__SERIES60_3X__ \
 	-D__GCCE__ -D__MARM__ -D__MARM_ARMV5__ -D__EABI__ \
 	-D__SUPPORT_CPP_EXCEPTIONS__ -D__EXE__ -DNDEBUG -D_UNICODE \
