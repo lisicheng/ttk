@@ -55,14 +55,21 @@ CXXFLAGS += -fexceptions -march=armv5t -mapcs -pipe -nostdinc -c -msoft-float \
 	-I$(GCCPATH)/lib/gcc/arm-none-symbianelf/3.4.3/include \
 	-Wno-ctor-dtor-privacy -x c++
 
+ifeq ($(TARGETTYPE), exe)
+ENTRY=_E32Startup
+TYPELIB = $(ARMV5URELPATH)/eexe.lib
+else
+ENTRY=_E32Dll
+TYPELIB = $(ARMV5URELPATH)/edll.lib $(ARMV5URELPATH)/edllstub.lib
+endif
 LDFLAGS = \
-	--entry _E32Startup -soname $(PROJECT){000a0000}[$(UID3)].$(TARGETTYPE) \
+	--entry $(ENTRY) -soname $(PROJECT){000a0000}[$(UID3)].$(TARGETTYPE) \
 	--library-path $(GCCPATH)/arm-none-symbianelf/lib --library supc++ \
 	--library-path $(GCCPATH)/lib/gcc/arm-none-symbianelf/3.4.3 --library gcc \
-	--output dist/$(PROJECT).elf --undefined _E32Startup \
+	--output dist/$(PROJECT).elf --undefined $(ENTRY) \
 	--no-undefined --default-symver -nostdlib -shared \
 	-Tdata 0x400000 -Ttext 0x8000 --target1-abs \
-	$(ARMV5URELPATH)/eexe.lib $(ARMV5URELPATH)/usrt2_2.lib \
+	$(TYPELIB) $(ARMV5URELPATH)/usrt2_2.lib \
 	$(ARMV5LIBPATH)/dfpaeabi.dso $(ARMV5LIBPATH)/dfprvct2_2.dso \
 	$(ARMV5LIBPATH)/drtaeabi.dso $(ARMV5LIBPATH)/drtrvct2_2.dso \
 	$(ARMV5LIBPATH)/scppnwdl.dso
@@ -94,13 +101,17 @@ dist/$(PROJECT).elf: $(OBJTARGET)
 		$(addprefix $(ARMV5URELPATH)/,$(STATICLIBRARY)) \
 		$(patsubst %.lib,$(ARMV5LIBPATH)/%.dso,$(LIBRARY))
 
-$(BINTARGET): dist/$(PROJECT).elf
+ifeq ($(TARGETTYPE), dll)
+DSOTARGET = dist/$(PROJECT){000a0000}.dso
+DSO = --dso $(DSOTARGET)
+endif
+$(BINTARGET) $(DSOTARGET): dist/$(PROJECT).elf
 	elf2e32 --elfinput $< --output $@ --targettype $(TARGETTYPE) \
 		--linkas $(PROJECT){000a0000}[$(UID3)].$(TARGETTYPE) \
 		--uid1 0x$(UID1) --uid2 0x$(UID2) --uid3 0x$(UID3) \
 		--sid 0x$(SECUREID) --vid 0x$(VENDORID) \
 		--capability $(subst $(NULL) $(NULL),+,$(CAPABILITY)) \
-		--libpath $(ARMV5LIBPATH) --fpu softvfp
+		--libpath $(ARMV5LIBPATH) --fpu softvfp $(DSO)
 
 dist/%_$(UID3).rsc inc/%_$(UID3).rsg: rss/%.rss
 	epocrc.pl -Iinc -I$(SYSINCPATH) -D$(LANG) -u -v \
