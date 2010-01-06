@@ -19,14 +19,19 @@ class CFbsBitmap;
 class CSymTtkBitmap : public CBase, public TtkBitmapInterface {
 public:
 	virtual ~CSymTtkBitmap();
-	static CSymTtkBitmap* NewL();
-	static CSymTtkBitmap* NewLC();
-
+	static CSymTtkBitmap* NewL(TInt aWidth, TInt aHeight);
+	static CSymTtkBitmap* NewLC(TInt aWidth, TInt aHeight);
+public: /* from TtkBitmapInterface */
+	int width() const;
+	int height() const;
 public:
-	const CFbsBitmap& Bitmap() const;
-
+	CFbsBitmap& Bitmap() const;
+private:
+	void ConstructL(TInt aWidth, TInt aHeight);
 private:
 	CFbsBitmap* iBitmap;
+	TInt iWidth;
+	TInt iHeight;
 };
 
 #endif /* SYMTTK_BITMAP_H */

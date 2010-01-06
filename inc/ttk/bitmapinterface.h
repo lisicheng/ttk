@@ -17,8 +17,8 @@ class TtkBitmapInterface {
 public:
 	virtual ~TtkBitmapInterface() {}
 public:
-	virtual int width() = 0;
-	virtual int height() = 0;
+	virtual int width() const = 0;
+	virtual int height() const = 0;
 };
 
 #endif /* TTK_BITMAPINTERFACE_H */

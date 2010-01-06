@@ -44,6 +44,8 @@ LIBRARY = \
 	charconv.lib \
 	cone.lib \
 	eikcore.lib \
+	fbscli.lib \
 	flogger.lib \
 	gdi.lib \
+	imageconversion.lib \
 	ws32.lib
