@@ -50,7 +50,7 @@ CXXFLAGS += -fexceptions -march=armv5t -mapcs -pipe -nostdinc -c -msoft-float \
 	-D__SUPPORT_CPP_EXCEPTIONS__ -DNDEBUG -D_UNICODE \
 	-D__$(shell echo $(TARGETTYPE) | tr a-z A-Z)__ \
 	-Wall -Wno-unknown-pragmas \
-	-D__PRODUCT_INCLUDE__="$(OS_HRH)" -Isrc -I$(VARIANT) \
+	-D__PRODUCT_INCLUDE__="$(OS_HRH)" -I$(VARIANT) \
 	-Iinc -I$(SYSINCPATH) \
 	-I$(GCCPATH)/lib/gcc/arm-none-symbianelf/3.4.3/include \
 	-Wno-ctor-dtor-privacy -x c++
