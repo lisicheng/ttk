@@ -8,9 +8,9 @@ TtkLabel::~TtkLabel()
 }
 
 TtkLabel::TtkLabel(TtkWsEnvInterface& ws_env, const TtkRect& rect,
-		   TtkWindowInterface* window, const char* text,
+		   TtkWidget* parent, const char* text,
 		   void (*action)())
-		: TtkWidget(ws_env, rect, window), text_(text), action_(action)
+		: TtkWidget(ws_env, rect, parent), text_(text), action_(action)
 {
 }
 
@@ -22,12 +22,12 @@ void TtkLabel::handle_key_event(TtkKeyEvent& key_event)
 	}
 }
 
-void TtkLabel::handle_redraw_event(const TtkRect& rect)
+void TtkLabel::handle_redraw_event(const TtkRect& redraw_rect)
 {
 	TtkGcInterface& gc = ws_env().gc();
-	gc.set_clipping_rect(rect);
+	gc.set_clipping_rect(redraw_rect);
 
-	TtkRect label_rect(this->rect());
+	TtkRect label_rect(rect());
 	TtkRect text_rect(label_rect.tl_.x_ + 1,
 			  label_rect.tl_.y_ + 1,
 			  label_rect.br_.x_ - 1,

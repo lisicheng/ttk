@@ -16,12 +16,15 @@ class MainWidget2 : public TtkWidget
 {
 public:
 	virtual ~MainWidget2();
-	MainWidget2(TtkWsEnvInterface& ws_env, const TtkRect& rect);
+	static MainWidget2* alloc(TtkWsEnvInterface& ws_env, const TtkRect& rect);
 private: /* from TtkWidget */
 	void handle_key_event(TtkKeyEvent& key_event);
-	void handle_redraw_event(const TtkRect& rect);
+	void handle_redraw_event(const TtkRect& redraw_rect);
 private:
-	TtkWidget* iList;
+	MainWidget2(TtkWsEnvInterface& ws_env, const TtkRect& rect);
+	void construct();
+private:
+	TtkList* list_;
 };
 
 #endif /* MAINWIDGET2_H_ */

@@ -3,14 +3,16 @@
 #include "symttk/redrawer.h"
 #include "symttk/window.h"
 #include "symttk/gc.h"
-#include "ui/mainwidget.h"
-#include "ui/mainwidget2.h"
+#include "symttk/imagedecoder.h"
+#include "example/mainwidget.h"
+#include "example/mainwidget2.h"
 #include "ttk/common/pointerevent.h"
 
 CSymTtkWsEnv::~CSymTtkWsEnv()
 {
 	delete iRootWidget;
 	delete iRedrawer;
+	delete iImageDecoder;
 	delete iGc;
 	delete iScreen;
 	iGroup.Close();
@@ -49,6 +51,11 @@ TtkGcInterface& CSymTtkWsEnv::gc() const
 	return *iGc;
 }
 
+TtkImageDecoderInterface& CSymTtkWsEnv::image_decoder() const
+{
+	return *iImageDecoder;
+}
+
 RWsSession& CSymTtkWsEnv::Ws()
 {
 	return iWs;
@@ -83,11 +90,12 @@ void CSymTtkWsEnv::ConstructL(const TRect& aRect)
 	iScreen = new(ELeave) CWsScreenDevice(iWs);
 	User::LeaveIfError(iScreen->Construct());
 	iGc = CSymTtkGc::NewL(*iScreen);
+	iImageDecoder = CSymTtkImageDecoder::NewL();
 	iRedrawer = CSymTtkRedrawer::NewL(*this);
 	TtkRect rect(aRect.iTl.iX, aRect.iTl.iY,
 		     aRect.iBr.iX, aRect.iBr.iY);
 	//iRootWidget = new MainWidget(*this, rect);
-	iRootWidget = new MainWidget2(*this, rect);
+	iRootWidget = MainWidget2::alloc(*this, rect);
 	IssueRequest();
 }
 
@@ -111,7 +119,7 @@ void CSymTtkWsEnv::RunL()
 		case EKeyDownArrow:
 			key_event = kTtkKeyDown;
 			break;
-		case EKeyLeftArrow:
+		case EKeyDevice3:
 			key_event = kTtkKeyOk;
 			break;
 		default:

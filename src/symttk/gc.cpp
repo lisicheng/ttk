@@ -1,11 +1,12 @@
 #include "symttk/gc.h"
 
 #include <utf.h>
+#include <aknutils.h>
 #include "ttk/common/rect.h"
+#include "symttk/bitmap.h"
 
 CSymTtkGc::~CSymTtkGc()
 {
-	iScreen.ReleaseFont(iFont);
 	delete iGc;
 }
 
@@ -53,14 +54,15 @@ void CSymTtkGc::draw_text(const char* text, const TtkRect& rect,
 	CleanupStack::PushL(buffer);
 	const TRect sym_rect(rect.tl_.x_, rect.tl_.y_,
 			     rect.br_.x_, rect.br_.y_);
-	TInt ascent = iFont->AscentInPixels();
-	TInt descent = iFont->DescentInPixels();
+	const CFont* font = AknLayoutUtils::FontFromId(EAknLogicalFontPrimaryFont);
+	TInt ascent = font->AscentInPixels();
+	TInt descent = font->DescentInPixels();
 	TInt offset = (rect.height() + (ascent - descent)) / 2;
 	if (underline)
 		iGc->SetUnderlineStyle(EUnderlineOn);
 	else
 		iGc->SetUnderlineStyle(EUnderlineOff);
-	iGc->UseFont(iFont);
+	iGc->UseFont(font);
 	iGc->DrawText(*buffer, sym_rect, offset);
 	iGc->DiscardFont();
 	CleanupStack::PopAndDestroy(buffer);
@@ -69,6 +71,10 @@ void CSymTtkGc::draw_text(const char* text, const TtkRect& rect,
 void CSymTtkGc::draw_bitmap(const TtkBitmapInterface& bitmap,
 			    const TtkRect& rect)
 {
+	const TRect sym_rect(rect.tl_.x_, rect.tl_.y_,
+			     rect.br_.x_, rect.br_.y_);
+	iGc->DrawBitmap(sym_rect,
+			&static_cast<const CSymTtkBitmap*>(&bitmap)->Bitmap());
 }
 
 void CSymTtkGc::set_clipping_rect(const TtkRect& rect)
@@ -113,12 +119,4 @@ CSymTtkGc::CSymTtkGc(CWsScreenDevice& aScreen) : iScreen(aScreen)
 void CSymTtkGc::ConstructL()
 {
 	User::LeaveIfError(iScreen.CreateContext(iGc));
-#ifdef EKA2
-	_LIT(KFontName, "Sans MT 936_S60");
-#else
-	_LIT(KFontName, "CombinedChinesePlain12");
-#endif
-	const TInt KFontHeight = 200;
-	TFontSpec fontSpec(KFontName, KFontHeight);
-	User::LeaveIfError(iScreen.GetNearestFontInTwips(iFont, fontSpec));
 }

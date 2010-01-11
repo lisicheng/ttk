@@ -3,9 +3,9 @@ TARGETTYPE = app
 UID2 = 100039ce
 UID3 = 100098e6
 
-RSSTARGET = \
-	dist/$(PROJECT)_caption.rsc \
-	dist/$(PROJECT).rsc
+RSSFILES = \
+	$(PROJECT)_caption.rsc \
+	$(PROJECT).rsc
 
 SRCFILES = \
 	framework/application.cpp \

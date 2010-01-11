@@ -5,24 +5,34 @@
 
 class TtkWsEnvInterface;
 class TtkWindowInterface;
+class TtkLabel;
+class TtkImage;
+class TtkWidget;
 
+/**
+ * \brief 折叠页
+ *
+ * 折叠页可以打开或关闭，包含一个标题栏和一个可隐藏的客户区。标题栏中包含一个说明
+ * 标签\ref TtkLabel和一个标示当前折叠状态的图片\ref TtkImage。
+ */
 class TtkExpander : public TtkWidget {
 public:
 	virtual ~TtkExpander();
-	TtkExpander(TtkWsEnvInterface& ws_env, const TtkRect& rect, TtkWindowInterface* window);
-	
-public:/*from TtkWidget*/
-	void handle_redraw_event(const TtkRect& rect);
+	TtkExpander(TtkWsEnvInterface& ws_env, const TtkRect& rect,
+		    TtkWidget* parent);
+	void construct(const char* text, TtkWidget* contents);
+public: /* from TtkWidget */
+	void handle_redraw_event(const TtkRect& redraw_rect);
 	void handle_key_event(TtkKeyEvent& key_event);
 	void set_focus(bool has_focus);
 	bool focusable() const;	
-	void refresh_rect(const TtkRect& rect1, const TtkRect& rect2);
-	
-public:
-	void set_iLabel(TtkWidget* label);
-	
+	void set_rect(const TtkRect& new_rect);
 private:
-	TtkWidget* iLabel;
+	TtkLabel* label_;
+	TtkImage* icon_;
+	TtkWidget* contents_;
+	TtkWidget* parent_; /* not owned */
+	bool expand_;
 };
 
-#endif // TTK_EXPANDER_H
+#endif /* TTK_EXPANDER_H */

@@ -1,3 +1,10 @@
+/**
+ * \file
+ * \brief SymTtkGc类声明
+ * \author 袁野 <yuanyelele@gmail.com>
+ * \author 李思诚 <lisicheng2008@gmail.com>
+ * \warning 2009 (c) 北京随手互动信息技术有限公司
+ */
 #ifndef SYMTTK_GC_H
 #define SYMTTK_GC_H
 
@@ -6,6 +13,9 @@
 
 class CWsScreenDevice;
 
+/**
+ * \brief Symbian图形上下文
+ */
 class CSymTtkGc : public CBase, public TtkGcInterface {
 public:
 	virtual ~CSymTtkGc();
@@ -30,7 +40,6 @@ private:
 private:
 	CWindowGc* iGc;
 	CWsScreenDevice& iScreen;
-	CFont* iFont;
 };
 
 #endif /* SYMTTK_GC_H */

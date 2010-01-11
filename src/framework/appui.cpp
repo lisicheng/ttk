@@ -1,7 +1,7 @@
 #include "framework/appui.h"
 #include <uikon.hrh>
 #include "symttk/wsenv.h"
-#include "ui/mainwidget.h"
+#include "example/mainwidget.h"
 
 #include "ttk_a1986131.rsg"
 

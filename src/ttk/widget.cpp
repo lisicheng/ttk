@@ -12,12 +12,12 @@ TtkWidget::~TtkWidget()
 }
 
 TtkWidget::TtkWidget(TtkWsEnvInterface& ws_env, const TtkRect& rect,
-		     TtkWindowInterface* window)
+		     TtkWidget* parent)
 		: ws_env_(ws_env), rect_(rect), window_(NULL),
 		  own_window_(false), has_focus_(false)
 {
-	if (window) {
-		window_ = window;
+	if (parent) {
+		window_ = &parent->window();
 		own_window_ = false;
 	} else {
 		window_ = ws_env_.new_window(*this, kTtkColorWhite);
@@ -33,10 +33,10 @@ void TtkWidget::handle_pointer_event(TtkPointerEvent& pointer_event)
 {
 }
 
-void TtkWidget::handle_redraw_event(const TtkRect& rect)
+void TtkWidget::handle_redraw_event(const TtkRect& redraw_rect)
 {
 	TtkGcInterface& gc = ws_env().gc();
-	gc.clear(rect);
+	gc.clear(redraw_rect);
 }
 
 bool TtkWidget::focusable() const
@@ -64,16 +64,12 @@ const TtkRect& TtkWidget::rect() const
 	return rect_;
 }
 
-void TtkWidget::set_rect(const TtkRect& rect)
+void TtkWidget::set_rect(const TtkRect& new_rect)
 {
-	rect_ = rect;
+	rect_ = new_rect;
 }
 
 TtkWindowInterface& TtkWidget::window() const
 {
 	return *window_;
-}
-
-void TtkWidget::refresh_rect(const TtkRect& rect1, const TtkRect& rect2)
-{
 }

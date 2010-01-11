@@ -1,17 +1,22 @@
 PROJECT = ttk
 TARGETTYPE = exe
-UID2 = 100039ce
+ifeq ($(TARGETTYPE), exe)
+UID1 = 1000007a
+UID2 = 00000000
+else
+UID1 = 10000079
+UID2 = 1000008d
+endif
 UID3 = a1986131
 SECUREID = a1986131
 VENDORID = 0
 
-EPOCSTACKSIZE = 0x5000
 CAPABILITY = NONE
 
-RSSTARGET = \
-	dist/$(PROJECT)_loc_$(UID3).rsc \
-	dist/$(PROJECT)_reg_$(UID3).rsc \
-	dist/$(PROJECT)_$(UID3).rsc
+RSSFILES = \
+	$(PROJECT)_loc.rss \
+	$(PROJECT)_reg.rss \
+	$(PROJECT).rss
 
 SRCFILES = \
 	framework/application.cpp \
@@ -22,19 +27,30 @@ SRCFILES = \
 	symttk/redrawer.cpp \
 	symttk/window.cpp \
 	symttk/wsenv.cpp \
+	symttk/bitmap.cpp \
+	symttk/imagedecoder.cpp \
 	ttk/common/point.cpp \
 	ttk/common/rect.cpp \
 	ttk/widget.cpp \
 	ui/label.cpp \
-	ui/mainwidget.cpp \
-	ui/numberedwidget.cpp
+	ui/list.cpp \
+	ui/expander.cpp \
+	ui/image.cpp \
+	ui/label.cpp \
+	ui/scrollbar.cpp \
+	example/mainwidget.cpp \
+	example/mainwidget2.cpp \
+	example/numberedwidget.cpp
 
 LIBRARY = \
 	euser.lib \
 	apparc.lib \
+	avkon.lib \
 	charconv.lib \
 	cone.lib \
 	eikcore.lib \
+	fbscli.lib \
 	flogger.lib \
 	gdi.lib \
+	imageconversion.lib \
 	ws32.lib

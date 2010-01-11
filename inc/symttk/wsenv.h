@@ -8,7 +8,11 @@
 class CSymTtkGc;
 class CSymTtkRedrawer;
 class TtkWidget;
+class CSymTtkImageDecoder;
 
+/**
+ * \brief Symbian窗口管理器环境
+ */
 class CSymTtkWsEnv : public CActive, public TtkWsEnvInterface
 {
 public:
@@ -18,6 +22,7 @@ public:
 public: /* from WsEnvInterface */
 	TtkWindowInterface* new_window(TtkWidget& widget, TtkColor color) const;
 	TtkGcInterface& gc() const;
+	TtkImageDecoderInterface& image_decoder() const;
 public:
 	RWsSession& Ws();
 	const RWindowGroup& Group() const;
@@ -38,6 +43,7 @@ private:
 	CSymTtkGc* iGc;
 	const CSymTtkRedrawer* iRedrawer;
 	TtkWidget* iRootWidget;
+	CSymTtkImageDecoder* iImageDecoder;
 };
 
 #endif /* SYMTTK_WSENV_H */

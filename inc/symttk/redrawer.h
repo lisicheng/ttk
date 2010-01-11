@@ -5,6 +5,9 @@
 
 class CSymTtkWsEnv;
 
+/**
+ * \brief Symbian重绘管理器
+ */
 class CSymTtkRedrawer : public CActive
 {
 public:

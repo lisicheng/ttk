@@ -1,11 +1,11 @@
 *.d
 *.o
-/dist
-/doc
+*~
 /.cproject
 /.project
 /.settings
-*~
+/dist
+/doc/html
 /group/ABLD.BAT
 /inc/*.rsg
 /sis/*.sis
