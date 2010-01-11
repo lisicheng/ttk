@@ -10,7 +10,7 @@
 
 TARGET		ttk_a1986131.exe
 TARGETTYPE	exe
-UID		0x100039ce 0xa1986131
+UID			0x100039ce 0xa1986131
 
 SOURCEPATH	..\src\framework
 SOURCE		application.cpp
@@ -19,7 +19,9 @@ SOURCE		document.cpp
 SOURCE		main.cpp
 
 SOURCEPATH	..\src\symttk
+SOURCE		bitmap.cpp
 SOURCE		gc.cpp
+SOURCE		imagedecoder.cpp
 SOURCE		redrawer.cpp
 SOURCE		window.cpp
 SOURCE		wsenv.cpp
@@ -37,10 +39,12 @@ SOURCE		expander.cpp
 SOURCE		image.cpp
 SOURCE		label.cpp
 SOURCE		list.cpp
+SOURCE		scrollbar.cpp
+
+SOURCEPATH	..\src\example
 SOURCE		mainwidget.cpp
 SOURCE		mainwidget2.cpp
 SOURCE		numberedwidget.cpp
-SOURCE		scrollbar.cpp
 
 SOURCEPATH	..\rss
 
@@ -66,14 +70,17 @@ USERINCLUDE	..\inc
 
 SYSTEMINCLUDE	\epoc32\include
 
+LIBRARY		avkon.lib
+LIBRARY		eikcore.lib
 LIBRARY		euser.lib
 LIBRARY		apparc.lib
 LIBRARY		charconv.lib
 LIBRARY		cone.lib
-LIBRARY		eikcore.lib
 LIBRARY		flogger.lib
 LIBRARY		gdi.lib
 LIBRARY		ws32.lib
+LIBRARY		fbscli.lib
+LIBRARY		imageconversion.lib
 
 LANG SC
 
